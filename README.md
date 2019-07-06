@@ -1,3 +1,24 @@
+# shiro-admin
+
+## 说明
+
+本项目基于 [wuyouzhuguli/FEBS-Shiro](https://github.com/wuyouzhuguli/FEBS-Shiro) 魔改而来，以适应更通用的企业应用，再次对 `FEBS` 参与开发的人员表示感谢。
+感谢你们的辛苦劳动与付出。
+
+**主要调整**
+
+- 更改项目命名，使其更通用，方便企业使用
+- 项目中的错误及不规范调整
+- 文件字符编码问题
+- 升级依赖的类库
+- 其他...
+- 鉴于改动的不兼容性，本项目不 pr 到原项目
+
+> 后记: 本项目 fork 时 FEBS 没有所标注所使用 License，但 badge 图标标识为 MIT，后原作者改为Apache License 2.0
+> 尽快如此，予在此留下说明本项目对于原作品的更改，标识对作者的尊重。
+
+--------------
+
 ### FEBS-Shiro 2.0
 ![https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat-square](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat-square)
 ![https://img.shields.io/badge/download-1k%2Fm-green.svg?longCache=true&style=flat-square](https://img.shields.io/badge/download-1k%2Fm-green.svg?longCache=true&style=flat-square)
@@ -8,8 +29,6 @@
 FEBS-Shiro是一款简单高效的后台权限管理系统，使用Spring Boot，Shiro和Layui构建。FEBS意指：**F**ast，**E**asy use，**B**eautiful和**S**afe。相信无论作为企业级应用，私活开发脚手架或者权限系统构建学习，FEBS-Shiro都会是一个不错的选择。
 
 ### 演示地址
-
-[http://shiro.febs.我爱你:8080](http://shiro.febs.我爱你:8080)  or  [http://febshiro.mrbird.cc:8080/login](http://febshiro.mrbird.cc:8080/login)
 
 演示环境账号密码：
 
@@ -106,27 +125,6 @@ FEBS-Vue | FEBS-Shiro前后端分离版本，前端架构采用Vue全家桶。 |
 - [formSelect.js树形下拉](https://wujiawei0926.gitee.io/treeselect/docs/doc.html)
 - [Apexcharts图表](https://apexcharts.com/)
 
-### 系统截图
-
-#### PC端
-![screenshot](screenshot/pc_screenshot_1.jpg)
-![screenshot](screenshot/pc_screenshot_2.jpg)
-![screenshot](screenshot/pc_screenshot_3.jpg)
-![screenshot](screenshot/pc_screenshot_4.jpg)
-![screenshot](screenshot/pc_screenshot_5.jpg)
-![screenshot](screenshot/pc_screenshot_6.jpg)
-
-#### 手机
-![screenshot](screenshot/mobile_screenshot_1.jpg)
-![screenshot](screenshot/mobile_screenshot_2.jpg)
-#### Pad
-![screenshot](screenshot/pad_screenshot_1.jpg)
-![screenshot](screenshot/pad_screenshot_2.jpg)
-![screenshot](screenshot/pad_screenshot_3.jpg)
-### 浏览器兼容
-|[<img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |[<img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera
-| --------- | --------- | --------- | --------- | --------- |--------- |
-|IE 10+| Edge| last 15 versions| last 15 versions| last 10 versions| last 15 versions
 ### 参与贡献
 欢迎提交PR一起完善项目，以下为提PR并合并的小伙伴（排名不分先后）：
 
@@ -143,12 +141,4 @@ FEBS-Vue | FEBS-Shiro前后端分离版本，前端架构采用Vue全家桶。 |
 <a href="https://github.com/Harrison0x80">
     <img src="https://avatars2.githubusercontent.com/u/8622915?s=400&v=4" width="45px"></a>
 
-### 反馈交流
-加入QQ群和大家一起~~交流~~吹水：
-
-![qq](screenshot/QQ.jpg)
-### 支持作者
-如果该系统对您有帮助的话，请作者喝杯肥宅水吧🍺~
-
-![treatme](screenshot/treatme.jpg)
 
