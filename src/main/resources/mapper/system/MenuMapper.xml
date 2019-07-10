@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.system.mapper.MenuMapper">
-    <resultMap id="menu" type="cc.mrbird.febs.system.entity.Menu">
+<mapper namespace="io.company.project.system.mapper.MenuMapper">
+    <resultMap id="menu" type="io.company.project.system.entity.Menu">
         <id column="MENU_ID" jdbcType="DECIMAL" property="menuId" />
         <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
         <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />

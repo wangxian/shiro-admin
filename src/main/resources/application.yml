@@ -22,7 +22,7 @@ spring:
 
 mybatis-plus:
   # 实体类扫描路径
-  type-aliases-package: cc.mrbird.febs.system.entity,cc.mrbird.febs.generator.entity,cc.mrbird.febs.job.entity
+  type-aliases-package: io.company.project.system.entity,io.company.project.generator.entity,io.company.project.job.entity
   # xml 扫描路径
   mapper-locations: classpath:mapper/*/*.xml
   configuration:
