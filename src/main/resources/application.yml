@@ -7,6 +7,9 @@ spring:
   profiles:
     active: dev
 
+  messages:
+    encoding: utf-8
+
   thymeleaf:
     cache: false
 
