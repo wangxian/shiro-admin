@@ -16,7 +16,7 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">操作时间</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="createTime" id="createTime" class="layui-input">
+                                            <input type="text" name="createdAt" id="createdAt" class="layui-input">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
@@ -83,7 +83,7 @@
             tableIns;
 
         laydate.render({
-            elem: '#createTime',
+            elem: '#createdAt',
             range: true,
             trigger: 'click'
         });
@@ -172,7 +172,7 @@
                     {field: 'params', title: '方法参数'},
                     {field: 'ip', title: 'IP地址'},
                     {field: 'location', title: '操作地点'},
-                    {field: 'createTime', title: '创建时间', minWidth: 180, sort: true},
+                    {field: 'createdAt', title: '创建时间', minWidth: 180, sort: true},
                     {title: '操作', toolbar: '#log-option'}
                 ]]
             });
@@ -188,10 +188,10 @@
         function getQueryParams() {
             var createTimeFrom,
                 createTimeTo,
-                createTime = $searchForm.find('input[name="createTime"]').val();
-            if (createTime) {
-                createTimeFrom = createTime.split(' - ')[0];
-                createTimeTo = createTime.split(' - ')[1];
+                createdAt = $searchForm.find('input[name="createdAt"]').val();
+            if (createdAt) {
+                createTimeFrom = createdAt.split(' - ')[0];
+                createTimeTo = createdAt.split(' - ')[1];
             }
             return {
                 createTimeFrom: createTimeFrom,

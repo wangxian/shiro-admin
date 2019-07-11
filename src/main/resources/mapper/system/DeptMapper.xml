@@ -5,8 +5,8 @@
     <delete id="deleteDepts" parameterType="string">
         DELETE
         FROM
-            t_dept
+            admin_dept
         WHERE
-            dept_id IN ( SELECT d.dept_id FROM ( SELECT dept_id FROM t_dept WHERE FIND_IN_SET( dept_id, findDeptChildren ( #{deptId} ) ) > 0 ) d )
+            id IN ( SELECT d.id FROM ( SELECT id FROM admin_dept WHERE FIND_IN_SET( id, findDeptChildren ( #{deptId} ) ) > 0 ) d )
     </delete>
 </mapper>

@@ -17,7 +17,7 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_job_log")
+@TableName("admin_job_log")
 @Excel("调度日志信息表")
 public class JobLog implements Serializable {
 
@@ -27,7 +27,7 @@ public class JobLog implements Serializable {
     // 任务执行失败
     public static final String JOB_FAIL = "1";
 
-    @TableId(value = "LOG_ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long logId;
 
     @TableField("job_id")
@@ -57,7 +57,7 @@ public class JobLog implements Serializable {
     @ExcelField(value = "耗时（毫秒）")
     private Long times;
 
-    @TableField("create_time")
+    @TableField("created_at")
     @ExcelField(value = "执行时间", writeConverter = TimeConverter.class)
     private Date createTime;
 

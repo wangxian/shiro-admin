@@ -18,7 +18,7 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_role")
+@TableName("admin_role")
 @Excel("角色信息表")
 public class Role implements Serializable {
 
@@ -26,13 +26,13 @@ public class Role implements Serializable {
     /**
      * 角色ID
      */
-    @TableId(value = "ROLE_ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long roleId;
 
     /**
      * 角色名称
      */
-    @TableField("ROLE_NAME")
+    @TableField("role_name")
     @ExcelField(value = "角色名称")
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")
@@ -41,7 +41,7 @@ public class Role implements Serializable {
     /**
      * 角色描述
      */
-    @TableField("REMARK")
+    @TableField("remark")
     @ExcelField(value = "角色描述")
     @Size(max = 50, message = "{noMoreThan}")
     private String remark;
@@ -49,14 +49,14 @@ public class Role implements Serializable {
     /**
      * 创建时间
      */
-    @TableField("CREATE_TIME")
+    @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
-    @TableField("MODIFY_TIME")
+    @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
     private Date modifyTime;
 

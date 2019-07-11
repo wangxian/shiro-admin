@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @author MrBird
  */
 @Data
-@TableName("t_generator_config")
+@TableName("admin_generator_config")
 public class GeneratorConfig {
 
     public static final String TRIM_YES = "1";
@@ -24,7 +24,7 @@ public class GeneratorConfig {
     /**
      * 主键
      */
-    @TableId(value = "ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
     /**

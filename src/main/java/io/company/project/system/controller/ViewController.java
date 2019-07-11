@@ -160,9 +160,9 @@ public class ViewController extends BaseController {
         User user = userService.findByName(username);
         model.addAttribute("user", user);
         if (transform) {
-            String ssex = user.getSex();
-            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
-            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
+            String sex = user.getSex();
+            if (User.SEX_MALE.equals(sex)) user.setSex("男");
+            else if (User.SEX_FEMALE.equals(sex)) user.setSex("女");
             else user.setSex("保密");
         }
         if (user.getLastLoginTime() != null)

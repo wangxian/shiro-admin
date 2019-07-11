@@ -1,5 +1,7 @@
 package io.company.project.others.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
@@ -14,9 +16,11 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_eximport")
+@TableName("admin_eximport")
 @Excel("测试导入导出数据")
 public class Eximport {
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 字段1

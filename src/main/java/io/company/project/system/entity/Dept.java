@@ -18,7 +18,7 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_dept")
+@TableName("admin_dept")
 @Excel("部门信息表")
 public class Dept implements Serializable {
 
@@ -26,19 +26,19 @@ public class Dept implements Serializable {
     /**
      * 部门 ID
      */
-    @TableId(value = "DEPT_ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long deptId;
 
     /**
      * 上级部门 ID
      */
-    @TableField("PARENT_ID")
+    @TableField("parent_id")
     private Long parentId;
 
     /**
      * 部门名称
      */
-    @TableField("DEPT_NAME")
+    @TableField("dept_name")
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")
     @ExcelField(value = "部门名称")
@@ -47,17 +47,17 @@ public class Dept implements Serializable {
     /**
      * 排序
      */
-    @TableField("ORDER_NUM")
+    @TableField("order_num")
     private Long orderNum;
 
     /**
      * 创建时间
      */
-    @TableField("CREATE_TIME")
+    @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
-    @TableField("MODIFY_TIME")
+    @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
     private Date modifyTime;
 

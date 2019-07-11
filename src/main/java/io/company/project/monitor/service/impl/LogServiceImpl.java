@@ -53,12 +53,12 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
         }
         if (StringUtils.isNotBlank(log.getCreateTimeFrom()) && StringUtils.isNotBlank(log.getCreateTimeTo())) {
             queryWrapper.lambda()
-                    .ge(Log::getCreateTime, log.getCreateTimeFrom())
-                    .le(Log::getCreateTime, log.getCreateTimeTo());
+                    .ge(Log::getCreatedAt, log.getCreateTimeFrom())
+                    .le(Log::getCreatedAt, log.getCreateTimeTo());
         }
 
         Page<Log> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, true);
 
         return this.page(page, queryWrapper);
     }
@@ -94,7 +94,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
             params = handleParams(params, args, Arrays.asList(paramNames));
             log.setParams(params.toString());
         }
-        log.setCreateTime(new Date());
+        log.setCreatedAt(new Date());
         log.setLocation(AddressUtil.getCityInfo(log.getIp()));
         // 保存系统日志
         save(log);

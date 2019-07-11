@@ -5,8 +5,8 @@
     <delete id="deleteRoleMenus" parameterType="string">
         DELETE
         FROM
-            t_role_menu
+            admin_role_menu
         WHERE
-                menu_id IN ( SELECT m.menu_id FROM ( SELECT menu_id FROM t_menu WHERE FIND_IN_SET( menu_id, findMenuChildren ( #{menuId} ) ) > 0 ) m )
+                menu_id IN ( SELECT admin: FROM ( SELECT menu_id FROM admin_menu WHERE FIND_IN_SET( menu_id, findMenuChildren ( #{menuId} ) ) > 0 ) m )
     </delete>
 </mapper>

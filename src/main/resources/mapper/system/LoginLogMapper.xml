@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.company.project.monitor.mapper.LoginLogMapper">
     <select id="findTotalVisitCount" resultType="long">
-        select count(1) from t_login_log
+        select count(1) from admin_login_log
     </select>
 
     <select id="findTodayVisitCount" resultType="long">
-        select count(1) from t_login_log where datediff(login_time,now())=0
+        select count(1) from admin_login_log where datediff(login_time,now())=0
     </select>
 
     <select id="findTodayIp" resultType="long">
-        select count(distinct(ip)) from t_login_log where datediff(login_time,now())=0
+        select count(distinct(ip)) from admin_login_log where datediff(login_time,now())=0
     </select>
 
     <select id="findLastSevenDaysVisitCount" resultType="map" parameterType="string">
@@ -22,7 +22,7 @@
         select
         *
         from
-        t_login_log
+        admin_login_log
         where
         date_sub(curdate(), interval 10 day) &lt;= date(login_time)
         ) as l where 1 = 1

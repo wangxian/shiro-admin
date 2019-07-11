@@ -18,7 +18,7 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_menu")
+@TableName("admin_menu")
 @Excel("菜单信息表")
 public class Menu implements Serializable {
 
@@ -34,19 +34,19 @@ public class Menu implements Serializable {
     /**
      * 菜单/按钮ID
      */
-    @TableId(value = "MENU_ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long menuId;
 
     /**
      * 上级菜单ID
      */
-    @TableField("PARENT_ID")
+    @TableField("parent_id")
     private Long parentId;
 
     /**
      * 菜单/按钮名称
      */
-    @TableField("MENU_NAME")
+    @TableField("menu_name")
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")
     @ExcelField(value = "名称")
@@ -55,15 +55,15 @@ public class Menu implements Serializable {
     /**
      * 菜单URL
      */
-    @TableField("URL")
+    @TableField("url")
     @Size(max = 50, message = "{noMoreThan}")
-    @ExcelField(value = "URL")
+    @ExcelField(value = "url")
     private String url;
 
     /**
      * 权限标识
      */
-    @TableField("PERMS")
+    @TableField("perms")
     @Size(max = 50, message = "{noMoreThan}")
     @ExcelField(value = "权限")
     private String perms;
@@ -71,7 +71,7 @@ public class Menu implements Serializable {
     /**
      * 图标
      */
-    @TableField("ICON")
+    @TableField("icon")
     @Size(max = 50, message = "{noMoreThan}")
     @ExcelField(value = "图标")
     private String icon;
@@ -79,7 +79,7 @@ public class Menu implements Serializable {
     /**
      * 类型 0菜单 1按钮
      */
-    @TableField("TYPE")
+    @TableField("type")
     @NotBlank(message = "{required}")
     @ExcelField(value = "类型", writeConverterExp = "0=按钮,1=菜单")
     private String type;
@@ -87,20 +87,20 @@ public class Menu implements Serializable {
     /**
      * 排序
      */
-    @TableField("ORDER_NUM")
+    @TableField("order_num")
     private Long orderNum;
 
     /**
      * 创建时间
      */
-    @TableField("CREATE_TIME")
+    @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
-    @TableField("MODIFY_TIME")
+    @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
     private Date modifyTime;
 

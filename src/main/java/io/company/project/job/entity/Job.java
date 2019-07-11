@@ -19,7 +19,7 @@ import java.util.Date;
  * @author MrBird
  */
 @Data
-@TableName("t_job")
+@TableName("admin_job")
 @Excel("定时任务信息表")
 public class Job implements Serializable {
 
@@ -51,7 +51,7 @@ public class Job implements Serializable {
         }
     }
 
-    @TableId(value = "JOB_ID", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long jobId;
 
     @TableField("bean_name")
@@ -86,7 +86,7 @@ public class Job implements Serializable {
     @ExcelField(value = "备注")
     private String remark;
 
-    @TableField("create_time")
+    @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
