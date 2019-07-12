@@ -60,7 +60,7 @@ public class EximportController extends BaseController {
             Eximport eximport = new Eximport();
             eximport.setField1("字段1");
             eximport.setField2(i + 1);
-            eximport.setField3("mrbird" + i + "@gmail.com");
+            eximport.setField3("admin" + i + "@gmail.com");
             list.add(eximport);
         });
         // 构建模板

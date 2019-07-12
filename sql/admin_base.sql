@@ -528,7 +528,7 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-07-12 19:15:21', '2019-07-12 19:46:53', '0', '1', 'white', 'ubnKSIfAJTxIgXOKlciN.png', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-07-12 19:15:21', '2019-07-12 19:46:53', '0', '1', 'white', 'ubnKSIfAJTxIgXOKlciN.png', '我是帅比作者。');
 INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
 COMMIT;
 
