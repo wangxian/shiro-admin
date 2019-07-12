@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Data
 @SpringBootConfiguration
-@PropertySource(value = {"classpath:febs.properties"})
+@PropertySource(value = {"classpath:admin.properties"})
 @ConfigurationProperties(prefix = "febs")
 public class FebsProperties {
 
