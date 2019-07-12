@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 11/07/2019 19:24:52
+ Date: 12/07/2019 11:23:59
 */
 
 SET NAMES utf8mb4;
@@ -90,7 +90,7 @@ CREATE TABLE `admin_generator_config` (
 -- Records of admin_generator_config
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_generator_config` VALUES (1, 'Admin', 'io.company.project.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
+INSERT INTO `admin_generator_config` VALUES (1, 'Admin', 'com.company.project.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
 COMMIT;
 
 -- ----------------------------
@@ -158,7 +158,7 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=993 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=998 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of admin_log
@@ -166,9 +166,14 @@ CREATE TABLE `admin_log` (
 BEGIN;
 INSERT INTO `admin_log` VALUES (890, 'admin', '修改角色', 1144, 'RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=管理员, remark=管理员，拥有所有操作权限, createTime=null, modifyTime=Thu Jun 13 16:40:57 CST 2019, menuIds=1,3,11,12,13,160,161,4,14,15,16,5,17,18,19,6,20,21,22,2,8,23,10,24,136,113,114,127,128,129,130,131,101,102,103,104,105,106,107,108,109,110,137,138,139,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125)\"', '127.0.0.1', '2019-06-13 08:40:59', '内网IP|0|0|内网IP|内网IP');
 INSERT INTO `admin_log` VALUES (891, 'admin', '修改角色', 267, 'RoleController.updateRole()', ' role: \"Role(roleId=75, roleName=可怜, remark=, createTime=null, modifyTime=Thu Jun 13 16:47:00 CST 2019, menuIds=115)\"', '127.0.0.1', '2019-06-13 08:47:01', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (990, 'MrBird', '执行Redis keys命令', 15, 'io.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 18:11:23', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (991, 'MrBird', '新增角色', 22, 'io.company.project.system.controller.RoleController.addRole()', ' role: \"Role(roleId=81, roleName=ad, remark=12, createTime=Thu Jul 11 18:15:57 CST 2019, modifyTime=null, menuIds=1,2,101,137,115)\"', '192.168.1.22', '2019-07-11 18:15:58', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (992, 'Micaela', '执行Redis keys命令', 15, 'io.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 19:08:51', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (990, 'MrBird', '执行Redis keys命令', 15, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 18:11:23', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (991, 'MrBird', '新增角色', 22, 'com.company.project.system.controller.RoleController.addRole()', ' role: \"Role(roleId=81, roleName=ad, remark=12, createTime=Thu Jul 11 18:15:57 CST 2019, modifyTime=null, menuIds=1,2,101,137,115)\"', '192.168.1.22', '2019-07-11 18:15:58', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (992, 'Micaela', '执行Redis keys命令', 15, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 19:08:51', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (993, 'admin', '删除用户', 30, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"7\"', '192.168.1.22', '2019-07-12 10:56:58', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (994, 'admin', '删除用户', 7, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"6\"', '192.168.1.22', '2019-07-12 10:57:16', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (995, 'admin', '删除用户', 10, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"2\"', '192.168.1.22', '2019-07-12 10:57:25', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (996, 'admin', '删除用户', 8, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"4\"', '192.168.1.22', '2019-07-12 10:57:30', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (997, 'admin', '删除用户', 10, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"5\"', '192.168.1.22', '2019-07-12 10:57:34', '内网IP|0|0|内网IP|内网IP');
 COMMIT;
 
 -- ----------------------------
@@ -184,7 +189,7 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
 
 -- ----------------------------
 -- Records of admin_login_log
@@ -198,6 +203,8 @@ INSERT INTO `admin_login_log` VALUES (67, 'scott', '2019-07-11 18:46:33', '内�
 INSERT INTO `admin_login_log` VALUES (68, 'micaela', '2019-07-11 18:52:46', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 INSERT INTO `admin_login_log` VALUES (69, 'mrbird', '2019-07-11 19:17:22', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 INSERT INTO `admin_login_log` VALUES (70, 'mrbird', '2019-07-11 19:23:59', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (71, 'mrbird', '2019-07-12 10:14:44', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (72, 'admin', '2019-07-12 10:55:54', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 COMMIT;
 
 -- ----------------------------
@@ -533,13 +540,8 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'mrbird', 'cb62ad1497597283961545d608f80241', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-06-14 20:44:42', '2019-07-11 19:24:11', '0', '1', 'white', 'cnrhVkzwxjPwAaCfPbdc.png', '我是帅比作者。');
-INSERT INTO `admin_user` VALUES (2, 'Scott', '1d685729d113cfd03872f154939bee1c', 10, 'scott@gmail.com', '17722222222', '1', '2019-06-14 20:55:53', '2019-06-14 21:05:43', '2019-07-11 18:46:44', '0', '1', 'black', 'gaOngJwsRYRaVAuXXcmB.png', '我是scott。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-06-14 20:44:42', '2019-07-12 10:56:47', '0', '1', 'white', 'cnrhVkzwxjPwAaCfPbdc.png', '我是帅比作者。');
 INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
-INSERT INTO `admin_user` VALUES (4, 'Micaela', '9f2daa2c7bed6870fcbb5b9a51d6300e', 10, 'Micaela@163.com', '17733333333', '1', '2019-06-14 21:10:13', '2019-06-14 21:11:26', '2019-07-11 18:52:57', '0', '0', 'white', '20180414165909.jpg', '我叫米克拉');
-INSERT INTO `admin_user` VALUES (5, 'Jana', '176679b77b3c3e352bd3b30ddc81083e', 8, 'Jana@126.com', '17744444444', '1', '2019-06-14 21:12:16', '2019-06-14 21:12:52', '2019-06-14 21:12:32', '1', '1', 'white', '20180414165821.jpg', '大家好，我叫简娜');
-INSERT INTO `admin_user` VALUES (6, 'Georgie', 'dffc683378cdaa015a0ee9554c532225', 3, 'Georgie@qq.com', '17766666666', '0', '2019-06-14 21:15:09', '2019-06-14 21:16:25', '2019-06-14 21:16:11', '2', '0', 'black', 'BiazfanxmamNRoxxVxka.png', '生产执行rm -rf *，账号封禁T T');
-INSERT INTO `admin_user` VALUES (7, 'Margot', '31379841b9f4bfde22b8b40471e9a6ce', 9, 'Margot@qq.com', '13444444444', '1', '2019-06-14 21:17:53', '2019-06-14 21:18:59', '2019-06-14 21:18:07', '1', '1', 'white', '20180414165834.jpg', '大家好我叫玛戈');
 COMMIT;
 
 -- ----------------------------
@@ -556,14 +558,7 @@ CREATE TABLE `admin_user_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `admin_user_role` VALUES (1, 1);
-INSERT INTO `admin_user_role` VALUES (2, 2);
 INSERT INTO `admin_user_role` VALUES (3, 77);
-INSERT INTO `admin_user_role` VALUES (4, 78);
-INSERT INTO `admin_user_role` VALUES (5, 79);
-INSERT INTO `admin_user_role` VALUES (6, 80);
-INSERT INTO `admin_user_role` VALUES (7, 78);
-INSERT INTO `admin_user_role` VALUES (7, 79);
-INSERT INTO `admin_user_role` VALUES (7, 80);
 COMMIT;
 
 -- ----------------------------
