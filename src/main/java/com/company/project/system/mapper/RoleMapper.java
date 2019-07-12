@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface RoleMapper extends BaseMapper<Role> {
 

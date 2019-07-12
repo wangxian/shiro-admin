@@ -4,7 +4,7 @@ import com.company.project.system.entity.RoleMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
     /**

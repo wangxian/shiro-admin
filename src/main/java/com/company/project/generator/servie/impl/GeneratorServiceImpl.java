@@ -1,6 +1,6 @@
 package com.company.project.generator.servie.impl;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.generator.entity.Column;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service
 public class GeneratorServiceImpl implements IGeneratorService {
@@ -30,7 +30,7 @@ public class GeneratorServiceImpl implements IGeneratorService {
     @Override
     public IPage<Table> getTables(String tableName, QueryRequest request, String databaseType, String schemaName) {
         Page<Table> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_ASC, false);
         return generatorMapper.getTables(page, tableName, databaseType, schemaName);
     }
 

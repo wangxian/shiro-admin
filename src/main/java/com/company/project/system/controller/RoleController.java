@@ -3,9 +3,9 @@ package com.company.project.system.controller;
 
 import com.company.project.common.annotation.Log;
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.system.entity.Role;
 import com.company.project.system.service.IRoleService;
 import com.wuwenze.poi.ExcelKit;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -32,69 +32,69 @@ public class RoleController extends BaseController {
     private IRoleService roleService;
 
     @GetMapping
-    public FebsResponse getAllRoles(Role role) {
-        return new FebsResponse().success().data(roleService.findRoles(role));
+    public AdminResponse getAllRoles(Role role) {
+        return new AdminResponse().success().data(roleService.findRoles(role));
     }
 
     @GetMapping("list")
     @RequiresPermissions("role:view")
-    public FebsResponse roleList(Role role, QueryRequest request) {
+    public AdminResponse roleList(Role role, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.roleService.findRoles(role, request));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     @Log("新增角色")
     @PostMapping
     @RequiresPermissions("role:add")
-    public FebsResponse addRole(@Valid Role role) throws FebsException {
+    public AdminResponse addRole(@Valid Role role) throws AdminException {
         try {
             this.roleService.createRole(role);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "新增角色失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("删除角色")
     @GetMapping("delete/{roleIds}")
     @RequiresPermissions("role:delete")
-    public FebsResponse deleteRoles(@NotBlank(message = "{required}") @PathVariable String roleIds) throws FebsException {
+    public AdminResponse deleteRoles(@NotBlank(message = "{required}") @PathVariable String roleIds) throws AdminException {
         try {
             this.roleService.deleteRoles(roleIds);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除角色失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("修改角色")
     @PostMapping("update")
     @RequiresPermissions("role:update")
-    public FebsResponse updateRole(Role role) throws FebsException {
+    public AdminResponse updateRole(Role role) throws AdminException {
         try {
             this.roleService.updateRole(role);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改角色失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("role:export")
-    public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) throws FebsException {
+    public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) throws AdminException {
         try {
             List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
             ExcelKit.$Export(Role.class, response).downXlsx(roles, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 

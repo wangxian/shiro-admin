@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * 接口限流
  *
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Aspect

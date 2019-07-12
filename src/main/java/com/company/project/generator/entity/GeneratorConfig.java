@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
 @TableName("admin_generator_config")

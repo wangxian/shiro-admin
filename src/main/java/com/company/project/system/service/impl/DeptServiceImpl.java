@@ -2,7 +2,7 @@ package com.company.project.system.service.impl;
 
 import com.company.project.system.service.IDeptService;
 import com.company.project.common.entity.DeptTree;
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.common.utils.TreeUtil;
@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -53,7 +53,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
         if (StringUtils.isNotBlank(dept.getDeptName()))
             queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
-        SortUtil.handleWrapperSort(request, queryWrapper, "orderNum", FebsConstant.ORDER_ASC, true);
+        SortUtil.handleWrapperSort(request, queryWrapper, "orderNum", AdminConstant.ORDER_ASC, true);
         return this.baseMapper.selectList(queryWrapper);
     }
 

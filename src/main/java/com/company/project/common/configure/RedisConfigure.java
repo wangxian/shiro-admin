@@ -32,7 +32,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Configuration
 public class RedisConfigure extends CachingConfigurerSupport {

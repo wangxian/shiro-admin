@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 /**
  * Xss攻击拦截器
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class XssFilter implements Filter {
 

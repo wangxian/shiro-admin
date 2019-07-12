@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * 时间工具类
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class DateUtil {
 

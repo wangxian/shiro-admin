@@ -3,13 +3,13 @@ package com.company.project.common.exception;
 /**
  * FEBS系统内部异常
  *
- * @author MrBird
+ * @author ADMIN
  */
-public class FebsException extends Exception {
+public class AdminException extends Exception {
 
     private static final long serialVersionUID = -994962710559017255L;
 
-    public FebsException(String message) {
+    public AdminException(String message) {
         super(message);
     }
 }

@@ -3,7 +3,7 @@ package com.company.project.common.utils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public class IPUtil {
 

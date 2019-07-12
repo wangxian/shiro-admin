@@ -3,9 +3,9 @@ package com.company.project.common.entity;
 /**
  * 常量
  *
- * @author MrBird
+ * @author ADMIN
  */
-public class FebsConstant {
+public class AdminConstant {
 
     // 排序规则：降序
     public static final String ORDER_DESC = "desc";

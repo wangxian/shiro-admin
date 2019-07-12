@@ -3,7 +3,7 @@ package com.company.project.common.entity;
 /**
  * 正则常量
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class RegexpConstant {
 

@@ -1,9 +1,9 @@
 package com.company.project.others.controller;
 
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.others.entity.Eximport;
 import com.company.project.others.service.IEximportService;
 import com.google.common.base.Stopwatch;
@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -43,9 +43,9 @@ public class EximportController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("others:eximport:view")
-    public FebsResponse findEximports(QueryRequest request) {
+    public AdminResponse findEximports(QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(eximportService.findEximports(request, null));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     /**
@@ -72,14 +72,14 @@ public class EximportController extends BaseController {
      */
     @PostMapping("import")
     @RequiresPermissions("eximport:import")
-    public FebsResponse importExcels(MultipartFile file) throws FebsException {
+    public AdminResponse importExcels(MultipartFile file) throws AdminException {
         try {
             if (file.isEmpty()) {
-                throw new FebsException("导入数据为空");
+                throw new AdminException("导入数据为空");
             }
             String filename = file.getOriginalFilename();
             if (!StringUtils.endsWith(filename, ".xlsx")) {
-                throw new FebsException("只支持.xlsx类型文件导入");
+                throw new AdminException("只支持.xlsx类型文件导入");
             }
             // 开始导入操作
             Stopwatch stopwatch = Stopwatch.createStarted();
@@ -108,24 +108,24 @@ public class EximportController extends BaseController {
                     "data", data,
                     "error", error
             );
-            return new FebsResponse().success().data(result);
+            return new AdminResponse().success().data(result);
         } catch (Exception e) {
             String message = "导入Excel数据失败," + e.getMessage();
             log.error(message);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("eximport:export")
-    public void export(QueryRequest queryRequest, Eximport eximport, HttpServletResponse response) throws FebsException {
+    public void export(QueryRequest queryRequest, Eximport eximport, HttpServletResponse response) throws AdminException {
         try {
             List<Eximport> eximports = this.eximportService.findEximports(queryRequest, eximport).getRecords();
             ExcelKit.$Export(Eximport.class, response).downXlsx(eximports, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

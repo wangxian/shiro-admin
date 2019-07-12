@@ -2,7 +2,7 @@ package com.company.project.generator.helper;
 
 import com.company.project.common.annotation.Helper;
 import com.company.project.common.utils.AddressUtil;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.utils.AdminUtil;
 import com.company.project.generator.entity.GeneratorConstant;
 import com.company.project.generator.entity.Column;
 import com.company.project.generator.entity.GeneratorConfig;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Helper
@@ -36,7 +36,7 @@ public class GeneratorHelper {
         data.put("hasDate", false);
         data.put("hasBigDecimal", false);
         columns.forEach(c -> {
-            c.setField(FebsUtil.underscoreToCamel(StringUtils.lowerCase(c.getName())));
+            c.setField(AdminUtil.underscoreToCamel(StringUtils.lowerCase(c.getName())));
             if (StringUtils.containsAny(c.getType(), "date", "datetime", "timestamp")) {
                 data.put("hasDate", true);
             }
@@ -86,7 +86,7 @@ public class GeneratorHelper {
         String templateName = GeneratorConstant.MAPPERXML_TEMPLATE;
         File mapperXmlFile = new File(path);
         JSONObject data = toJSONObject(configure);
-        columns.forEach(c -> c.setField(FebsUtil.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
+        columns.forEach(c -> c.setField(AdminUtil.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
         data.put("columns", columns);
         generateFileByTemplate(templateName, mapperXmlFile, data);
     }

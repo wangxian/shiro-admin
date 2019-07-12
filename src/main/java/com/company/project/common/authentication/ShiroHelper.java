@@ -4,7 +4,7 @@ import com.company.project.common.annotation.Helper;
 import org.apache.shiro.authz.AuthorizationInfo;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Helper
 public class ShiroHelper extends ShiroRealm {

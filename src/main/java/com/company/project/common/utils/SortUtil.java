@@ -1,6 +1,6 @@
 package com.company.project.common.utils;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 处理排序工具类
  * 
- * @author MrBird
+ * @author ADMIN
  */
 @SuppressWarnings("unchecked")
 public class SortUtil {
@@ -27,20 +27,20 @@ public class SortUtil {
         page.setSize(request.getPageSize());
         String sortField = request.getField();
         if (camelToUnderscore) {
-            sortField = FebsUtil.camelToUnderscore(sortField);
-            defaultSort = FebsUtil.camelToUnderscore(defaultSort);
+            sortField = AdminUtil.camelToUnderscore(sortField);
+            defaultSort = AdminUtil.camelToUnderscore(defaultSort);
         }
         if (StringUtils.isNotBlank(request.getField())
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), FebsConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC))
                 page.setDesc(sortField);
             else
                 page.setAsc(sortField);
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, FebsConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC))
                     page.setDesc(defaultSort);
                 else
                     page.setAsc(defaultSort);
@@ -81,20 +81,20 @@ public class SortUtil {
     public static void handleWrapperSort(QueryRequest request, QueryWrapper wrapper, String defaultSort, String defaultOrder, boolean camelToUnderscore) {
         String sortField = request.getField();
         if (camelToUnderscore) {
-            sortField = FebsUtil.camelToUnderscore(sortField);
-            defaultSort = FebsUtil.camelToUnderscore(defaultSort);
+            sortField = AdminUtil.camelToUnderscore(sortField);
+            defaultSort = AdminUtil.camelToUnderscore(defaultSort);
         }
         if (StringUtils.isNotBlank(request.getField())
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), FebsConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC))
                 wrapper.orderByDesc(sortField);
             else
                 wrapper.orderByAsc(sortField);
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, FebsConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC))
                     wrapper.orderByDesc(defaultSort);
                 else
                     wrapper.orderByAsc(defaultSort);

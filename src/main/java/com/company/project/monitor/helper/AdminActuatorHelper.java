@@ -1,6 +1,6 @@
 package com.company.project.monitor.helper;
 
-import com.company.project.monitor.endpoint.FebsMetricsEndpoint;
+import com.company.project.monitor.endpoint.AdminMetricsEndpoint;
 import com.company.project.common.annotation.Helper;
 import com.company.project.common.utils.DateUtil;
 import com.company.project.monitor.entity.JvmInfo;
@@ -20,35 +20,35 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Helper
-public class FebsActuatorHelper {
+public class AdminActuatorHelper {
 
     private static final BigDecimal DECIMAL = new BigDecimal("1048576");
 
     @Autowired
-    private FebsMetricsEndpoint metricsEndpoint;
+    private AdminMetricsEndpoint metricsEndpoint;
 
-    public List<FebsMetricsEndpoint.FebsMetricResponse> getMetricResponseByType(String type) {
-        FebsMetricsEndpoint.ListNamesResponse listNames = metricsEndpoint.listNames();
+    public List<AdminMetricsEndpoint.FebsMetricResponse> getMetricResponseByType(String type) {
+        AdminMetricsEndpoint.ListNamesResponse listNames = metricsEndpoint.listNames();
         Set<String> names = listNames.getNames();
         Iterable<String> jvm = names.stream()
                 .filter(Predicates.containsPattern(type)::apply)
                 .collect(Collectors.toList());
-        List<FebsMetricsEndpoint.FebsMetricResponse> metricResponseList = new ArrayList<>();
+        List<AdminMetricsEndpoint.FebsMetricResponse> metricResponseList = new ArrayList<>();
         jvm.forEach(s -> {
-            FebsMetricsEndpoint.FebsMetricResponse metric = metricsEndpoint.metric(s, null);
+            AdminMetricsEndpoint.FebsMetricResponse metric = metricsEndpoint.metric(s, null);
             metricResponseList.add(metric);
         });
         return metricResponseList;
     }
 
-    public JvmInfo getJvmInfoFromMetricData(List<FebsMetricsEndpoint.FebsMetricResponse> metrics) {
+    public JvmInfo getJvmInfoFromMetricData(List<AdminMetricsEndpoint.FebsMetricResponse> metrics) {
         JvmInfo jvmInfo = new JvmInfo();
         metrics.forEach(d -> {
             String name = d.getName();
-            FebsMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
+            AdminMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
             Double value = sample.getValue();
             switch (name) {
                 case "jvm.memory.max":
@@ -99,11 +99,11 @@ public class FebsActuatorHelper {
         return jvmInfo;
     }
 
-    public TomcatInfo getTomcatInfoFromMetricData(List<FebsMetricsEndpoint.FebsMetricResponse> metrics) {
+    public TomcatInfo getTomcatInfoFromMetricData(List<AdminMetricsEndpoint.FebsMetricResponse> metrics) {
         TomcatInfo tomcatInfo = new TomcatInfo();
         metrics.forEach(d -> {
             String name = d.getName();
-            FebsMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
+            AdminMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
             Double value = sample.getValue();
             switch (name) {
                 case "tomcat.sessions.created":
@@ -145,13 +145,13 @@ public class FebsActuatorHelper {
         return tomcatInfo;
     }
 
-    public ServerInfo getServerInfoFromMetricData(List<FebsMetricsEndpoint.FebsMetricResponse> jdbcInfo,
-                                                  List<FebsMetricsEndpoint.FebsMetricResponse> systemInfo,
-                                                  List<FebsMetricsEndpoint.FebsMetricResponse> processInfo) {
+    public ServerInfo getServerInfoFromMetricData(List<AdminMetricsEndpoint.FebsMetricResponse> jdbcInfo,
+                                                  List<AdminMetricsEndpoint.FebsMetricResponse> systemInfo,
+                                                  List<AdminMetricsEndpoint.FebsMetricResponse> processInfo) {
         ServerInfo serverInfo = new ServerInfo();
         jdbcInfo.forEach(j -> {
             String name = j.getName();
-            FebsMetricsEndpoint.Sample sample = j.getMeasurements().get(0);
+            AdminMetricsEndpoint.Sample sample = j.getMeasurements().get(0);
             Double value = sample.getValue();
             switch (name) {
                 case "jdbc.connections.active":
@@ -168,7 +168,7 @@ public class FebsActuatorHelper {
         });
         systemInfo.forEach(s -> {
             String name = s.getName();
-            FebsMetricsEndpoint.Sample sample = s.getMeasurements().get(0);
+            AdminMetricsEndpoint.Sample sample = s.getMeasurements().get(0);
             Double value = sample.getValue();
             switch (name) {
                 case "system.cpu.count":
@@ -182,7 +182,7 @@ public class FebsActuatorHelper {
         });
         processInfo.forEach(p -> {
             String name = p.getName();
-            FebsMetricsEndpoint.Sample sample = p.getMeasurements().get(0);
+            AdminMetricsEndpoint.Sample sample = p.getMeasurements().get(0);
             Double value = sample.getValue();
             switch (name) {
                 case "process.cpu.usage":

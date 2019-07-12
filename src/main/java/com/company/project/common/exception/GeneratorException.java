@@ -3,7 +3,7 @@ package com.company.project.common.exception;
 /**
  * 代码生成异常
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class GeneratorException extends Exception {
 

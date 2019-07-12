@@ -1,6 +1,6 @@
 package com.company.project.common.aspect;
 
-import com.company.project.common.properties.FebsProperties;
+import com.company.project.common.properties.AdminProperties;
 import com.company.project.monitor.entity.Log;
 import com.company.project.monitor.service.ILogService;
 import com.company.project.system.entity.User;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * AOP 记录用户操作日志
  *
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Aspect
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LogAspect {
 
     @Autowired
-    private FebsProperties febsProperties;
+    private AdminProperties adminProperties;
 
     @Autowired
     private ILogService logService;
@@ -49,7 +49,7 @@ public class LogAspect {
         String ip = IPUtil.getIpAddr(request);
         // 执行时长(毫秒)
         long time = System.currentTimeMillis() - beginTime;
-        if (febsProperties.isOpenAopLog()) {
+        if (adminProperties.isOpenAopLog()) {
             // 保存日志
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             Log log = new Log();

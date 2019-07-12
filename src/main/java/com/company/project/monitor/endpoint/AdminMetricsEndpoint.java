@@ -1,6 +1,6 @@
 package com.company.project.monitor.endpoint;
 
-import com.company.project.common.annotation.FebsEndPoint;
+import com.company.project.common.annotation.AdminEndPoint;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Statistic;
@@ -13,14 +13,14 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
-@FebsEndPoint
-public class FebsMetricsEndpoint {
+@AdminEndPoint
+public class AdminMetricsEndpoint {
 
     private final MeterRegistry registry;
 
-    public FebsMetricsEndpoint(MeterRegistry registry) {
+    public AdminMetricsEndpoint(MeterRegistry registry) {
         this.registry = registry;
     }
 

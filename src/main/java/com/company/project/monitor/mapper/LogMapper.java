@@ -4,7 +4,7 @@ import com.company.project.monitor.entity.Log;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface LogMapper extends BaseMapper<Log> {
 

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface IRedisService {
 

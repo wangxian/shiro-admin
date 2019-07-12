@@ -2,7 +2,7 @@ package com.company.project.common.validator;
 
 import com.company.project.common.annotation.IsMobile;
 import com.company.project.common.entity.RegexpConstant;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.utils.AdminUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * 校验是否为合法的手机号码
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class MobileValidator implements ConstraintValidator<IsMobile, String> {
 
@@ -26,7 +26,7 @@ public class MobileValidator implements ConstraintValidator<IsMobile, String> {
                 return true;
             } else {
                 String regex = RegexpConstant.MOBILE_REG;
-                return FebsUtil.match(regex, s);
+                return AdminUtil.match(regex, s);
             }
         } catch (Exception e) {
             return false;

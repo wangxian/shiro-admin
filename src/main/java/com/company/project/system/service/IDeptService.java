@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface IDeptService extends IService<Dept> {
 

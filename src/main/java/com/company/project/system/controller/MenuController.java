@@ -3,9 +3,9 @@ package com.company.project.system.controller;
 
 import com.company.project.common.annotation.Log;
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.MenuTree;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.system.entity.Menu;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IMenuService;
@@ -22,7 +22,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -33,78 +33,78 @@ public class MenuController extends BaseController {
     private IMenuService menuService;
 
     @GetMapping("{username}")
-    public FebsResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) throws FebsException {
+    public AdminResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) throws AdminException {
         User currentUser = getCurrentUser();
         if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername()))
-            throw new FebsException("您无权获取别人的菜单");
+            throw new AdminException("您无权获取别人的菜单");
         MenuTree<Menu> userMenus = this.menuService.findUserMenus(username);
-        return new FebsResponse().data(userMenus);
+        return new AdminResponse().data(userMenus);
     }
 
     @GetMapping("tree")
-    public FebsResponse getMenuTree(Menu menu) throws FebsException {
+    public AdminResponse getMenuTree(Menu menu) throws AdminException {
         try {
             MenuTree<Menu> menus = this.menuService.findMenus(menu);
-            return new FebsResponse().success().data(menus.getChilds());
+            return new AdminResponse().success().data(menus.getChilds());
         } catch (Exception e) {
             String message = "获取菜单树失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("新增菜单/按钮")
     @PostMapping
     @RequiresPermissions("menu:add")
-    public FebsResponse addMenu(@Valid Menu menu) throws FebsException {
+    public AdminResponse addMenu(@Valid Menu menu) throws AdminException {
         try {
             this.menuService.createMenu(menu);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "新增菜单/按钮失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("删除菜单/按钮")
     @GetMapping("delete/{menuIds}")
     @RequiresPermissions("menu:delete")
-    public FebsResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) throws FebsException {
+    public AdminResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) throws AdminException {
         try {
             this.menuService.deleteMeuns(menuIds);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除菜单/按钮失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("修改菜单/按钮")
     @PostMapping("update")
     @RequiresPermissions("menu:update")
-    public FebsResponse updateMenu(@Valid Menu menu) throws FebsException {
+    public AdminResponse updateMenu(@Valid Menu menu) throws AdminException {
         try {
             this.menuService.updateMenu(menu);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改菜单/按钮失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("menu:export")
-    public void export(Menu menu, HttpServletResponse response) throws FebsException {
+    public void export(Menu menu, HttpServletResponse response) throws AdminException {
         try {
             List<Menu> menus = this.menuService.findMenuList(menu);
             ExcelKit.$Export(Menu.class, response).downXlsx(menus, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

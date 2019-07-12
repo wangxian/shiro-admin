@@ -1,7 +1,7 @@
 package com.company.project.system.service.impl;
 
 import com.company.project.common.authentication.ShiroRealm;
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.system.entity.Role;
@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -56,7 +56,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public IPage<Role> findRoles(Role role, QueryRequest request) {
         Page<Role> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, false);
+        SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, false);
         return this.baseMapper.findRolePage(page, role);
     }
 

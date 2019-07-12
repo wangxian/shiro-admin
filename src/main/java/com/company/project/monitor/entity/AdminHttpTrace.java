@@ -6,10 +6,10 @@ import java.io.Serializable;
 import java.net.URI;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
-public class FebsHttpTrace implements Serializable {
+public class AdminHttpTrace implements Serializable {
 
     private static final long serialVersionUID = 8286382834121710757L;
 

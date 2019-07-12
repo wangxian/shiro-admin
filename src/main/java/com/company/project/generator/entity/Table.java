@@ -3,7 +3,7 @@ package com.company.project.generator.entity;
 import lombok.Data;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
 public class Table {

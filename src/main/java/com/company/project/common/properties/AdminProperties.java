@@ -6,13 +6,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
 @SpringBootConfiguration
 @PropertySource(value = {"classpath:admin.properties"})
-@ConfigurationProperties(prefix = "febs")
-public class FebsProperties {
+@ConfigurationProperties(prefix = "admin")
+public class AdminProperties {
 
     private ShiroProperties shiro = new ShiroProperties();
     private boolean openAopLog = true;

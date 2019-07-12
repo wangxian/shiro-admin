@@ -3,7 +3,7 @@ package com.company.project.common.function;
 import com.company.project.common.exception.RedisConnectException;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @FunctionalInterface
 public interface JedisExecutor<T, R> {

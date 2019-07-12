@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Configuration
-public class FebsConfigure {
+public class AdminConfigure {
 
     @Bean("febsAsyncThreadPool")
     public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor(){

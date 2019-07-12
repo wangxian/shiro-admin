@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface JobMapper extends BaseMapper<Job> {
 	

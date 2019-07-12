@@ -1,6 +1,6 @@
 package com.company.project.common.runner;
 
-import com.company.project.common.properties.FebsProperties;
+import com.company.project.common.properties.AdminProperties;
 import com.company.project.monitor.service.IRedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Component
-public class FebsStartedUpRunner implements ApplicationRunner {
+public class AdminStartedUpRunner implements ApplicationRunner {
 
     @Autowired
     private ConfigurableApplicationContext context;
     @Autowired
-    private FebsProperties febsProperties;
+    private AdminProperties adminProperties;
     @Autowired
     private IRedisService redisService;
 
@@ -36,21 +36,21 @@ public class FebsStartedUpRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         try {
             // 测试 Redis连接是否正常
-            redisService.exists("febs_test");
+            redisService.exists("admin_test");
         } catch (Exception e) {
             log.error(" ____   __    _   _ ");
             log.error("| |_   / /\\  | | | |");
             log.error("|_|   /_/--\\ |_| |_|__");
             log.error("                        ");
-            log.error("FEBS启动失败，{}", e.getMessage());
+            log.error("ADMIN 启动失败，{}", e.getMessage());
             log.error("Redis连接异常，请检查Redis连接配置并确保Redis服务已启动");
-            // 关闭 FEBS
+            // 关闭 ADMIN
             context.close();
         }
         if (context.isActive()) {
             InetAddress address = InetAddress.getLocalHost();
             String url = String.format("http://%s:%s", address.getHostAddress(), port);
-            String loginUrl = febsProperties.getShiro().getLoginUrl();
+            String loginUrl = adminProperties.getShiro().getLoginUrl();
             if (StringUtils.isNotBlank(contextPath))
                 url += contextPath;
             if (StringUtils.isNotBlank(loginUrl))
@@ -59,7 +59,7 @@ public class FebsStartedUpRunner implements ApplicationRunner {
             log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
             log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
             log.info("                                                      ");
-            log.info("FEBS 权限系统启动完毕，地址：{}", url);
+            log.info("ADMIN 权限系统启动完毕，地址：{}", url);
         }
     }
 }

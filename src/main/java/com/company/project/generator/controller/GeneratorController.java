@@ -1,11 +1,11 @@
 package com.company.project.generator.controller;
 
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.common.exception.FileDownloadException;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.utils.AdminUtil;
 import com.company.project.common.utils.FileUtil;
 import com.company.project.generator.entity.Column;
 import com.company.project.generator.entity.GeneratorConfig;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -44,9 +44,9 @@ public class GeneratorController extends BaseController {
 
     @GetMapping("tables/info")
     @RequiresPermissions("generator:view")
-    public FebsResponse tablesInfo(String tableName, QueryRequest request) {
+    public AdminResponse tablesInfo(String tableName, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     @GetMapping
@@ -55,7 +55,7 @@ public class GeneratorController extends BaseController {
         try {
             GeneratorConfig generatorConfig = generatorConfigService.findGeneratorConfig();
             if (generatorConfig == null) {
-                throw new FebsException("代码生成配置为空");
+                throw new AdminException("代码生成配置为空");
             }
 
             String className = name;
@@ -64,7 +64,7 @@ public class GeneratorController extends BaseController {
             }
 
             generatorConfig.setTableName(name);
-            generatorConfig.setClassName(FebsUtil.underscoreToCamel(className));
+            generatorConfig.setClassName(AdminUtil.underscoreToCamel(className));
             generatorConfig.setTableComment(remark);
             // 生成代码到临时目录
             List<Column> columns = generatorService.getColumns(GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME, name);

@@ -1,6 +1,6 @@
 package com.company.project.common.utils;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.exception.RedisConnectException;
 import com.company.project.monitor.service.IRedisService;
 import com.wf.captcha.Captcha;
@@ -19,7 +19,7 @@ import java.io.IOException;
  * 验证码工具类，重写 {@link com.wf.captcha.utils.CaptchaUtil}
  * 因为它没有提供修改验证码类型方法
  *
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 public class CaptchaUtil {
@@ -80,7 +80,7 @@ public class CaptchaUtil {
 
     public static boolean verify(String code, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String key = FebsConstant.CODE_PREFIX + session.getId();
+        String key = AdminConstant.CODE_PREFIX + session.getId();
         String sessionCode = "";
         try {
             sessionCode = redisService.get(key);
@@ -106,7 +106,7 @@ public class CaptchaUtil {
         }
         HttpSession session = request.getSession();
         String code = captcha.text().toLowerCase();
-        String key = FebsConstant.CODE_PREFIX + session.getId();
+        String key = AdminConstant.CODE_PREFIX + session.getId();
 
         try {
             redisService.set(key, code, 120000L);

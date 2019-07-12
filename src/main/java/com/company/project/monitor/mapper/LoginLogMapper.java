@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
 

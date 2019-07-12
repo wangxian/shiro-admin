@@ -1,7 +1,7 @@
 package com.company.project.generator.controller;
 
-import com.company.project.common.entity.FebsConstant;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.entity.AdminConstant;
+import com.company.project.common.utils.AdminUtil;
 import com.company.project.generator.entity.GeneratorConfig;
 import com.company.project.generator.servie.IGeneratorConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Controller("generatorViews")
-@RequestMapping(FebsConstant.VIEW_PREFIX + "generator")
+@RequestMapping(AdminConstant.VIEW_PREFIX + "generator")
 public class ViewController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class ViewController {
     @GetMapping("generator")
     @RequiresPermissions("generator:view")
     public String generator() {
-        return FebsUtil.view("generator/generator");
+        return AdminUtil.view("generator/generator");
     }
 
     @GetMapping("configure")
@@ -32,6 +32,6 @@ public class ViewController {
     public String generatorConfigure(Model model) {
         GeneratorConfig generatorConfig = generatorConfigService.findGeneratorConfig();
         model.addAttribute("config", generatorConfig);
-        return FebsUtil.view("generator/configure");
+        return AdminUtil.view("generator/configure");
     }
 }

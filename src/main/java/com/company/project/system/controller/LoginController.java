@@ -1,11 +1,11 @@
 package com.company.project.system.controller;
 
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.service.ILoginLogService;
 import com.company.project.common.annotation.Limit;
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.common.utils.CaptchaUtil;
 import com.company.project.common.utils.MD5Util;
 import com.company.project.system.entity.User;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Validated
 @RestController
@@ -40,13 +40,13 @@ public class LoginController extends BaseController {
 
     @PostMapping("login")
     @Limit(key = "login", period = 60, count = 20, name = "登录接口", prefix = "limit")
-    public FebsResponse login(
+    public AdminResponse login(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password,
             @NotBlank(message = "{required}") String verifyCode,
-            boolean rememberMe, HttpServletRequest request) throws FebsException {
+            boolean rememberMe, HttpServletRequest request) throws AdminException {
         if (!CaptchaUtil.verify(verifyCode, request)) {
-            throw new FebsException("验证码错误！");
+            throw new AdminException("验证码错误！");
         }
         password = MD5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
@@ -58,28 +58,28 @@ public class LoginController extends BaseController {
             loginLog.setSystemBrowserInfo();
             this.loginLogService.saveLoginLog(loginLog);
 
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
-            throw new FebsException(e.getMessage());
+            throw new AdminException(e.getMessage());
         } catch (AuthenticationException e) {
-            throw new FebsException("认证失败！");
+            throw new AdminException("认证失败！");
         }
     }
 
     @PostMapping("regist")
-    public FebsResponse regist(
+    public AdminResponse regist(
             @NotBlank(message = "{required}") String username,
-            @NotBlank(message = "{required}") String password) throws FebsException {
+            @NotBlank(message = "{required}") String password) throws AdminException {
         User user = userService.findByName(username);
         if (user != null) {
-            throw new FebsException("该用户名已存在");
+            throw new AdminException("该用户名已存在");
         }
         this.userService.regist(username, password);
-        return new FebsResponse().success();
+        return new AdminResponse().success();
     }
 
     @GetMapping("index/{username}")
-    public FebsResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
+    public AdminResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
         // 更新登录时间
         this.userService.updateLoginTime(username);
         Map<String, Object> data = new HashMap<>();
@@ -97,7 +97,7 @@ public class LoginController extends BaseController {
         param.setUsername(username);
         List<Map<String, Object>> lastSevenUserVisitCount = this.loginLogService.findLastSevenDaysVisitCount(param);
         data.put("lastSevenUserVisitCount", lastSevenUserVisitCount);
-        return new FebsResponse().success().data(data);
+        return new AdminResponse().success().data(data);
     }
 
     @GetMapping("images/captcha")

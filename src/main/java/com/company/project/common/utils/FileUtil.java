@@ -1,6 +1,6 @@
 package com.company.project.common.utils;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -15,7 +15,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 public class FileUtil {
@@ -118,7 +118,7 @@ public class FileUtil {
     private static Boolean fileTypeIsValid(String fileType) {
         Preconditions.checkNotNull(fileType);
         fileType = StringUtils.lowerCase(fileType);
-        return ArrayUtils.contains(FebsConstant.VALID_FILE_TYPE, fileType);
+        return ArrayUtils.contains(AdminConstant.VALID_FILE_TYPE, fileType);
     }
 
     private static void compress(File file, ZipOutputStream zipOut, String baseDir) throws IOException {

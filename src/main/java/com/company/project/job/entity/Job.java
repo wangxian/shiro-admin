@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
 @TableName("admin_job")

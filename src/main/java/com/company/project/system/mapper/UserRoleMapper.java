@@ -4,7 +4,7 @@ import com.company.project.system.entity.UserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 

@@ -1,9 +1,9 @@
 package com.company.project.common.handler;
 
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.entity.AdminResponse;
+import com.company.project.common.exception.AdminException;
 import com.company.project.common.exception.FileDownloadException;
 import com.company.project.common.exception.LimitAccessException;
-import com.company.project.common.entity.FebsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestControllerAdvice
@@ -32,42 +32,42 @@ import java.util.Set;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    public FebsResponse handleException(Exception e) {
+    public AdminResponse handleException(Exception e) {
         log.error("系统内部异常，异常信息", e);
-        return new FebsResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message("系统内部异常");
+        return new AdminResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message("系统内部异常");
     }
 
-    @ExceptionHandler(value = FebsException.class)
-    public FebsResponse handleParamsInvalidException(FebsException e) {
+    @ExceptionHandler(value = AdminException.class)
+    public AdminResponse handleParamsInvalidException(AdminException e) {
         log.error("系统错误", e);
-        return new FebsResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage());
+        return new AdminResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage());
     }
 
     /**
      * 统一处理请求参数校验(实体对象传参)
      *
      * @param e BindException
-     * @return FebsResponse
+     * @return AdminResponse
      */
     @ExceptionHandler(BindException.class)
-    public FebsResponse validExceptionHandler(BindException e) {
+    public AdminResponse validExceptionHandler(BindException e) {
         StringBuilder message = new StringBuilder();
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         for (FieldError error : fieldErrors) {
             message.append(error.getField()).append(error.getDefaultMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return new FebsResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
+        return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
     }
 
     /**
      * 统一处理请求参数校验(普通传参)
      *
      * @param e ConstraintViolationException
-     * @return FebsResponse
+     * @return AdminResponse
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public FebsResponse handleConstraintViolationException(ConstraintViolationException e) {
+    public AdminResponse handleConstraintViolationException(ConstraintViolationException e) {
         StringBuilder message = new StringBuilder();
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations) {
@@ -76,25 +76,25 @@ public class GlobalExceptionHandler {
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return new FebsResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
+        return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
     }
 
     @ExceptionHandler(value = LimitAccessException.class)
-    public FebsResponse handleLimitAccessException(LimitAccessException e) {
+    public AdminResponse handleLimitAccessException(LimitAccessException e) {
         log.error("LimitAccessException", e);
-        return new FebsResponse().code(HttpStatus.TOO_MANY_REQUESTS).message(e.getMessage());
+        return new AdminResponse().code(HttpStatus.TOO_MANY_REQUESTS).message(e.getMessage());
     }
 
     @ExceptionHandler(value = UnauthorizedException.class)
-    public FebsResponse handleUnauthorizedException(UnauthorizedException e) {
+    public AdminResponse handleUnauthorizedException(UnauthorizedException e) {
         log.error("UnauthorizedException", e);
-        return new FebsResponse().code(HttpStatus.FORBIDDEN).message(e.getMessage());
+        return new AdminResponse().code(HttpStatus.FORBIDDEN).message(e.getMessage());
     }
 
     @ExceptionHandler(value = ExpiredSessionException.class)
-    public FebsResponse handleExpiredSessionException(ExpiredSessionException e) {
+    public AdminResponse handleExpiredSessionException(ExpiredSessionException e) {
         log.error("ExpiredSessionException", e);
-        return new FebsResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
+        return new AdminResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 
     @ExceptionHandler(value = FileDownloadException.class)

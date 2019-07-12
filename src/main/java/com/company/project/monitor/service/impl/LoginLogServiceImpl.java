@@ -1,6 +1,6 @@
 package com.company.project.monitor.service.impl;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.AddressUtil;
 import com.company.project.common.utils.HttpContextUtil;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service("loginLogService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -46,7 +46,7 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
         }
 
         Page<LoginLog> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "loginTime", FebsConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "loginTime", AdminConstant.ORDER_DESC, true);
 
         return this.page(page, queryWrapper);
     }

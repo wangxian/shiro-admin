@@ -2,7 +2,7 @@ package com.company.project.monitor.service.impl;
 
 
 import com.company.project.common.annotation.Log;
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.AddressUtil;
 import com.company.project.common.utils.SortUtil;
@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -58,7 +58,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, com.company.project.m
         }
 
         Page<com.company.project.monitor.entity.Log> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, true);
 
         return this.page(page, queryWrapper);
     }

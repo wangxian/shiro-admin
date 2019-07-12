@@ -1,13 +1,13 @@
 package com.company.project.monitor.controller;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.exception.RedisConnectException;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.utils.AdminUtil;
 import com.company.project.monitor.entity.JvmInfo;
 import com.company.project.monitor.entity.RedisInfo;
 import com.company.project.monitor.entity.ServerInfo;
 import com.company.project.monitor.entity.TomcatInfo;
-import com.company.project.monitor.helper.FebsActuatorHelper;
+import com.company.project.monitor.helper.AdminActuatorHelper;
 import com.company.project.monitor.service.IRedisService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,36 +18,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-import static com.company.project.monitor.endpoint.FebsMetricsEndpoint.FebsMetricResponse;
+import static com.company.project.monitor.endpoint.AdminMetricsEndpoint.FebsMetricResponse;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Controller("monitorView")
-@RequestMapping(FebsConstant.VIEW_PREFIX + "monitor")
+@RequestMapping(AdminConstant.VIEW_PREFIX + "monitor")
 public class ViewController {
 
     @Autowired
-    private FebsActuatorHelper actuatorHelper;
+    private AdminActuatorHelper actuatorHelper;
     @Autowired
     private IRedisService redisService;
 
     @GetMapping("online")
     @RequiresPermissions("online:view")
     public String online() {
-        return FebsUtil.view("monitor/online");
+        return AdminUtil.view("monitor/online");
     }
 
     @GetMapping("log")
     @RequiresPermissions("log:view")
     public String log() {
-        return FebsUtil.view("monitor/log");
+        return AdminUtil.view("monitor/log");
     }
 
     @GetMapping("loginlog")
     @RequiresPermissions("loginlog:view")
     public String loginLog() {
-        return FebsUtil.view("monitor/loginLog");
+        return AdminUtil.view("monitor/loginLog");
     }
 
     @GetMapping("redis/info")
@@ -55,7 +55,7 @@ public class ViewController {
     public String getRedisInfo(Model model) throws RedisConnectException {
         List<RedisInfo> infoList = this.redisService.getRedisInfo();
         model.addAttribute("infoList", infoList);
-        return FebsUtil.view("monitor/redisInfo");
+        return AdminUtil.view("monitor/redisInfo");
     }
 
     @GetMapping("redis/terminal")
@@ -63,13 +63,13 @@ public class ViewController {
     public String redisTerminal(Model model) {
         String osName = System.getProperty("os.name");
         model.addAttribute("osName", osName);
-        return FebsUtil.view("monitor/redisTerminal");
+        return AdminUtil.view("monitor/redisTerminal");
     }
 
     @GetMapping("httptrace")
     @RequiresPermissions("httptrace:view")
     public String httptrace() {
-        return FebsUtil.view("monitor/httpTrace");
+        return AdminUtil.view("monitor/httpTrace");
     }
 
     @GetMapping("jvm")
@@ -78,7 +78,7 @@ public class ViewController {
         List<FebsMetricResponse> jvm = actuatorHelper.getMetricResponseByType("jvm");
         JvmInfo jvmInfo = actuatorHelper.getJvmInfoFromMetricData(jvm);
         model.addAttribute("jvm", jvmInfo);
-        return FebsUtil.view("monitor/jvmInfo");
+        return AdminUtil.view("monitor/jvmInfo");
     }
 
     @GetMapping("tomcat")
@@ -87,7 +87,7 @@ public class ViewController {
         List<FebsMetricResponse> tomcat = actuatorHelper.getMetricResponseByType("tomcat");
         TomcatInfo tomcatInfo = actuatorHelper.getTomcatInfoFromMetricData(tomcat);
         model.addAttribute("tomcat", tomcatInfo);
-        return FebsUtil.view("monitor/tomcatInfo");
+        return AdminUtil.view("monitor/tomcatInfo");
     }
 
     @GetMapping("server")
@@ -99,7 +99,7 @@ public class ViewController {
 
         ServerInfo serverInfo = actuatorHelper.getServerInfoFromMetricData(jdbcInfo, systemInfo, processInfo);
         model.addAttribute("server", serverInfo);
-        return FebsUtil.view("monitor/serverInfo");
+        return AdminUtil.view("monitor/serverInfo");
     }
 
 }

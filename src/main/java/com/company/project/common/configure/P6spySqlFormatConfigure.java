@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 自定义 p6spy sql输出格式
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class P6spySqlFormatConfigure implements MessageFormattingStrategy {
 

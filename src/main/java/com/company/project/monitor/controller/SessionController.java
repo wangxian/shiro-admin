@@ -1,6 +1,6 @@
 package com.company.project.monitor.controller;
 
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.monitor.entity.ActiveUser;
 import com.company.project.monitor.service.ISessionService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @RestController
 @RequestMapping("session")
@@ -27,18 +27,18 @@ public class SessionController {
 
     @GetMapping("list")
     @RequiresPermissions("online:view")
-    public FebsResponse list(String username) {
+    public AdminResponse list(String username) {
         List<ActiveUser> list = sessionService.list(username);
         Map<String, Object> data = new HashMap<>();
         data.put("rows", list);
         data.put("total", CollectionUtils.size(list));
-        return new FebsResponse().success().data(data);
+        return new AdminResponse().success().data(data);
     }
 
     @GetMapping("delete/{id}")
     @RequiresPermissions("user:kickout")
-    public FebsResponse forceLogout(@PathVariable String id) {
+    public AdminResponse forceLogout(@PathVariable String id) {
         sessionService.forceLogout(id);
-        return new FebsResponse().success();
+        return new AdminResponse().success();
     }
 }

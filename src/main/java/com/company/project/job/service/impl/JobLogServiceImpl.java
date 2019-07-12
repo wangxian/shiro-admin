@@ -1,6 +1,6 @@
 package com.company.project.job.service.impl;
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.job.entity.JobLog;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Service("JobLogService")
@@ -41,7 +41,7 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
             queryWrapper.eq(JobLog::getStatus, jobLog.getStatus());
         }
         Page<JobLog> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, true);
         return this.page(page, queryWrapper);
     }
 

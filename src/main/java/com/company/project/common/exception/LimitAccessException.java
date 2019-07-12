@@ -3,7 +3,7 @@ package com.company.project.common.exception;
 /**
  * 限流异常
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class LimitAccessException extends Exception {
 

@@ -7,4 +7,4 @@
 ### 相关截图
 提供相关截图，以协助问题分析
 
-> issue模板，by MrBird.
+> issue模板，by ADMIN.

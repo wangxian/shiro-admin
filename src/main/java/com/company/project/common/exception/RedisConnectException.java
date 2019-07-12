@@ -3,7 +3,7 @@ package com.company.project.common.exception;
 /**
  * Redis 连接异常
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class RedisConnectException extends Exception {
 

@@ -5,7 +5,7 @@ import com.company.project.monitor.entity.ActiveUser;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface ISessionService {
 

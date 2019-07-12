@@ -3,7 +3,7 @@ package com.company.project.generator.entity;
 /**
  * 代码生成常量
  *
- * @author MrBird
+ * @author ADMIN
  */
 public class GeneratorConstant {
 

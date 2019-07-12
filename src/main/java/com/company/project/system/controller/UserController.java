@@ -2,9 +2,9 @@ package com.company.project.system.controller;
 
 import com.company.project.common.annotation.Log;
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.common.utils.MD5Util;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Validated
@@ -47,138 +47,138 @@ public class UserController extends BaseController {
 
     @GetMapping("list")
     @RequiresPermissions("user:view")
-    public FebsResponse userList(User user, QueryRequest request) {
+    public AdminResponse userList(User user, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.userService.findUserDetail(user, request));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     @Log("新增用户")
     @PostMapping
     @RequiresPermissions("user:add")
-    public FebsResponse addUser(@Valid User user) throws FebsException {
+    public AdminResponse addUser(@Valid User user) throws AdminException {
         try {
             this.userService.createUser(user);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "新增用户失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("删除用户")
     @GetMapping("delete/{userIds}")
     @RequiresPermissions("user:delete")
-    public FebsResponse deleteUsers(@NotBlank(message = "{required}") @PathVariable String userIds) throws FebsException {
+    public AdminResponse deleteUsers(@NotBlank(message = "{required}") @PathVariable String userIds) throws AdminException {
         try {
             String[] ids = userIds.split(StringPool.COMMA);
             this.userService.deleteUsers(ids);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除用户失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @Log("修改用户")
     @PostMapping("update")
     @RequiresPermissions("user:update")
-    public FebsResponse updateUser(@Valid User user) throws FebsException {
+    public AdminResponse updateUser(@Valid User user) throws AdminException {
         try {
             if (user.getUserId() == null)
-                throw new FebsException("用户ID为空");
+                throw new AdminException("用户ID为空");
             this.userService.updateUser(user);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改用户失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @PostMapping("password/reset/{usernames}")
     @RequiresPermissions("user:password:reset")
-    public FebsResponse resetPassword(@NotBlank(message = "{required}") @PathVariable String usernames) throws FebsException {
+    public AdminResponse resetPassword(@NotBlank(message = "{required}") @PathVariable String usernames) throws AdminException {
         try {
             String[] usernameArr = usernames.split(StringPool.COMMA);
             this.userService.resetPassword(usernameArr);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "重置用户密码失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @PostMapping("password/update")
-    public FebsResponse updatePassword(
+    public AdminResponse updatePassword(
             @NotBlank(message = "{required}") String oldPassword,
-            @NotBlank(message = "{required}") String newPassword) throws FebsException {
+            @NotBlank(message = "{required}") String newPassword) throws AdminException {
         try {
             User user = getCurrentUser();
             if (!StringUtils.equals(user.getPassword(), MD5Util.encrypt(user.getUsername(), oldPassword))) {
-                throw new FebsException("原密码不正确");
+                throw new AdminException("原密码不正确");
             }
             userService.updatePassword(user.getUsername(), newPassword);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改密码失败，" + e.getMessage();
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("avatar/{image}")
-    public FebsResponse updateAvatar(@NotBlank(message = "{required}") @PathVariable String image) throws FebsException {
+    public AdminResponse updateAvatar(@NotBlank(message = "{required}") @PathVariable String image) throws AdminException {
         try {
             User user = getCurrentUser();
             this.userService.updateAvatar(user.getUsername(), image);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改头像失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @PostMapping("theme/update")
-    public FebsResponse updateTheme(String theme, String isTab) throws FebsException {
+    public AdminResponse updateTheme(String theme, String isTab) throws AdminException {
         try {
             User user = getCurrentUser();
             this.userService.updateTheme(user.getUsername(), theme, isTab);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改系统配置失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @PostMapping("profile/update")
-    public FebsResponse updateProfile(User user) throws FebsException {
+    public AdminResponse updateProfile(User user) throws AdminException {
         try {
             User currentUser = getCurrentUser();
             user.setUserId(currentUser.getUserId());
             this.userService.updateProfile(user);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改个人信息失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("user:export")
-    public void export(QueryRequest queryRequest, User user, HttpServletResponse response) throws FebsException {
+    public void export(QueryRequest queryRequest, User user, HttpServletResponse response) throws AdminException {
         try {
             List<User> users = this.userService.findUserDetail(user, queryRequest).getRecords();
             ExcelKit.$Export(User.class, response).downXlsx(users, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

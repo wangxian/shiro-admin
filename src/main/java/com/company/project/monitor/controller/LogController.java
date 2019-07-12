@@ -1,9 +1,9 @@
 package com.company.project.monitor.controller;
 
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.monitor.entity.Log;
 import com.company.project.monitor.service.ILogService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -34,35 +34,35 @@ public class LogController extends BaseController {
 
     @GetMapping("list")
     @RequiresPermissions("log:view")
-    public FebsResponse logList(Log log, QueryRequest request) {
+    public AdminResponse logList(Log log, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.logService.findLogs(log, request));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     @GetMapping("delete/{ids}")
     @RequiresPermissions("log:delete")
-    public FebsResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) throws FebsException {
+    public AdminResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) throws AdminException {
         try {
             String[] logIds = ids.split(StringPool.COMMA);
             this.logService.deleteLogs(logIds);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除日志失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("log:export")
-    public void export(QueryRequest request, Log lg, HttpServletResponse response) throws FebsException {
+    public void export(QueryRequest request, Log lg, HttpServletResponse response) throws AdminException {
         try {
             List<Log> logs = this.logService.findLogs(lg, request).getRecords();
             ExcelKit.$Export(Log.class, response).downXlsx(logs, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

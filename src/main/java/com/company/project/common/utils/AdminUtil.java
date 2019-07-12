@@ -1,7 +1,7 @@
 package com.company.project.common.utils;
 
 
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.system.entity.User;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +16,10 @@ import java.util.stream.IntStream;
 /**
  * FEBS工具类
  *
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
-public class FebsUtil {
+public class AdminUtil {
 
     /**
      * 驼峰转下划线
@@ -92,6 +92,6 @@ public class FebsUtil {
     }
 
     public static String view(String viewName) {
-        return FebsConstant.VIEW_PREFIX + viewName;
+        return AdminConstant.VIEW_PREFIX + viewName;
     }
 }

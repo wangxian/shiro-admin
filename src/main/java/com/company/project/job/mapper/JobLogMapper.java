@@ -5,7 +5,7 @@ import com.company.project.job.entity.JobLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 public interface JobLogMapper extends BaseMapper<JobLog> {
 }

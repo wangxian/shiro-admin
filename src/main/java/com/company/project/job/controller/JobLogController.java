@@ -1,9 +1,9 @@
 package com.company.project.job.controller;
 
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.exception.AdminException;
 import com.company.project.job.entity.JobLog;
 import com.company.project.job.service.IJobLogService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @Validated
@@ -36,35 +36,35 @@ public class JobLogController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("job:log:view")
-    public FebsResponse jobLogList(QueryRequest request, JobLog log) {
+    public AdminResponse jobLogList(QueryRequest request, JobLog log) {
         Map<String, Object> dataTable = getDataTable(this.jobLogService.findJobLogs(request, log));
-        return new FebsResponse().success().data(dataTable);
+        return new AdminResponse().success().data(dataTable);
     }
 
     @GetMapping("delete/{jobIds}")
     @RequiresPermissions("job:log:delete")
-    public FebsResponse deleteJobLog(@NotBlank(message = "{required}") @PathVariable String jobIds) throws FebsException {
+    public AdminResponse deleteJobLog(@NotBlank(message = "{required}") @PathVariable String jobIds) throws AdminException {
         try {
             String[] ids = jobIds.split(StringPool.COMMA);
             this.jobLogService.deleteJobLogs(ids);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除调度日志失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 
     @GetMapping("excel")
     @RequiresPermissions("job:log:export")
-    public void export(QueryRequest request, JobLog jobLog, HttpServletResponse response) throws FebsException {
+    public void export(QueryRequest request, JobLog jobLog, HttpServletResponse response) throws AdminException {
         try {
             List<JobLog> jobLogs = this.jobLogService.findJobLogs(request, jobLog).getRecords();
             ExcelKit.$Export(JobLog.class, response).downXlsx(jobLogs, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

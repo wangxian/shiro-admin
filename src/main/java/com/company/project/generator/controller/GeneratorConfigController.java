@@ -2,8 +2,8 @@ package com.company.project.generator.controller;
 
 import com.company.project.common.annotation.Log;
 import com.company.project.common.controller.BaseController;
-import com.company.project.common.entity.FebsResponse;
-import com.company.project.common.exception.FebsException;
+import com.company.project.common.entity.AdminResponse;
+import com.company.project.common.exception.AdminException;
 import com.company.project.generator.entity.GeneratorConfig;
 import com.company.project.generator.servie.IGeneratorConfigService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Slf4j
 @RestController
@@ -30,23 +30,23 @@ public class GeneratorConfigController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("generator:configure:view")
-    public FebsResponse getGeneratorConfig() {
-        return new FebsResponse().success().data(generatorConfigService.findGeneratorConfig());
+    public AdminResponse getGeneratorConfig() {
+        return new AdminResponse().success().data(generatorConfigService.findGeneratorConfig());
     }
 
     @Log("修改GeneratorConfig")
     @PostMapping("update")
     @RequiresPermissions("generator:configure:update")
-    public FebsResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) throws FebsException {
+    public AdminResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) throws AdminException {
         try {
             if (StringUtils.isBlank(generatorConfig.getId()))
-                throw new FebsException("配置id不能为空");
+                throw new AdminException("配置id不能为空");
             this.generatorConfigService.updateGeneratorConfig(generatorConfig);
-            return new FebsResponse().success();
+            return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改GeneratorConfig失败";
             log.error(message, e);
-            throw new FebsException(message);
+            throw new AdminException(message);
         }
     }
 }

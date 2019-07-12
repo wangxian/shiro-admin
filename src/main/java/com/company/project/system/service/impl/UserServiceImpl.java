@@ -1,9 +1,9 @@
 package com.company.project.system.service.impl;
 
 import com.company.project.common.authentication.ShiroRealm;
-import com.company.project.common.entity.FebsConstant;
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.utils.FebsUtil;
+import com.company.project.common.utils.AdminUtil;
 import com.company.project.common.utils.MD5Util;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.system.entity.User;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -48,7 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public IPage<User> findUserDetail(User user, QueryRequest request) {
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "userId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "userId", AdminConstant.ORDER_ASC, false);
         return this.baseMapper.findUserDetailPage(page, user);
     }
 
@@ -106,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String[] roles = user.getRoleId().split(StringPool.COMMA);
         setUserRoles(user, roles);
 
-        User currentUser = FebsUtil.getCurrentUser();
+        User currentUser = AdminUtil.getCurrentUser();
         if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), user.getUsername())) {
             shiroRealm.clearCache();
         }
