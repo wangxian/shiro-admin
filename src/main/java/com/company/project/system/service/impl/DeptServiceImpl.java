@@ -63,7 +63,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
         Long parentId = dept.getParentId();
         if (parentId == null)
             dept.setParentId(0L);
-        dept.setCreateTime(new Date());
+        dept.setCreatedAt(new Date());
         this.save(dept);
     }
 

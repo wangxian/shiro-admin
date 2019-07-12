@@ -71,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional
     public void createUser(User user) {
-        user.setCreateTime(new Date());
+        user.setCreatedAt(new Date());
         user.setStatus(User.STATUS_VALID);
         user.setAvatar(User.DEFAULT_AVATAR);
         user.setTheme(User.THEME_BLACK);
@@ -128,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = new User();
         user.setPassword(MD5Util.encrypt(username, password));
         user.setUsername(username);
-        user.setCreateTime(new Date());
+        user.setCreatedAt(new Date());
         user.setStatus(User.STATUS_VALID);
         user.setSex(User.SEX_UNKNOW);
         user.setAvatar(User.DEFAULT_AVATAR);

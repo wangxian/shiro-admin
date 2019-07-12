@@ -14,34 +14,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(FebsConstant.VIEW_PREFIX + "others")
 public class ViewController {
 
-    @GetMapping("febs/form")
-    @RequiresPermissions("febs:form:view")
-    public String febsForm() {
-        return FebsUtil.view("others/febs/form");
+    @GetMapping("demo/form")
+    @RequiresPermissions("demo:form:view")
+    public String demoForm() {
+        return FebsUtil.view("others/demo/form");
     }
 
-    @GetMapping("febs/form/group")
-    @RequiresPermissions("febs:formgroup:view")
-    public String febsFormGroup() {
-        return FebsUtil.view("others/febs/formGroup");
+    @GetMapping("demo/form/group")
+    @RequiresPermissions("demo:formgroup:view")
+    public String demoFormGroup() {
+        return FebsUtil.view("others/demo/formGroup");
     }
 
-    @GetMapping("febs/tools")
-    @RequiresPermissions("febs:tools:view")
-    public String febsTools() {
-        return FebsUtil.view("others/febs/tools");
+    @GetMapping("demo/tools")
+    @RequiresPermissions("demo:tools:view")
+    public String demoTools() {
+        return FebsUtil.view("others/demo/tools");
     }
 
-    @GetMapping("febs/icon")
-    @RequiresPermissions("febs:icons:view")
-    public String febsIcon() {
-        return FebsUtil.view("others/febs/icon");
+    @GetMapping("demo/icon")
+    @RequiresPermissions("demo:icons:view")
+    public String demoIcon() {
+        return FebsUtil.view("others/demo/icon");
     }
 
-    @GetMapping("febs/others")
-    @RequiresPermissions("others:febs:others")
-    public String febsOthers() {
-        return FebsUtil.view("others/febs/others");
+    @GetMapping("demo/others")
+    @RequiresPermissions("others:demo:others")
+    public String demoOthers() {
+        return FebsUtil.view("others/demo/others");
     }
 
     @GetMapping("apex/line")

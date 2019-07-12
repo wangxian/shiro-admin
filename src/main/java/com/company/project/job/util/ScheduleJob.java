@@ -36,7 +36,7 @@ public class ScheduleJob extends QuartzJobBean {
         jobLog.setBeanName(scheduleJob.getBeanName());
         jobLog.setMethodName(scheduleJob.getMethodName());
         jobLog.setParams(scheduleJob.getParams());
-        jobLog.setCreateTime(new Date());
+        jobLog.setCreatedAt(new Date());
 
         long startTime = System.currentTimeMillis();
 

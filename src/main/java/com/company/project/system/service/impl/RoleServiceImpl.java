@@ -56,7 +56,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public IPage<Role> findRoles(Role role, QueryRequest request) {
         Page<Role> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, false);
+        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findRolePage(page, role);
     }
 
@@ -68,7 +68,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     @Transactional
     public void createRole(Role role) {
-        role.setCreateTime(new Date());
+        role.setCreatedAt(new Date());
         this.baseMapper.insert(role);
         this.saveRoleMenus(role);
     }

@@ -55,7 +55,7 @@ public class Dept implements Serializable {
      */
     @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
-    private Date createTime;
+    private Date createdAt;
 
     @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)

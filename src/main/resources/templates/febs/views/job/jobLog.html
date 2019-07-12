@@ -16,7 +16,7 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">方法名称</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="methodName" id="createTime" class="layui-input">
+                                            <input type="text" name="methodName" id="createdAt" class="layui-input">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
@@ -92,7 +92,7 @@
             $query = $view.find('#query'),
             $reset = $view.find('#reset'),
             $searchForm = $view.find('form'),
-            sortObject = {field: 'createTime', type: null},
+            sortObject = {field: 'createdAt', type: null},
             tableIns;
 
         form.render();
@@ -186,7 +186,7 @@
                     {title: '状态', templet: '#jobLog-status'},
                     {field: 'error', title: '异常信息', maxWidth: 200},
                     {title: '耗时', templet: '#jobLog-times'},
-                    {field: 'createTime', title: '执行时间', minWidth: 180, sort: true},
+                    {field: 'createdAt', title: '执行时间', minWidth: 180, sort: true},
                     {title: '操作', toolbar: '#jobLog-option', minWidth: 140}
                 ]]
             });

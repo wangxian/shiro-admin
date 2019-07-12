@@ -89,7 +89,7 @@ public class EximportController extends BaseController {
                 @Override
                 public void onSuccess(int sheet, int row, Eximport eximport) {
                     // 数据校验成功时，加入集合
-                    eximport.setCreateTime(new Date());
+                    eximport.setCreatedAt(new Date());
                     data.add(eximport);
                 }
 

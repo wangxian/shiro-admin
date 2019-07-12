@@ -5,7 +5,7 @@
         <result column="id" jdbcType="DECIMAL" property="roleId" />
         <result column="role_name" jdbcType="VARCHAR" property="roleName" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
-        <result column="created_at" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
         <result column="updated_at" jdbcType="TIMESTAMP" property="modifyTime" />
     </resultMap>
 
@@ -25,7 +25,7 @@
             r.id roleId,
             r.role_name roleName,
             r.remark,
-            r.created_at createTime,
+            r.created_at createdAt,
             r.updated_at modifyTime,
             GROUP_CONCAT( rm.menu_id ) menuIds
         FROM

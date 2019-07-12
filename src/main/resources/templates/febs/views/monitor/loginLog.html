@@ -16,7 +16,7 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">登录时间</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="createTime" id="createTime" class="layui-input">
+                                            <input type="text" name="createdAt" id="createdAt" class="layui-input">
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
             tableIns;
 
         laydate.render({
-            elem: '#createTime',
+            elem: '#createdAt',
             range: true,
             trigger: 'click'
         });
@@ -167,10 +167,10 @@
         function getQueryParams() {
             var createTimeFrom,
                 createTimeTo,
-                createTime = $searchForm.find('input[name="createTime"]').val();
-            if (createTime) {
-                createTimeFrom = createTime.split(' - ')[0];
-                createTimeTo = createTime.split(' - ')[1];
+                createdAt = $searchForm.find('input[name="createdAt"]').val();
+            if (createdAt) {
+                createTimeFrom = createdAt.split(' - ')[0];
+                createTimeTo = createdAt.split(' - ')[1];
             }
             return {
                 loginTimeFrom: createTimeFrom,

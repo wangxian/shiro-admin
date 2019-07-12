@@ -82,18 +82,18 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
 
         if (StringUtils.isNotBlank(job.getCreateTimeFrom()) && StringUtils.isNotBlank(job.getCreateTimeTo())) {
             queryWrapper
-                    .ge(Job::getCreateTime, job.getCreateTimeFrom())
-                    .le(Job::getCreateTime, job.getCreateTimeTo());
+                    .ge(Job::getCreatedAt, job.getCreateTimeFrom())
+                    .le(Job::getCreatedAt, job.getCreateTimeTo());
         }
         Page<Job> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "createdAt", FebsConstant.ORDER_DESC, true);
         return this.page(page, queryWrapper);
     }
 
     @Override
     @Transactional
     public void createJob(Job job) {
-        job.setCreateTime(new Date());
+        job.setCreatedAt(new Date());
         job.setStatus(Job.ScheduleStatus.PAUSE.getValue());
         this.save(job);
         ScheduleUtils.createScheduleJob(scheduler, job);

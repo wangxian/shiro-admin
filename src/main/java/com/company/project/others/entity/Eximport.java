@@ -1,6 +1,7 @@
 package com.company.project.others.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wuwenze.poi.annotation.Excel;
@@ -46,6 +47,7 @@ public class Eximport {
     /**
      * 创建时间
      */
-    private Date createTime;
+    @TableField("created_at")
+    private Date createdAt;
 
 }

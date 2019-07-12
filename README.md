@@ -18,6 +18,9 @@
 >> 本项目 fork 时 FEBS 没有说明其所使用 License，但 badge 图标标识为 MIT，后原作者改为Apache License 2.0，  
 >> 尽管如此，予在此留下说明，列出本项目对于原作品的更改，亦是对作者的尊重。 
 
+> 本地运行：http://127.0.0.1:8080/login，
+> 管理员账号：admin, 密码：s6321
+
 --------------
 
 ![https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat-square](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat-square)

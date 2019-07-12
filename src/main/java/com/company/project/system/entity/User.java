@@ -107,7 +107,7 @@ public class User implements Serializable {
      */
     @TableField("created_at")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
-    private Date createTime;
+    private Date createdAt;
 
     /**
      * 修改时间

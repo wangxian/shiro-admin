@@ -59,7 +59,7 @@ public class JobLog implements Serializable {
 
     @TableField("created_at")
     @ExcelField(value = "执行时间", writeConverter = TimeConverter.class)
-    private Date createTime;
+    private Date createdAt;
 
     private transient String createTimeFrom;
     private transient String createTimeTo;

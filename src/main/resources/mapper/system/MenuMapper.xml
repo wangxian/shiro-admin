@@ -10,7 +10,7 @@
         <result column="icon" jdbcType="VARCHAR" property="icon" />
         <result column="type" jdbcType="CHAR" property="type" />
         <result column="order_num" jdbcType="DECIMAL" property="orderNum" />
-        <result column="created_at" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
         <result column="updated_at" jdbcType="TIMESTAMP" property="modifyTime" />
     </resultMap>
 
