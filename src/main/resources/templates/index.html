@@ -10,15 +10,15 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" th:href="@{layui/css/layui.css}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/febs.css}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/eleTree.css}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/apexcharts.min.css}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/formSelects-v4.css}" media="all">
+    <link rel="stylesheet" th:href="@{admin/css/admin.css}" media="all">
+    <link rel="stylesheet" th:href="@{admin/css/eleTree.css}" media="all">
+    <link rel="stylesheet" th:href="@{admin/css/apexcharts.min.css}" media="all">
+    <link rel="stylesheet" th:href="@{admin/css/formSelects-v4.css}" media="all">
 
-    <link rel="icon" th:href="@{febs/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{admin/images/favicon.ico}" type="image/x-icon"/>
 </head>
 <body>
-<div id="febs"></div>
+<div id="admin"></div>
 <script th:src="@{layui/layui.js}"></script>
 <script th:inline="javascript">
     var ctx = [[@{/}]];
@@ -27,7 +27,7 @@
     currentUser.permissionSet = [[${permissions}]];
 
     layui.config({
-        base: './febs/',
+        base: './admin/',
         debug: true
     }).extend({
         formSelects: 'lay/extends/formSelects-v4.min',

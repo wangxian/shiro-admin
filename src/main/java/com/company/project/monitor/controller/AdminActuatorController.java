@@ -27,7 +27,7 @@ import static com.company.project.monitor.endpoint.AdminHttpTraceEndpoint.FebsHt
  */
 @Slf4j
 @RestController
-@RequestMapping("febs/actuator")
+@RequestMapping("admin/actuator")
 public class AdminActuatorController {
 
     @Autowired

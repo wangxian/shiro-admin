@@ -37,6 +37,6 @@ public interface ILogService extends IService<Log> {
      * @param log   日志
      * @throws JsonProcessingException 异常
      */
-    @Async("febsAsyncThreadPool")
+    @Async("adminAsyncThreadPool")
     void saveLog(ProceedingJoinPoint point, Log log) throws JsonProcessingException;
 }

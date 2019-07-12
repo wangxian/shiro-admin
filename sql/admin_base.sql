@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 12/07/2019 11:23:59
+ Date: 12/07/2019 18:49:13
 */
 
 SET NAMES utf8mb4;
@@ -58,13 +58,15 @@ CREATE TABLE `admin_eximport` (
   `field3` varchar(100) NOT NULL COMMENT '字段3',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Excel导入导出测试';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Excel导入导出测试';
 
 -- ----------------------------
 -- Records of admin_eximport
 -- ----------------------------
 BEGIN;
 INSERT INTO `admin_eximport` VALUES (1, '字段1', 1, 'xxx@gmail.com', '2019-06-13 03:14:06');
+INSERT INTO `admin_eximport` VALUES (2, '字段1', 1, 'xxx@gmail.com', '2019-07-12 15:18:18');
+INSERT INTO `admin_eximport` VALUES (3, '1122', 333, 'wo@wangxian.me', '2019-07-12 15:18:18');
 COMMIT;
 
 -- ----------------------------
@@ -158,22 +160,16 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=998 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of admin_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_log` VALUES (890, 'admin', '修改角色', 1144, 'RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=管理员, remark=管理员，拥有所有操作权限, createdAt=null, modifyTime=Thu Jun 13 16:40:57 CST 2019, menuIds=1,3,11,12,13,160,161,4,14,15,16,5,17,18,19,6,20,21,22,2,8,23,10,24,136,113,114,127,128,129,130,131,101,102,103,104,105,106,107,108,109,110,137,138,139,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125)\"', '127.0.0.1', '2019-06-13 08:40:59', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (891, 'admin', '修改角色', 267, 'RoleController.updateRole()', ' role: \"Role(roleId=75, roleName=可怜, remark=, createdAt=null, modifyTime=Thu Jun 13 16:47:00 CST 2019, menuIds=115)\"', '127.0.0.1', '2019-06-13 08:47:01', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (990, 'ADMIN', '执行Redis keys命令', 15, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 18:11:23', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (991, 'ADMIN', '新增角色', 22, 'com.company.project.system.controller.RoleController.addRole()', ' role: \"Role(roleId=81, roleName=ad, remark=12, createdAt=Thu Jul 11 18:15:57 CST 2019, modifyTime=null, menuIds=1,2,101,137,115)\"', '192.168.1.22', '2019-07-11 18:15:58', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (992, 'Micaela', '执行Redis keys命令', 15, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-11 19:08:51', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (993, 'admin', '删除用户', 30, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"7\"', '192.168.1.22', '2019-07-12 10:56:58', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (994, 'admin', '删除用户', 7, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"6\"', '192.168.1.22', '2019-07-12 10:57:16', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (995, 'admin', '删除用户', 10, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"2\"', '192.168.1.22', '2019-07-12 10:57:25', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (996, 'admin', '删除用户', 8, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"4\"', '192.168.1.22', '2019-07-12 10:57:30', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (997, 'admin', '删除用户', 10, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"5\"', '192.168.1.22', '2019-07-12 10:57:34', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (999, 'admin', '修改角色', 60, 'com.company.project.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=系统管理员, remark=系统管理员，拥有所有操作权限 ^_^, createdAt=null, modifyTime=Fri Jul 12 15:54:34 CST 2019, menuIds=1,3,11,12,13,160,161,4,14,15,16,162,5,17,18,19,163,6,20,21,22,164,2,8,23,10,24,170,136,171,172,113,114,127,128,129,130,131,101,102,103,104,105,106,107,108,173,109,110,174,137,138,165,139,166,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125,167,168,169)\"', '192.168.1.22', '2019-07-12 15:54:35', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1000, 'admin', '修改菜单/按钮', 14, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=159, parentId=132, menuName=其他组件, url=/others/admin/others, perms=others:demo:others, icon=, type=0, orderNum=5, createdAt=null, modifyTime=Fri Jul 12 16:04:45 CST 2019)\"', '192.168.1.22', '2019-07-12 16:04:45', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1001, 'admin', '修改角色', 68, 'com.company.project.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=系统管理员, remark=系统管理员，拥有所有操作权限 ^_^, createdAt=null, modifyTime=Fri Jul 12 16:07:29 CST 2019, menuIds=1,3,11,12,13,160,161,4,14,15,16,162,5,17,18,19,163,6,20,21,22,164,2,8,23,10,24,170,136,171,172,113,114,127,128,129,130,131,101,102,103,104,105,106,107,108,173,109,110,174,137,138,165,139,166,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125,167,168,169)\"', '192.168.1.22', '2019-07-12 16:07:30', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1002, 'admin', '修改菜单/按钮', 9, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=159, parentId=132, menuName=其他组件, url=/others/demo/others, perms=others:demo:others, icon=, type=0, orderNum=5, createdAt=null, modifyTime=Fri Jul 12 16:12:06 CST 2019)\"', '192.168.1.22', '2019-07-12 16:12:07', '内网IP|0|0|内网IP|内网IP');
 COMMIT;
 
 -- ----------------------------
@@ -189,22 +185,17 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
 
 -- ----------------------------
 -- Records of admin_login_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_login_log` VALUES (3, 'admin', '2019-06-11 06:50:22', '内网IP|0|0|内网IP|内网IP', '192.168.33.1', 'Windows 10', 'Chrome 74');
-INSERT INTO `admin_login_log` VALUES (64, 'mrbird', '2019-07-11 17:58:59', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (65, 'mrbird', '2019-07-11 18:33:03', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (66, 'mrbird', '2019-07-11 18:40:18', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (67, 'scott', '2019-07-11 18:46:33', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (68, 'micaela', '2019-07-11 18:52:46', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (69, 'mrbird', '2019-07-11 19:17:22', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (70, 'mrbird', '2019-07-11 19:23:59', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (71, 'mrbird', '2019-07-12 10:14:44', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
-INSERT INTO `admin_login_log` VALUES (72, 'admin', '2019-07-12 10:55:54', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (75, 'admin', '2019-07-12 15:35:38', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (76, 'admin', '2019-07-12 15:41:11', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (77, 'admin', '2019-07-12 16:07:42', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (78, 'admin', '2019-07-12 16:13:01', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (79, 'admin', '2019-07-12 18:09:42', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 COMMIT;
 
 -- ----------------------------
@@ -273,21 +264,21 @@ INSERT INTO `admin_menu` VALUES (121, 116, '雷达图表', '/others/apex/radar',
 INSERT INTO `admin_menu` VALUES (122, 116, '条形图表', '/others/apex/bar', 'apex:bar:view', NULL, '0', 5, '2019-05-27 18:57:02', NULL);
 INSERT INTO `admin_menu` VALUES (123, 116, '混合图表', '/others/apex/mix', 'apex:mix:view', '', '0', 6, '2019-05-27 18:58:04', '2019-06-06 02:55:23');
 INSERT INTO `admin_menu` VALUES (125, 115, '导入导出', '/others/eximport', 'others:eximport:view', '', '0', 4, '2019-05-27 19:01:57', '2019-06-13 01:20:14');
-INSERT INTO `admin_menu` VALUES (126, 132, '系统图标', '/others/admin/icon', 'admin:icons:view', '', '0', 4, '2019-05-27 19:03:18', '2019-06-06 03:05:26');
+INSERT INTO `admin_menu` VALUES (126, 132, '系统图标', '/others/demo/icon', 'demo:icons:view', '', '0', 4, '2019-05-27 19:03:18', '2019-06-06 03:05:26');
 INSERT INTO `admin_menu` VALUES (127, 2, '请求追踪', '/monitor/httptrace', 'httptrace:view', '', '0', 6, '2019-05-27 19:06:38', '2019-06-13 14:36:43');
 INSERT INTO `admin_menu` VALUES (128, 2, '系统信息', NULL, NULL, NULL, '0', 7, '2019-05-27 19:08:23', NULL);
 INSERT INTO `admin_menu` VALUES (129, 128, 'JVM信息', '/monitor/jvm', 'jvm:view', '', '0', 1, '2019-05-27 19:08:50', '2019-06-13 14:36:51');
 INSERT INTO `admin_menu` VALUES (130, 128, 'Tomcat信息', '/monitor/tomcat', 'tomcat:view', '', '0', 2, '2019-05-27 19:09:26', '2019-06-13 14:36:57');
 INSERT INTO `admin_menu` VALUES (131, 128, '服务器信息', '/monitor/server', 'server:view', '', '0', 3, '2019-05-27 19:10:07', '2019-06-13 14:37:04');
-INSERT INTO `admin_menu` VALUES (132, 115, 'ADMIN组件', '', '', NULL, '0', 1, '2019-05-27 19:13:54', NULL);
-INSERT INTO `admin_menu` VALUES (133, 132, '表单组件', '/others/admin/form', 'admin:form:view', NULL, '0', 1, '2019-05-27 19:14:45', NULL);
-INSERT INTO `admin_menu` VALUES (134, 132, 'ADMIN工具', '/others/admin/tools', 'admin:tools:view', '', '0', 3, '2019-05-29 10:11:22', '2019-06-12 13:21:27');
-INSERT INTO `admin_menu` VALUES (135, 132, '表单组合', '/others/admin/form/group', 'admin:formgroup:view', NULL, '0', 2, '2019-05-29 10:16:19', NULL);
+INSERT INTO `admin_menu` VALUES (132, 115, 'Layui组件', '', '', NULL, '0', 1, '2019-05-27 19:13:54', NULL);
+INSERT INTO `admin_menu` VALUES (133, 132, '表单组件', '/others/demo/form', 'demo:form:view', NULL, '0', 1, '2019-05-27 19:14:45', NULL);
+INSERT INTO `admin_menu` VALUES (134, 132, '常用工具', '/others/demo/tools', 'demo:tools:view', '', '0', 3, '2019-05-29 10:11:22', '2019-06-12 13:21:27');
+INSERT INTO `admin_menu` VALUES (135, 132, '表单组合', '/others/demo/form/group', 'demo:formgroup:view', NULL, '0', 2, '2019-05-29 10:16:19', NULL);
 INSERT INTO `admin_menu` VALUES (136, 2, '登录日志', '/monitor/loginlog', 'loginlog:view', '', '0', 3, '2019-05-29 15:56:15', '2019-06-13 14:35:56');
 INSERT INTO `admin_menu` VALUES (137, 0, '代码生成', '', NULL, 'layui-icon-verticalright', '0', 4, '2019-06-03 15:35:58', NULL);
 INSERT INTO `admin_menu` VALUES (138, 137, '生成配置', '/generator/configure', 'generator:configure:view', NULL, '0', 1, '2019-06-03 15:38:36', NULL);
 INSERT INTO `admin_menu` VALUES (139, 137, '代码生成', '/generator/generator', 'generator:view', '', '0', 2, '2019-06-03 15:39:15', '2019-06-13 14:31:38');
-INSERT INTO `admin_menu` VALUES (159, 132, '其他组件', '/others/admin/others', 'others:admin:others', '', '0', 5, '2019-06-12 07:51:08', '2019-06-12 07:51:40');
+INSERT INTO `admin_menu` VALUES (159, 132, '其他组件', '/others/demo/others', 'others:demo:others', '', '0', 5, '2019-06-12 07:51:08', '2019-07-12 16:12:07');
 INSERT INTO `admin_menu` VALUES (160, 3, '密码重置', NULL, 'user:password:reset', NULL, '1', NULL, '2019-06-13 08:40:13', NULL);
 INSERT INTO `admin_menu` VALUES (161, 3, '导出Excel', NULL, 'user:export', NULL, '1', NULL, '2019-06-13 08:40:34', NULL);
 INSERT INTO `admin_menu` VALUES (162, 4, '导出Excel', NULL, 'role:export', NULL, '1', NULL, '2019-06-13 14:29:00', '2019-06-13 14:29:11');
@@ -322,13 +313,12 @@ CREATE TABLE `admin_role` (
 -- Records of admin_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2019-06-14 20:52:14');
+INSERT INTO `admin_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2019-07-12 16:07:30');
 INSERT INTO `admin_role` VALUES (2, '注册账户', '注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限', '2019-06-14 16:00:15', '2019-06-14 20:47:47');
 INSERT INTO `admin_role` VALUES (77, 'Redis监控员', '负责Redis模块', '2019-06-14 20:49:22', NULL);
 INSERT INTO `admin_role` VALUES (78, '系统监控员', '负责整个系统监控模块', '2019-06-14 20:50:07', NULL);
 INSERT INTO `admin_role` VALUES (79, '跑批人员', '负责任务调度跑批模块', '2019-06-14 20:51:02', NULL);
 INSERT INTO `admin_role` VALUES (80, '开发人员', '拥有代码生成模块的权限', '2019-06-14 20:51:26', NULL);
-INSERT INTO `admin_role` VALUES (81, '测试角色', '啥权限也没有', '2019-07-11 18:15:58', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -506,11 +496,6 @@ INSERT INTO `admin_role_menu` VALUES (1, 125);
 INSERT INTO `admin_role_menu` VALUES (1, 167);
 INSERT INTO `admin_role_menu` VALUES (1, 168);
 INSERT INTO `admin_role_menu` VALUES (1, 169);
-INSERT INTO `admin_role_menu` VALUES (81, 1);
-INSERT INTO `admin_role_menu` VALUES (81, 2);
-INSERT INTO `admin_role_menu` VALUES (81, 101);
-INSERT INTO `admin_role_menu` VALUES (81, 137);
-INSERT INTO `admin_role_menu` VALUES (81, 115);
 COMMIT;
 
 -- ----------------------------
@@ -540,7 +525,7 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-06-14 20:44:42', '2019-07-12 10:56:47', '0', '1', 'white', 'cnrhVkzwxjPwAaCfPbdc.png', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-07-12 15:35:00', '2019-07-12 18:09:43', '0', '1', 'white', '20180414165936.jpg', '我是帅比作者。');
 INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
 COMMIT;
 

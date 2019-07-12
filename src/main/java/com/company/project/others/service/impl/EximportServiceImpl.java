@@ -23,7 +23,7 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> implements IEximportService {
 
-    @Value("${febs.max.batch.insert.num:1000}")
+    @Value("${admin.max.batch.insert.num:1000}")
     private int batchInsertMaxNum;
 
     @Override

@@ -13,7 +13,7 @@ public class AdminConstant {
     public static final String ORDER_ASC = "asc";
 
     // 前端页面路径前缀
-    public static final String VIEW_PREFIX = "febs/views/";
+    public static final String VIEW_PREFIX = "admin/views/";
 
     // 验证码 Session Key
     public static final String CODE_PREFIX = "febs_captcha_";

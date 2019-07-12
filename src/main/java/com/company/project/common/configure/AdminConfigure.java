@@ -16,14 +16,14 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class AdminConfigure {
 
-    @Bean("febsAsyncThreadPool")
+    @Bean("adminAsyncThreadPool")
     public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(20);
         executor.setQueueCapacity(200);
         executor.setKeepAliveSeconds(30);
-        executor.setThreadNamePrefix("Febs-Async-Thread");
+        executor.setThreadNamePrefix("Admin-Async-Thread");
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.setAwaitTerminationSeconds(60);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
