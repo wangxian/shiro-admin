@@ -74,10 +74,10 @@
                     var html = '
                     <dl class="layui-nav-child">';
                         layui.each(data,function(i,child){
-                        var left = index == 0 ? 50 : 50 + index * 20;
+                        var left = index == 0 ? 36 : 36 + index * 20;
                         html += '
                         <dd>
-                            <a style="padding-left:' + left + 'px" target="'+(child.target||'')+'" lay-href="'+ (child.href||'') +'">
+                            <a style="padding-left:' + left + 'px"target="'+(child.target||'')+'" lay-href="'+ (child.href||'') +'">
                                 <i class="'+ (child.icon?'layui-icon '+child.icon:'') +'"></i>'
                                 + child.title + '</a>';
 
