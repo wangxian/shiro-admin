@@ -76,20 +76,29 @@
                         layui.each(data,function(i,child){
                         var left = index == 0 ? 50 : 50 + index * 20;
                         html += '
-                        <dd><a style="padding-left:' + left + 'px" target="'+(child.target||'')+'"
-                               lay-href="'+ (child.href||'') +'">' + child.title + '</a>';
+                        <dd>
+                            <a style="padding-left:' + left + 'px" target="'+(child.target||'')+'" lay-href="'+ (child.href||'') +'">
+                                <i class="'+ (child.icon?'layui-icon '+child.icon:'') +'"></i>'
+                                + child.title + '</a>';
+
                             if(child.childs) html += __createSlidebar(child.childs,index+1);
                             html += '</dd>';
                         });
                         html = html +'</dl>';
-                    return html;
+
+                        return html;
                     }
                     layui.each(d.childs, function(i,child){
                     }}
                     <li class="layui-nav-item">
-                        <a lay-href="{{child.href||''}}" target="{{child.target||''}}" title="{{child.title}}"><i
-                                class="layui-icon {{child.icon}}"></i>{{child.title}} {{# if(child.notice){ }}<span
-                                class="layui-badge">{{ child.notice }}</span>{{# } }}</a>
+                        <a lay-href="{{child.href||''}}" target="{{child.target||''}}" title="{{child.title}}">
+                            <i class="layui-icon {{child.icon}}"></i>
+                            {{child.title}}
+
+                            {{# if(child.notice) { }}
+                            <span class="layui-badge">{{ child.notice }}</span>
+                            {{# } }}
+                        </a>
                         {{ __createSlidebar(child.childs,0) }}
                     </li>
                     {{# }) }}
