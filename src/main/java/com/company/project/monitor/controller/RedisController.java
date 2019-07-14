@@ -41,7 +41,14 @@ public class RedisController {
     @GetMapping("keys")
     public AdminResponse keys(String arg) throws RedisConnectException {
         Set<String> set = this.redisService.getKeys(arg);
-        return new AdminResponse().success().data(set);
+
+        StringBuilder sb = new StringBuilder();
+        for(String value : set) {
+            sb.append(value);
+            sb.append("\n");
+        }
+
+        return new AdminResponse().success().data(sb);
     }
 
     @Log("执行Redis get命令")
