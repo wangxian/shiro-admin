@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50726
+ Source Server Version : 50616
  Source Host           : localhost:3306
  Source Schema         : admin_base
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50616
  File Encoding         : 65001
 
- Date: 12/07/2019 21:02:33
+ Date: 15/07/2019 00:46:46
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `admin_generator_config` (
 -- Records of admin_generator_config
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_generator_config` VALUES (1, 'Admin', 'com.company.project.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
+INSERT INTO `admin_generator_config` VALUES (1, 'AdminGenerator', 'com.company.project.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
 COMMIT;
 
 -- ----------------------------
@@ -160,7 +160,7 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1005 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1023 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of admin_log
@@ -172,6 +172,24 @@ INSERT INTO `admin_log` VALUES (1001, 'admin', '修改角色', 68, 'com.company.
 INSERT INTO `admin_log` VALUES (1002, 'admin', '修改菜单/按钮', 9, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=159, parentId=132, menuName=其他组件, url=/others/demo/others, perms=others:demo:others, icon=, type=0, orderNum=5, createdAt=null, modifyTime=Fri Jul 12 16:12:06 CST 2019)\"', '192.168.1.22', '2019-07-12 16:12:07', '内网IP|0|0|内网IP|内网IP');
 INSERT INTO `admin_log` VALUES (1003, 'admin', '修改菜单/按钮', 19, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=3, parentId=1, menuName=用户管理, url=/system/user, perms=user:view, icon=layui-icon-CI, type=0, orderNum=1, createdAt=null, modifyTime=Fri Jul 12 19:29:29 CST 2019)\"', '192.168.1.22', '2019-07-12 19:29:30', '内网IP|0|0|内网IP|内网IP');
 INSERT INTO `admin_log` VALUES (1004, 'admin', '执行Redis keys命令', 17, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.22', '2019-07-12 19:39:11', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1005, 'admin', '修改用户', 115, 'com.company.project.system.controller.UserController.updateUser()', ' user: \"User(userId=1, username=null, password=null, deptId=1, email=admin@qq.com, mobile=17788888888, status=1, createdAt=null, modifyTime=Sat Jul 13 07:38:23 CST 2019, lastLoginTime=null, sex=0, avatar=null, theme=null, isTab=null, description=我是帅比作者。, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=1, roleName=null)\"', '127.0.0.1', '2019-07-13 07:38:23', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1006, 'admin', '修改菜单/按钮', 20, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=3, parentId=1, menuName=用户管理, url=/system/user, perms=user:view, icon=layui-icon-home, type=0, orderNum=1, createdAt=null, modifyTime=Sun Jul 14 01:00:06 CST 2019)\"', '127.0.0.1', '2019-07-14 01:00:06', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1007, 'admin', '修改菜单/按钮', 9, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=4, parentId=1, menuName=角色管理, url=/system/role, perms=role:view, icon=layui-icon-earth, type=0, orderNum=2, createdAt=null, modifyTime=Sun Jul 14 01:00:30 CST 2019)\"', '127.0.0.1', '2019-07-14 01:00:30', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1008, 'admin', '修改菜单/按钮', 9, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=5, parentId=1, menuName=菜单管理, url=/system/menu, perms=menu:view, icon=layui-icon-appstore, type=0, orderNum=3, createdAt=null, modifyTime=Sun Jul 14 01:00:48 CST 2019)\"', '127.0.0.1', '2019-07-14 01:00:49', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1009, 'admin', '修改菜单/按钮', 10, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=6, parentId=1, menuName=部门管理, url=/system/dept, perms=dept:view, icon=layui-icon-idcard, type=0, orderNum=4, createdAt=null, modifyTime=Sun Jul 14 01:01:11 CST 2019)\"', '127.0.0.1', '2019-07-14 01:01:11', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1010, 'admin', '修改菜单/按钮', 8, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=10, parentId=2, menuName=系统日志, url=/monitor/log, perms=log:view, icon=layui-icon-filedone, type=0, orderNum=2, createdAt=null, modifyTime=Sun Jul 14 01:51:37 CST 2019)\"', '127.0.0.1', '2019-07-14 01:51:37', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1011, 'admin', '修改菜单/按钮', 7, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=8, parentId=2, menuName=在线用户, url=/monitor/online, perms=online:view, icon=layui-icon-team, type=0, orderNum=1, createdAt=null, modifyTime=Sun Jul 14 01:52:12 CST 2019)\"', '127.0.0.1', '2019-07-14 01:52:12', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1012, 'admin', '修改菜单/按钮', 5, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=136, parentId=2, menuName=登录日志, url=/monitor/loginlog, perms=loginlog:view, icon=layui-icon-container, type=0, orderNum=3, createdAt=null, modifyTime=Sun Jul 14 01:53:15 CST 2019)\"', '127.0.0.1', '2019-07-14 01:53:15', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1013, 'admin', '修改菜单/按钮', 8, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=113, parentId=2, menuName=Redis监控, url=/monitor/redis/info, perms=redis:view, icon=layui-icon-info-circle, type=0, orderNum=4, createdAt=null, modifyTime=Sun Jul 14 01:53:29 CST 2019)\"', '127.0.0.1', '2019-07-14 01:53:30', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1014, 'admin', '修改菜单/按钮', 7, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=114, parentId=2, menuName=Redis终端, url=/monitor/redis/terminal, perms=redis:terminal:view, icon=layui-icon-CI, type=0, orderNum=5, createdAt=null, modifyTime=Sun Jul 14 01:53:46 CST 2019)\"', '127.0.0.1', '2019-07-14 01:53:46', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1015, 'admin', '修改菜单/按钮', 8, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=127, parentId=2, menuName=请求追踪, url=/monitor/httptrace, perms=httptrace:view, icon=layui-icon-layout, type=0, orderNum=6, createdAt=null, modifyTime=Sun Jul 14 01:54:06 CST 2019)\"', '127.0.0.1', '2019-07-14 01:54:06', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1016, 'admin', '修改菜单/按钮', 7, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=128, parentId=2, menuName=系统信息, url=, perms=, icon=layui-icon-file-exception, type=0, orderNum=7, createdAt=null, modifyTime=Sun Jul 14 01:55:53 CST 2019)\"', '127.0.0.1', '2019-07-14 01:55:54', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1017, 'admin', '修改菜单/按钮', 8, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=129, parentId=128, menuName=JVM信息, url=/monitor/jvm, perms=jvm:view, icon=layui-icon-compass, type=0, orderNum=1, createdAt=null, modifyTime=Sun Jul 14 01:56:11 CST 2019)\"', '127.0.0.1', '2019-07-14 01:56:12', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1018, 'admin', '修改菜单/按钮', 24, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=130, parentId=128, menuName=Tomcat信息, url=/monitor/tomcat, perms=tomcat:view, icon=layui-icon-sever, type=0, orderNum=2, createdAt=null, modifyTime=Sun Jul 14 01:56:54 CST 2019)\"', '127.0.0.1', '2019-07-14 01:56:54', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1019, 'admin', '修改菜单/按钮', 8, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=131, parentId=128, menuName=服务器信息, url=/monitor/server, perms=server:view, icon=layui-icon-database, type=0, orderNum=3, createdAt=null, modifyTime=Sun Jul 14 01:57:50 CST 2019)\"', '127.0.0.1', '2019-07-14 01:57:50', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1020, 'admin', '新增用户', 27, 'com.company.project.system.controller.UserController.addUser()', ' user: \"User(userId=4, username=test, password=50531c15181030c9a07bb7fb8551ac26, deptId=1, email=wo@wangxian.me, mobile=18611619885, status=1, createdAt=Sun Jul 14 22:37:30 CST 2019, modifyTime=null, lastLoginTime=null, sex=0, avatar=default.jpg, theme=black, isTab=1, description=test, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=80, roleName=null)\"', '127.0.0.1', '2019-07-14 22:37:30', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1021, 'admin', '删除用户', 28, 'com.company.project.system.controller.UserController.deleteUsers()', ' userIds: \"4\"', '127.0.0.1', '2019-07-14 22:39:06', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1022, 'admin', '执行Redis keys命令', 14, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '127.0.0.1', '2019-07-15 00:45:51', '内网IP|0|0|内网IP|内网IP');
 COMMIT;
 
 -- ----------------------------
@@ -187,7 +205,7 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
 
 -- ----------------------------
 -- Records of admin_login_log
@@ -199,6 +217,12 @@ INSERT INTO `admin_login_log` VALUES (77, 'admin', '2019-07-12 16:07:42', '内�
 INSERT INTO `admin_login_log` VALUES (78, 'admin', '2019-07-12 16:13:01', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 INSERT INTO `admin_login_log` VALUES (79, 'admin', '2019-07-12 18:09:42', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
 INSERT INTO `admin_login_log` VALUES (80, 'admin', '2019-07-12 19:46:52', '内网IP|0|0|内网IP|内网IP', '192.168.1.22', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (81, 'admin', '2019-07-13 00:05:17', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (82, 'admin', '2019-07-13 07:26:23', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (83, 'admin', '2019-07-13 08:27:52', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (84, 'admin', '2019-07-14 21:25:40', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (85, 'test', '2019-07-14 22:37:56', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
+INSERT INTO `admin_login_log` VALUES (86, 'admin', '2019-07-14 22:38:31', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_13_6', 'Chrome 75');
 COMMIT;
 
 -- ----------------------------
@@ -225,12 +249,12 @@ CREATE TABLE `admin_menu` (
 BEGIN;
 INSERT INTO `admin_menu` VALUES (1, 0, '系统管理', NULL, NULL, 'layui-icon-setting', '0', 1, '2017-12-27 16:39:07', NULL);
 INSERT INTO `admin_menu` VALUES (2, 0, '系统监控', '', '', 'layui-icon-alert', '0', 2, '2017-12-27 16:45:51', '2019-06-13 11:20:40');
-INSERT INTO `admin_menu` VALUES (3, 1, '用户管理', '/system/user', 'user:view', 'layui-icon-CI', '0', 1, '2017-12-27 16:47:13', '2019-07-12 19:29:30');
-INSERT INTO `admin_menu` VALUES (4, 1, '角色管理', '/system/role', 'role:view', '', '0', 2, '2017-12-27 16:48:09', '2019-06-13 08:57:19');
-INSERT INTO `admin_menu` VALUES (5, 1, '菜单管理', '/system/menu', 'menu:view', '', '0', 3, '2017-12-27 16:48:57', '2019-06-13 08:57:34');
-INSERT INTO `admin_menu` VALUES (6, 1, '部门管理', '/system/dept', 'dept:view', '', '0', 4, '2017-12-27 16:57:33', '2019-06-14 19:56:00');
-INSERT INTO `admin_menu` VALUES (8, 2, '在线用户', '/monitor/online', 'online:view', '', '0', 1, '2017-12-27 16:59:33', '2019-06-13 14:30:31');
-INSERT INTO `admin_menu` VALUES (10, 2, '系统日志', '/monitor/log', 'log:view', '', '0', 2, '2017-12-27 17:00:50', '2019-06-13 14:30:37');
+INSERT INTO `admin_menu` VALUES (3, 1, '用户管理', '/system/user', 'user:view', 'layui-icon-user', '0', 1, '2017-12-27 16:47:13', '2019-07-14 01:00:06');
+INSERT INTO `admin_menu` VALUES (4, 1, '角色管理', '/system/role', 'role:view', 'layui-icon-solution', '0', 2, '2017-12-27 16:48:09', '2019-07-14 01:00:30');
+INSERT INTO `admin_menu` VALUES (5, 1, '菜单管理', '/system/menu', 'menu:view', 'layui-icon-menu', '0', 3, '2017-12-27 16:48:57', '2019-07-14 01:00:49');
+INSERT INTO `admin_menu` VALUES (6, 1, '部门管理', '/system/dept', 'dept:view', 'layui-icon-cluster', '0', 4, '2017-12-27 16:57:33', '2019-07-14 01:01:11');
+INSERT INTO `admin_menu` VALUES (8, 2, '在线用户', '/monitor/online', 'online:view', 'layui-icon-team', '0', 1, '2017-12-27 16:59:33', '2019-07-14 01:52:12');
+INSERT INTO `admin_menu` VALUES (10, 2, '系统日志', '/monitor/log', 'log:view', 'layui-icon-filedone', '0', 2, '2017-12-27 17:00:50', '2019-07-14 01:51:37');
 INSERT INTO `admin_menu` VALUES (11, 3, '新增用户', NULL, 'user:add', NULL, '1', NULL, '2017-12-27 17:02:58', NULL);
 INSERT INTO `admin_menu` VALUES (12, 3, '修改用户', NULL, 'user:update', NULL, '1', NULL, '2017-12-27 17:04:07', NULL);
 INSERT INTO `admin_menu` VALUES (13, 3, '删除用户', NULL, 'user:delete', NULL, '1', NULL, '2017-12-27 17:04:58', NULL);
@@ -246,42 +270,42 @@ INSERT INTO `admin_menu` VALUES (22, 6, '删除部门', NULL, 'dept:delete', NUL
 INSERT INTO `admin_menu` VALUES (23, 8, '踢出用户', NULL, 'user:kickout', NULL, '1', NULL, '2017-12-27 17:11:13', NULL);
 INSERT INTO `admin_menu` VALUES (24, 10, '删除日志', NULL, 'log:delete', NULL, '1', NULL, '2017-12-27 17:11:45', '2019-06-06 05:56:40');
 INSERT INTO `admin_menu` VALUES (101, 0, '任务调度', NULL, NULL, 'layui-icon-time-circle', '0', 3, '2018-02-24 15:52:57', NULL);
-INSERT INTO `admin_menu` VALUES (102, 101, '定时任务', '/job/job', 'job:view', '', '0', 1, '2018-02-24 15:53:53', '2018-04-25 09:05:12');
-INSERT INTO `admin_menu` VALUES (103, 102, '新增任务', NULL, 'job:add', NULL, '1', NULL, '2018-02-24 15:55:10', NULL);
+INSERT INTO `admin_menu` VALUES (102, 101, '定时任务', '/job/job', 'job:view', 'layui-icon-reloadtime', '0', 1, '2018-02-24 15:53:53', '2018-04-25 09:05:12');
+INSERT INTO `admin_menu` VALUES (103, 102, '新增任务', NULL, 'job:add', '', '1', NULL, '2018-02-24 15:55:10', NULL);
 INSERT INTO `admin_menu` VALUES (104, 102, '修改任务', NULL, 'job:update', NULL, '1', NULL, '2018-02-24 15:55:53', NULL);
 INSERT INTO `admin_menu` VALUES (105, 102, '删除任务', NULL, 'job:delete', NULL, '1', NULL, '2018-02-24 15:56:18', NULL);
 INSERT INTO `admin_menu` VALUES (106, 102, '暂停任务', NULL, 'job:pause', NULL, '1', NULL, '2018-02-24 15:57:08', NULL);
 INSERT INTO `admin_menu` VALUES (107, 102, '恢复任务', NULL, 'job:resume', NULL, '1', NULL, '2018-02-24 15:58:21', NULL);
 INSERT INTO `admin_menu` VALUES (108, 102, '立即执行任务', NULL, 'job:run', NULL, '1', NULL, '2018-02-24 15:59:45', NULL);
-INSERT INTO `admin_menu` VALUES (109, 101, '调度日志', '/job/log', 'job:log:view', '', '0', 2, '2018-02-24 16:00:45', '2019-06-09 02:48:19');
+INSERT INTO `admin_menu` VALUES (109, 101, '调度日志', '/job/log', 'job:log:view', 'layui-icon-file-text', '0', 2, '2018-02-24 16:00:45', '2019-06-09 02:48:19');
 INSERT INTO `admin_menu` VALUES (110, 109, '删除日志', NULL, 'job:log:delete', NULL, '1', NULL, '2018-02-24 16:01:21', NULL);
-INSERT INTO `admin_menu` VALUES (113, 2, 'Redis监控', '/monitor/redis/info', 'redis:view', '', '0', 4, '2018-06-28 14:29:42', '2019-06-13 14:30:45');
-INSERT INTO `admin_menu` VALUES (114, 2, 'Redis终端', '/monitor/redis/terminal', 'redis:terminal:view', '', '0', 5, '2018-06-28 15:35:21', '2019-06-13 14:30:54');
+INSERT INTO `admin_menu` VALUES (113, 2, 'Redis监控', '/monitor/redis/info', 'redis:view', 'layui-icon-info-circle', '0', 4, '2018-06-28 14:29:42', '2019-07-14 01:53:30');
+INSERT INTO `admin_menu` VALUES (114, 2, 'Redis终端', '/monitor/redis/terminal', 'redis:terminal:view', 'layui-icon-right-square', '0', 5, '2018-06-28 15:35:21', '2019-07-14 01:53:46');
 INSERT INTO `admin_menu` VALUES (115, 0, '其他模块', NULL, NULL, 'layui-icon-gift', '0', 5, '2019-05-27 10:18:07', NULL);
-INSERT INTO `admin_menu` VALUES (116, 115, 'Apex图表', '', '', NULL, '0', 2, '2019-05-27 10:21:35', NULL);
-INSERT INTO `admin_menu` VALUES (117, 116, '线性图表', '/others/apex/line', 'apex:line:view', NULL, '0', 1, '2019-05-27 10:24:49', NULL);
-INSERT INTO `admin_menu` VALUES (118, 115, '高德地图', '/others/map', 'map:view', '', '0', 3, '2019-05-27 17:13:12', '2019-06-12 15:33:00');
-INSERT INTO `admin_menu` VALUES (119, 116, '面积图表', '/others/apex/area', 'apex:area:view', NULL, '0', 2, '2019-05-27 18:49:22', NULL);
-INSERT INTO `admin_menu` VALUES (120, 116, '柱形图表', '/others/apex/column', 'apex:column:view', NULL, '0', 3, '2019-05-27 18:51:33', NULL);
-INSERT INTO `admin_menu` VALUES (121, 116, '雷达图表', '/others/apex/radar', 'apex:radar:view', NULL, '0', 4, '2019-05-27 18:56:05', NULL);
-INSERT INTO `admin_menu` VALUES (122, 116, '条形图表', '/others/apex/bar', 'apex:bar:view', NULL, '0', 5, '2019-05-27 18:57:02', NULL);
-INSERT INTO `admin_menu` VALUES (123, 116, '混合图表', '/others/apex/mix', 'apex:mix:view', '', '0', 6, '2019-05-27 18:58:04', '2019-06-06 02:55:23');
-INSERT INTO `admin_menu` VALUES (125, 115, '导入导出', '/others/eximport', 'others:eximport:view', '', '0', 4, '2019-05-27 19:01:57', '2019-06-13 01:20:14');
-INSERT INTO `admin_menu` VALUES (126, 132, '系统图标', '/others/demo/icon', 'demo:icons:view', '', '0', 4, '2019-05-27 19:03:18', '2019-06-06 03:05:26');
-INSERT INTO `admin_menu` VALUES (127, 2, '请求追踪', '/monitor/httptrace', 'httptrace:view', '', '0', 6, '2019-05-27 19:06:38', '2019-06-13 14:36:43');
-INSERT INTO `admin_menu` VALUES (128, 2, '系统信息', NULL, NULL, NULL, '0', 7, '2019-05-27 19:08:23', NULL);
-INSERT INTO `admin_menu` VALUES (129, 128, 'JVM信息', '/monitor/jvm', 'jvm:view', '', '0', 1, '2019-05-27 19:08:50', '2019-06-13 14:36:51');
-INSERT INTO `admin_menu` VALUES (130, 128, 'Tomcat信息', '/monitor/tomcat', 'tomcat:view', '', '0', 2, '2019-05-27 19:09:26', '2019-06-13 14:36:57');
-INSERT INTO `admin_menu` VALUES (131, 128, '服务器信息', '/monitor/server', 'server:view', '', '0', 3, '2019-05-27 19:10:07', '2019-06-13 14:37:04');
-INSERT INTO `admin_menu` VALUES (132, 115, 'Layui组件', '', '', NULL, '0', 1, '2019-05-27 19:13:54', NULL);
-INSERT INTO `admin_menu` VALUES (133, 132, '表单组件', '/others/demo/form', 'demo:form:view', NULL, '0', 1, '2019-05-27 19:14:45', NULL);
-INSERT INTO `admin_menu` VALUES (134, 132, '常用工具', '/others/demo/tools', 'demo:tools:view', '', '0', 3, '2019-05-29 10:11:22', '2019-06-12 13:21:27');
-INSERT INTO `admin_menu` VALUES (135, 132, '表单组合', '/others/demo/form/group', 'demo:formgroup:view', NULL, '0', 2, '2019-05-29 10:16:19', NULL);
-INSERT INTO `admin_menu` VALUES (136, 2, '登录日志', '/monitor/loginlog', 'loginlog:view', '', '0', 3, '2019-05-29 15:56:15', '2019-06-13 14:35:56');
+INSERT INTO `admin_menu` VALUES (116, 115, 'Apex图表', '', '', 'layui-icon-piechart', '0', 2, '2019-05-27 10:21:35', NULL);
+INSERT INTO `admin_menu` VALUES (117, 116, '线性图表', '/others/apex/line', 'apex:line:view', 'layui-icon-linechart', '0', 1, '2019-05-27 10:24:49', NULL);
+INSERT INTO `admin_menu` VALUES (118, 115, '高德地图', '/others/map', 'map:view', 'layui-icon-location', '0', 3, '2019-05-27 17:13:12', '2019-06-12 15:33:00');
+INSERT INTO `admin_menu` VALUES (119, 116, '面积图表', '/others/apex/area', 'apex:area:view', 'layui-icon-areachart', '0', 2, '2019-05-27 18:49:22', NULL);
+INSERT INTO `admin_menu` VALUES (120, 116, '柱形图表', '/others/apex/column', 'apex:column:view', 'layui-icon-barchart', '0', 3, '2019-05-27 18:51:33', NULL);
+INSERT INTO `admin_menu` VALUES (121, 116, '雷达图表', '/others/apex/radar', 'apex:radar:view', 'layui-icon-pointmap', '0', 4, '2019-05-27 18:56:05', NULL);
+INSERT INTO `admin_menu` VALUES (122, 116, '条形图表', '/others/apex/bar', 'apex:bar:view', 'layui-icon-scan', '0', 5, '2019-05-27 18:57:02', NULL);
+INSERT INTO `admin_menu` VALUES (123, 116, '混合图表', '/others/apex/mix', 'apex:mix:view', 'layui-icon-sliders', '0', 6, '2019-05-27 18:58:04', '2019-06-06 02:55:23');
+INSERT INTO `admin_menu` VALUES (125, 115, '导入导出', '/others/eximport', 'others:eximport:view', 'layui-icon-file-excel', '0', 4, '2019-05-27 19:01:57', '2019-06-13 01:20:14');
+INSERT INTO `admin_menu` VALUES (126, 132, '系统图标', '/others/demo/icon', 'demo:icons:view', 'layui-icon-image', '0', 4, '2019-05-27 19:03:18', '2019-06-06 03:05:26');
+INSERT INTO `admin_menu` VALUES (127, 2, '请求追踪', '/monitor/httptrace', 'httptrace:view', 'layui-icon-layout', '0', 6, '2019-05-27 19:06:38', '2019-07-14 01:54:06');
+INSERT INTO `admin_menu` VALUES (128, 2, '系统信息', '', '', 'layui-icon-file-exception', '0', 7, '2019-05-27 19:08:23', '2019-07-14 01:55:54');
+INSERT INTO `admin_menu` VALUES (129, 128, 'JVM信息', '/monitor/jvm', 'jvm:view', 'layui-icon-dashboard', '0', 1, '2019-05-27 19:08:50', '2019-07-14 01:56:12');
+INSERT INTO `admin_menu` VALUES (130, 128, 'Tomcat信息', '/monitor/tomcat', 'tomcat:view', 'layui-icon-sever', '0', 2, '2019-05-27 19:09:26', '2019-07-14 01:56:54');
+INSERT INTO `admin_menu` VALUES (131, 128, '服务器信息', '/monitor/server', 'server:view', 'layui-icon-database', '0', 3, '2019-05-27 19:10:07', '2019-07-14 01:57:50');
+INSERT INTO `admin_menu` VALUES (132, 115, 'Layui组件', '', '', 'layui-icon-appstore', '0', 1, '2019-05-27 19:13:54', NULL);
+INSERT INTO `admin_menu` VALUES (133, 132, '表单组件', '/others/demo/form', 'demo:form:view', 'layui-icon-table', '0', 1, '2019-05-27 19:14:45', NULL);
+INSERT INTO `admin_menu` VALUES (134, 132, '常用工具', '/others/demo/tools', 'demo:tools:view', 'layui-icon-eye', '0', 3, '2019-05-29 10:11:22', '2019-06-12 13:21:27');
+INSERT INTO `admin_menu` VALUES (135, 132, '表单组合', '/others/demo/form/group', 'demo:formgroup:view', 'layui-icon-build', '0', 2, '2019-05-29 10:16:19', NULL);
+INSERT INTO `admin_menu` VALUES (136, 2, '登录日志', '/monitor/loginlog', 'loginlog:view', 'layui-icon-login', '0', 3, '2019-05-29 15:56:15', '2019-07-14 01:53:15');
 INSERT INTO `admin_menu` VALUES (137, 0, '代码生成', '', NULL, 'layui-icon-verticalright', '0', 4, '2019-06-03 15:35:58', NULL);
-INSERT INTO `admin_menu` VALUES (138, 137, '生成配置', '/generator/configure', 'generator:configure:view', NULL, '0', 1, '2019-06-03 15:38:36', NULL);
-INSERT INTO `admin_menu` VALUES (139, 137, '代码生成', '/generator/generator', 'generator:view', '', '0', 2, '2019-06-03 15:39:15', '2019-06-13 14:31:38');
-INSERT INTO `admin_menu` VALUES (159, 132, '其他组件', '/others/demo/others', 'others:demo:others', '', '0', 5, '2019-06-12 07:51:08', '2019-07-12 16:12:07');
+INSERT INTO `admin_menu` VALUES (138, 137, '生成配置', '/generator/configure', 'generator:configure:view', 'layui-icon-wrench', '0', 1, '2019-06-03 15:38:36', NULL);
+INSERT INTO `admin_menu` VALUES (139, 137, '代码生成', '/generator/generator', 'generator:view', 'layui-icon-verticalright', '0', 2, '2019-06-03 15:39:15', '2019-06-13 14:31:38');
+INSERT INTO `admin_menu` VALUES (159, 132, '其他组件', '/others/demo/others', 'others:demo:others', 'layui-icon-block', '0', 5, '2019-06-12 07:51:08', '2019-07-12 16:12:07');
 INSERT INTO `admin_menu` VALUES (160, 3, '密码重置', NULL, 'user:password:reset', NULL, '1', NULL, '2019-06-13 08:40:13', NULL);
 INSERT INTO `admin_menu` VALUES (161, 3, '导出Excel', NULL, 'user:export', NULL, '1', NULL, '2019-06-13 08:40:34', NULL);
 INSERT INTO `admin_menu` VALUES (162, 4, '导出Excel', NULL, 'role:export', NULL, '1', NULL, '2019-06-13 14:29:00', '2019-06-13 14:29:11');
@@ -310,7 +334,7 @@ CREATE TABLE `admin_role` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 -- ----------------------------
 -- Records of admin_role
@@ -522,13 +546,13 @@ CREATE TABLE `admin_user` (
   `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
   `description` varchar(100) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-07-12 19:15:21', '2019-07-12 19:46:53', '0', '1', 'white', 'ubnKSIfAJTxIgXOKlciN.png', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-07-13 07:38:23', '2019-07-14 22:38:32', '0', '1', 'white', 'ubnKSIfAJTxIgXOKlciN.png', '我是帅比作者。');
 INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
 COMMIT;
 
@@ -545,8 +569,8 @@ CREATE TABLE `admin_user_role` (
 -- Records of admin_user_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user_role` VALUES (1, 1);
 INSERT INTO `admin_user_role` VALUES (3, 77);
+INSERT INTO `admin_user_role` VALUES (1, 1);
 COMMIT;
 
 -- ----------------------------
