@@ -14,7 +14,7 @@ import java.util.Properties;
  *
  * @author ADMIN
  */
-@Configuration
+// @Configuration
 public class ScheduleConfigure {
 
     @Autowired
@@ -23,6 +23,7 @@ public class ScheduleConfigure {
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
+
         // 手动从多数据源中获取 quartz数据源
         DataSource quartz = dynamicRoutingDataSource.getDataSource("quartz");
         factory.setDataSource(quartz);
@@ -34,8 +35,8 @@ public class ScheduleConfigure {
 
         // 线程池配置
         prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
-        prop.put("org.quartz.threadPool.threadCount", "20");
-        prop.put("org.quartz.threadPool.threadPriority", "5");
+        prop.put("org.quartz.threadPool.threadCount", "10");
+        prop.put("org.quartz.threadPool.threadPriority", "2");
 
         // JobStore配置
         prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");

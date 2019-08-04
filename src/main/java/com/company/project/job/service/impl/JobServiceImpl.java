@@ -44,6 +44,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
     @PostConstruct
     public void init() {
         List<Job> scheduleJobList = this.baseMapper.queryList();
+
         // 如果不存在，则创建
         scheduleJobList.forEach(scheduleJob -> {
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
