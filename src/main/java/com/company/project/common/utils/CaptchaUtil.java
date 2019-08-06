@@ -28,13 +28,16 @@ public class CaptchaUtil {
 
     // gif 类型验证码
     private static final int GIF_TYPE = 1;
+
     // png 类型验证码
     private static final int PNG_TYPE = 0;
 
     // 验证码图片默认高度
     private static final int DEFAULT_HEIGHT = 48;
+
     // 验证码图片默认宽度
     private static final int DEFAULT_WIDTH = 130;
+
     // 验证码默认位数
     private static final int DEFAULT_LEN = 5;
 
@@ -82,6 +85,7 @@ public class CaptchaUtil {
         HttpSession session = request.getSession();
         String key = AdminConstant.CODE_PREFIX + session.getId();
         String sessionCode = "";
+
         try {
             sessionCode = redisService.get(key);
         } catch (RedisConnectException e) {
@@ -93,17 +97,21 @@ public class CaptchaUtil {
     private static void outCaptcha(int width, int height, int len, Font font, int cType, Integer vType, HttpServletRequest request, HttpServletResponse response) throws IOException {
         setHeader(response, cType);
         Captcha captcha = null;
+
         if (cType == GIF_TYPE) {
             captcha = new GifCaptcha(width, height, len);
         } else {
             captcha = new SpecCaptcha(width, height, len);
         }
+
         if (font != null) {
             captcha.setFont(font);
         }
+
         if (vType != null) {
             captcha.setCharType(vType);
         }
+
         HttpSession session = request.getSession();
         String code = captcha.text().toLowerCase();
         String key = AdminConstant.CODE_PREFIX + session.getId();

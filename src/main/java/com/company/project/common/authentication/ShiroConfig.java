@@ -76,19 +76,24 @@ public class ShiroConfig {
 
         // 设置 securityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+
         // 登录的 url
         shiroFilterFactoryBean.setLoginUrl(adminProperties.getShiro().getLoginUrl());
+
         // 登录成功后跳转的 url
         shiroFilterFactoryBean.setSuccessUrl(adminProperties.getShiro().getSuccessUrl());
+
         // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(adminProperties.getShiro().getUnauthorizedUrl());
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+
         // 设置免认证 url
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(adminProperties.getShiro().getAnonUrl(), ",");
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
         }
+
         // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put(adminProperties.getShiro().getLogoutUrl(), "logout");
 
@@ -102,14 +107,19 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager(ShiroRealm shiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm);
+
         // 配置 shiro session管理器
         securityManager.setSessionManager(sessionManager());
+
         // 配置 缓存管理类 cacheManager
         securityManager.setCacheManager(cacheManager());
+
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
+
         return securityManager;
     }
 
@@ -121,8 +131,10 @@ public class ShiroConfig {
     private SimpleCookie rememberMeCookie() {
         // 设置 cookie 名称，对应 login.html 页面的 <input type="checkbox" name="rememberMe"/>
         SimpleCookie cookie = new SimpleCookie("rememberMe");
+
         // 设置 cookie 的过期时间，单位为秒，这里为一天
         cookie.setMaxAge(adminProperties.getShiro().getCookieTimeout());
+
         return cookie;
     }
 
@@ -134,11 +146,14 @@ public class ShiroConfig {
     private CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
+
         // rememberMe cookie 加密的密钥
-        String encryptKey = "febs_shiro_key";
+        String encryptKey = "admin_shiro_key";
         byte[] encryptKeyBytes = encryptKey.getBytes(StandardCharsets.UTF_8);
+
         String rememberKey = Base64Utils.encodeToString(Arrays.copyOf(encryptKeyBytes, 16));
         cookieRememberMeManager.setCipherKey(Base64.decode(rememberKey));
+
         return cookieRememberMeManager;
     }
 
@@ -176,6 +191,7 @@ public class ShiroConfig {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
         listeners.add(new ShiroSessionListener());
+
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(adminProperties.getShiro().getSessionTimeout() * 1000L);
         sessionManager.setSessionListeners(listeners);

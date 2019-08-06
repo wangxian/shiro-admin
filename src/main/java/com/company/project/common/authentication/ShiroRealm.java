@@ -76,12 +76,18 @@ public class ShiroRealm extends AuthorizingRealm {
         // 通过用户名到数据库查询用户信息
         User user = this.userService.findByName(userName);
 
-        if (user == null)
+        if (user == null) {
             throw new UnknownAccountException("用户名或密码错误！");
-        if (!StringUtils.equals(password, user.getPassword()))
+        }
+
+        if (!StringUtils.equals(password, user.getPassword())) {
             throw new IncorrectCredentialsException("用户名或密码错误！");
-        if (User.STATUS_LOCK.equals(user.getStatus()))
+        }
+
+        if (User.STATUS_LOCK.equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
+        }
+
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 

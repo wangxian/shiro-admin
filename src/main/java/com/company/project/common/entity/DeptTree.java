@@ -20,11 +20,16 @@ public class DeptTree<T> implements Serializable {
     private String icon;
     private String href;
     private String name;
+
     private Map<String, Object> state;
+
     private boolean checked = false;
+
     private Map<String, Object> attributes;
     private List<DeptTree<T>> children;
+
     private String parentId;
+
     private boolean hasParent = false;
     private boolean hasChild = false;
 

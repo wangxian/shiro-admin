@@ -31,9 +31,11 @@ public class FileUtil {
     public static void compress(String fromPath, String toPath) throws IOException {
         File fromFile = new File(fromPath);
         File toFile = new File(toPath);
+
         if (!fromFile.exists()) {
             throw new FileNotFoundException(fromPath + "不存在！");
         }
+
         try (
                 FileOutputStream outputStream = new FileOutputStream(toFile);
                 CheckedOutputStream checkedOutputStream = new CheckedOutputStream(outputStream, new CRC32());
@@ -55,16 +57,19 @@ public class FileUtil {
      */
     public static void download(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
         File file = new File(filePath);
-        if (!file.exists())
+        if (!file.exists()) {
             throw new Exception("文件未找到");
+        }
 
         String fileType = getFileType(file);
         if (!fileTypeIsValid(fileType)) {
             throw new Exception("暂不支持该类型文件下载");
         }
+
         response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "utf-8"));
         response.setContentType("multipart/form-data");
         response.setCharacterEncoding("utf-8");
+
         try (InputStream inputStream = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
             byte[] b = new byte[2048];
             int length;
@@ -72,8 +77,9 @@ public class FileUtil {
                 os.write(b, 0, length);
             }
         } finally {
-            if (delete)
+            if (delete) {
                 delete(filePath);
+            }
         }
     }
 

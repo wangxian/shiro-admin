@@ -84,11 +84,13 @@ public class RedisConfigure extends CachingConfigurerSupport {
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
 
-        //使用 fastjson 序列化
+        // 使用 fastjson 序列化
         JacksonRedisSerializer jacksonRedisSerializer = new JacksonRedisSerializer(Object.class);
+
         // value 值的序列化采用 jacksonRedisSerializer
         template.setValueSerializer(jacksonRedisSerializer);
         template.setHashValueSerializer(jacksonRedisSerializer);
+
         // key 的序列化采用 StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
@@ -97,7 +99,7 @@ public class RedisConfigure extends CachingConfigurerSupport {
         return template;
     }
 
-    //缓存管理器
+    // 缓存管理器
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager

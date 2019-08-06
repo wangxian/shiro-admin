@@ -22,13 +22,16 @@ public class TreeUtil {
         if (nodes == null) {
             return null;
         }
+
         List<MenuTree<T>> topNodes = new ArrayList<>();
+
         nodes.forEach(children -> {
             String pid = children.getParentId();
             if (pid == null || "0".equals(pid)) {
                 topNodes.add(children);
                 return;
             }
+
             for (MenuTree<T> parent : nodes) {
                 String id = parent.getId();
                 if (id != null && id.equals(pid)) {
@@ -66,8 +69,10 @@ public class TreeUtil {
             for (DeptTree<T> n : nodes) {
                 String id = n.getId();
                 if (id != null && id.equals(pid)) {
-                    if (n.getChildren() == null)
+                    if (n.getChildren() == null) {
                         n.initChildren();
+                    }
+
                     n.getChildren().add(children);
                     children.setHasParent(true);
                     n.setHasChild(true);

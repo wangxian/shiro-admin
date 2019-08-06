@@ -42,19 +42,27 @@ public class LogAspect {
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result;
         long beginTime = System.currentTimeMillis();
+
         // 执行方法
         result = point.proceed();
+
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+
         // 设置 IP地址
         String ip = IPUtil.getIpAddr(request);
+
         // 执行时长(毫秒)
         long time = System.currentTimeMillis() - beginTime;
+
         if (adminProperties.isOpenAopLog()) {
             // 保存日志
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             Log log = new Log();
-            if (user != null)
+
+            if (user != null) {
                 log.setUsername(user.getUsername());
+            }
+
             log.setIp(ip);
             log.setTime(time);
             logService.saveLog(point, log);

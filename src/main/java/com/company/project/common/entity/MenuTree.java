@@ -20,10 +20,14 @@ public class MenuTree<T> implements Serializable {
     private String icon;
     private String href;
     private String title;
+
     private Map<String, Object> state;
+
     private boolean checked = false;
+
     private Map<String, Object> attributes;
     private List<MenuTree<T>> childs = new ArrayList<>();
+
     private String parentId;
     private boolean hasParent = false;
     private boolean hasChild = false;

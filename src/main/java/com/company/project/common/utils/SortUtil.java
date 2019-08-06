@@ -30,20 +30,23 @@ public class SortUtil {
             sortField = AdminUtil.camelToUnderscore(sortField);
             defaultSort = AdminUtil.camelToUnderscore(defaultSort);
         }
+
         if (StringUtils.isNotBlank(request.getField())
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC)) {
                 page.setDesc(sortField);
-            else
+            } else {
                 page.setAsc(sortField);
+            }
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC)) {
                     page.setDesc(defaultSort);
-                else
+                } else {
                     page.setAsc(defaultSort);
+                }
             }
         }
     }
@@ -88,16 +91,18 @@ public class SortUtil {
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), AdminConstant.ORDER_DESC)) {
                 wrapper.orderByDesc(sortField);
-            else
+            } else {
                 wrapper.orderByAsc(sortField);
+            }
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, AdminConstant.ORDER_DESC)) {
                     wrapper.orderByDesc(defaultSort);
-                else
+                } else {
                     wrapper.orderByAsc(defaultSort);
+                }
             }
         }
     }

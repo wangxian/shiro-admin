@@ -34,6 +34,7 @@ public class XssFilter implements Filter {
         if (StringUtils.isNotBlank(isIncludeRichText)) {
             flag = BooleanUtils.toBoolean(isIncludeRichText);
         }
+
         String temp = filterConfig.getInitParameter("excludes");
         if (temp != null) {
             String[] url = temp.split(",");
@@ -49,6 +50,7 @@ public class XssFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+
         XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,
                 flag);
         chain.doFilter(xssRequest, response);
@@ -63,6 +65,7 @@ public class XssFilter implements Filter {
         if (excludes == null || excludes.isEmpty()) {
             return false;
         }
+
         String url = request.getServletPath();
         return excludes.stream().map(pattern -> Pattern.compile("^" + pattern)).map(p -> p.matcher(url)).anyMatch(Matcher::find);
     }

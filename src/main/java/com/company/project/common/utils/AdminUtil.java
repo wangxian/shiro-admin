@@ -28,18 +28,24 @@ public class AdminUtil {
      * @return 结果
      */
     public static String camelToUnderscore(String value) {
-        if (StringUtils.isBlank(value))
+        if (StringUtils.isBlank(value)) {
             return value;
+        }
+
         String[] arr = StringUtils.splitByCharacterTypeCamelCase(value);
-        if (arr.length == 0)
+        if (arr.length == 0) {
             return value;
+        }
+
         StringBuilder result = new StringBuilder();
         IntStream.range(0, arr.length).forEach(i -> {
-            if (i != arr.length - 1)
+            if (i != arr.length - 1) {
                 result.append(arr[i]).append(StringPool.UNDERSCORE);
-            else
+            } else {
                 result.append(arr[i]);
+            }
         });
+
         return StringUtils.lowerCase(result.toString());
     }
 

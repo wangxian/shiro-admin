@@ -22,13 +22,16 @@ public class AdminStartedUpRunner implements ApplicationRunner {
 
     @Autowired
     private ConfigurableApplicationContext context;
+
     @Autowired
     private AdminProperties adminProperties;
+
     @Autowired
     private IRedisService redisService;
 
     @Value("${server.port:8080}")
     private String port;
+
     @Value("${server.servlet.context-path:}")
     private String contextPath;
 
@@ -47,14 +50,19 @@ public class AdminStartedUpRunner implements ApplicationRunner {
             // 关闭 ADMIN
             context.close();
         }
+
         if (context.isActive()) {
             InetAddress address = InetAddress.getLocalHost();
             String url = String.format("http://%s:%s", address.getHostAddress(), port);
             String loginUrl = adminProperties.getShiro().getLoginUrl();
-            if (StringUtils.isNotBlank(contextPath))
+            if (StringUtils.isNotBlank(contextPath)) {
                 url += contextPath;
-            if (StringUtils.isNotBlank(loginUrl))
+            }
+
+            if (StringUtils.isNotBlank(loginUrl)) {
                 url += loginUrl;
+            }
+
             log.info(" __    ___   _      ___   _     ____ _____  ____ ");
             log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
             log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");

@@ -16,9 +16,9 @@ import java.text.ParseException;
 public class TimeConverter implements WriteConverter {
     @Override
     public String convert(Object value) {
-        if (value == null)
+        if (value == null) {
             return "";
-        else {
+        } else {
             try {
                 return DateUtil.formatCSTTime(value.toString(), DateUtil.FULL_TIME_SPLIT_PATTERN);
             } catch (ParseException e) {
