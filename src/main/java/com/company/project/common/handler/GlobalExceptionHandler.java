@@ -53,9 +53,11 @@ public class GlobalExceptionHandler {
     public AdminResponse validExceptionHandler(BindException e) {
         StringBuilder message = new StringBuilder();
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+
         for (FieldError error : fieldErrors) {
             message.append(error.getField()).append(error.getDefaultMessage()).append(",");
         }
+
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
     }
@@ -70,11 +72,13 @@ public class GlobalExceptionHandler {
     public AdminResponse handleConstraintViolationException(ConstraintViolationException e) {
         StringBuilder message = new StringBuilder();
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+
         for (ConstraintViolation<?> violation : violations) {
             Path path = violation.getPropertyPath();
             String[] pathArr = StringUtils.splitByWholeSeparatorPreserveAllTokens(path.toString(), ".");
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
+
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
     }

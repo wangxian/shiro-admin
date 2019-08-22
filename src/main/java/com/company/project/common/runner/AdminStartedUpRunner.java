@@ -47,6 +47,7 @@ public class AdminStartedUpRunner implements ApplicationRunner {
             log.error("                        ");
             log.error("ADMIN 启动失败，{}", e.getMessage());
             log.error("Redis连接异常，请检查Redis连接配置并确保Redis服务已启动");
+
             // 关闭 ADMIN
             context.close();
         }

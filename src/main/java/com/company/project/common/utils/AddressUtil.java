@@ -21,6 +21,7 @@ public class AddressUtil {
     private static Logger log = LoggerFactory.getLogger(AddressUtil.class);
 
     public static String getCityInfo(String ip) {
+
         DbSearcher searcher = null;
 
         try {

@@ -40,12 +40,16 @@ public class ShiroConfig {
 
     @Value("${spring.redis.host}")
     private String host;
+
     @Value("${spring.redis.port}")
     private int port;
+
     @Value("${spring.redis.password:}")
     private String password;
+
     @Value("${spring.redis.timeout}")
     private int timeout;
+
     @Value("${spring.redis.database:0}")
     private int database;
 
@@ -57,10 +61,14 @@ public class ShiroConfig {
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host + ":" + port);
-        if (StringUtils.isNotBlank(password))
+
+        if (StringUtils.isNotBlank(password)) {
             redisManager.setPassword(password);
+        }
+
         redisManager.setTimeout(timeout);
         redisManager.setDatabase(database);
+
         return redisManager;
     }
 
