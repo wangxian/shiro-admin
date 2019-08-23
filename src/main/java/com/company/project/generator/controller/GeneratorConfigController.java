@@ -39,8 +39,10 @@ public class GeneratorConfigController extends BaseController {
     @RequiresPermissions("generator:configure:update")
     public AdminResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) throws AdminException {
         try {
-            if (StringUtils.isBlank(generatorConfig.getId()))
+            if (StringUtils.isBlank(generatorConfig.getId())) {
                 throw new AdminException("配置id不能为空");
+            }
+
             this.generatorConfigService.updateGeneratorConfig(generatorConfig);
             return new AdminResponse().success();
         } catch (Exception e) {

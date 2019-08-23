@@ -32,6 +32,7 @@ public class ViewController {
     public String generatorConfigure(Model model) {
         GeneratorConfig generatorConfig = generatorConfigService.findGeneratorConfig();
         model.addAttribute("config", generatorConfig);
+
         return AdminUtil.view("generator/configure");
     }
 }

@@ -66,6 +66,7 @@ public class GeneratorController extends BaseController {
             generatorConfig.setTableName(name);
             generatorConfig.setClassName(AdminUtil.underscoreToCamel(className));
             generatorConfig.setTableComment(remark);
+
             // 生成代码到临时目录
             List<Column> columns = generatorService.getColumns(GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME, name);
             generatorHelper.generateEntityFile(columns, generatorConfig);
@@ -74,11 +75,14 @@ public class GeneratorController extends BaseController {
             generatorHelper.generateServiceFile(columns, generatorConfig);
             generatorHelper.generateServiceImplFile(columns, generatorConfig);
             generatorHelper.generateControllerFile(columns, generatorConfig);
+
             // 打包
             String zipFile = System.currentTimeMillis() + SUFFIX;
             FileUtil.compress(GeneratorConstant.TEMP_PATH + "src", zipFile);
+
             // 下载
             FileUtil.download(zipFile, name + SUFFIX, true, response);
+
             // 删除临时目录
             FileUtil.delete(GeneratorConstant.TEMP_PATH);
         } catch (Exception e) {
