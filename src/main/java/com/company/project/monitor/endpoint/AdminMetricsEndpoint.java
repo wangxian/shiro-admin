@@ -37,10 +37,12 @@ public class AdminMetricsEndpoint {
         if (meters.isEmpty()) {
             return null;
         }
+
         Map<Statistic, Double> samples = getSamples(meters);
         Map<String, Set<String>> availableTags = getAvailableTags(meters);
         tags.forEach((t) -> availableTags.remove(t.getKey()));
         Meter.Id meterId = meters.iterator().next().getId();
+
         return new FebsMetricResponse(requiredMetricName, meterId.getDescription(),
                 meterId.getBaseUnit(), asList(samples, Sample::new),
                 asList(availableTags, AvailableTag::new));
@@ -48,8 +50,10 @@ public class AdminMetricsEndpoint {
 
     private void collectNames(Set<String> names, MeterRegistry registry) {
         if (registry instanceof CompositeMeterRegistry) {
+
             ((CompositeMeterRegistry) registry).getRegistries()
                     .forEach((member) -> collectNames(names, member));
+
         } else {
             registry.getMeters().stream().map(this::getName).forEach(names::add);
         }

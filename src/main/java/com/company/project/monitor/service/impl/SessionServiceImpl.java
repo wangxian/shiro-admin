@@ -33,10 +33,12 @@ public class SessionServiceImpl implements ISessionService {
 
         List<ActiveUser> list = new ArrayList<>();
         Collection<Session> sessions = sessionDAO.getActiveSessions();
+
         for (Session session : sessions) {
             ActiveUser activeUser = new ActiveUser();
             User user;
             SimplePrincipalCollection principalCollection;
+
             if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) == null) {
                 continue;
             } else {
@@ -46,18 +48,22 @@ public class SessionServiceImpl implements ISessionService {
                 activeUser.setUsername(user.getUsername());
                 activeUser.setUserId(user.getUserId().toString());
             }
+
             activeUser.setId((String) session.getId());
             activeUser.setHost(session.getHost());
             activeUser.setStartTimestamp(DateUtil.getDateFormat(session.getStartTimestamp(), DateUtil.FULL_TIME_SPLIT_PATTERN));
             activeUser.setLastAccessTime(DateUtil.getDateFormat(session.getLastAccessTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+
             long timeout = session.getTimeout();
             activeUser.setStatus(timeout == 0L ? "0" : "1");
             String address = AddressUtil.getCityInfo(activeUser.getHost());
             activeUser.setLocation(address);
             activeUser.setTimeout(timeout);
+
             if (StringUtils.equals(currentSessionId, activeUser.getId())) {
                 activeUser.setCurrent(true);
             }
+
             if (StringUtils.isBlank(username)
                     || StringUtils.equalsIgnoreCase(activeUser.getUsername(), username)) {
                 list.add(activeUser);

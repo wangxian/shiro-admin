@@ -52,18 +52,21 @@ public class LoginLog implements Serializable {
     @TableField("location")
     @ExcelField(value = "登录地点", writeConverter = TimeConverter.class)
     private String location;
+
     /**
      * 登录 IP
      */
     @TableField("ip")
     @ExcelField("登录IP")
     private String ip;
+
     /**
      * 操作系统
      */
     @TableField("`system`")
     @ExcelField("操作系统")
     private String system;
+
     /**
      * 登录浏览器
      */
@@ -81,6 +84,7 @@ public class LoginLog implements Serializable {
             StringBuilder userAgent = new StringBuilder("[");
             userAgent.append(request.getHeader("User-Agent"));
             userAgent.append("]");
+
             int indexOfMac = userAgent.indexOf("Mac OS X");
             int indexOfWindows = userAgent.indexOf("Windows NT");
             int indexOfIE = userAgent.indexOf("MSIE");
@@ -89,6 +93,7 @@ public class LoginLog implements Serializable {
             int indexOfSogou = userAgent.indexOf("MetaSr");
             int indexOfChrome = userAgent.indexOf("Chrome");
             int indexOfSafari = userAgent.indexOf("Safari");
+
             boolean isMac = indexOfMac > 0;
             boolean isWindows = indexOfWindows > 0;
             boolean isLinux = userAgent.indexOf("Linux") > 0;
@@ -97,6 +102,7 @@ public class LoginLog implements Serializable {
             boolean containSogou = indexOfSogou > 0;
             boolean containChrome = indexOfChrome > 0;
             boolean containSafari = indexOfSafari > 0;
+
             String browser = "";
             if (containSogou) {
                 if (containIE) {
@@ -119,6 +125,7 @@ public class LoginLog implements Serializable {
                     browser = userAgent.substring(indexOfIE, indexOfIE + "IE x.x".length());
                 }
             }
+
             String os = "";
             if (isMac) {
                 os = userAgent.substring(indexOfMac, indexOfMac + "MacOS X xxxxxxxx".length());
@@ -155,7 +162,9 @@ public class LoginLog implements Serializable {
                         break;
                 }
             }
+
             this.system = os;
+
             this.browser = StringUtils.replace(browser, "/", " ");
         } catch (Exception e) {
             log.error("获取登录信息失败：{}", e.getMessage());

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.company.project.monitor.endpoint.AdminHttpTraceEndpoint.FebsHttpTraceDescriptor;
+import static com.company.project.monitor.endpoint.AdminHttpTraceEndpoint.AdminHttpTraceDescriptor;
 
 /**
  * @author ADMIN
@@ -32,6 +32,7 @@ public class AdminActuatorController {
 
     @Autowired
     private AdminHttpTraceEndpoint httpTraceEndpoint;
+
     @Autowired
     private AdminActuatorHelper actuatorHelper;
 
@@ -39,9 +40,10 @@ public class AdminActuatorController {
     @RequiresPermissions("httptrace:view")
     public AdminResponse httpTraces(String method, String url) throws AdminException {
         try {
-            FebsHttpTraceDescriptor traces = httpTraceEndpoint.traces();
+            AdminHttpTraceDescriptor traces = httpTraceEndpoint.traces();
             List<HttpTrace> httpTraceList = traces.getTraces();
             List<AdminHttpTrace> adminHttpTraces = new ArrayList<>();
+
             httpTraceList.forEach(t -> {
                 AdminHttpTrace adminHttpTrace = new AdminHttpTrace();
                 adminHttpTrace.setRequestTime(DateUtil.formatInstant(t.getTimestamp(), DateUtil.FULL_TIME_SPLIT_PATTERN));
@@ -49,23 +51,29 @@ public class AdminActuatorController {
                 adminHttpTrace.setUrl(t.getRequest().getUri());
                 adminHttpTrace.setStatus(t.getResponse().getStatus());
                 adminHttpTrace.setTimeTaken(t.getTimeTaken());
+
                 if (StringUtils.isNotBlank(method) && StringUtils.isNotBlank(url)) {
                     if (StringUtils.equalsIgnoreCase(method, adminHttpTrace.getMethod())
-                            && StringUtils.containsIgnoreCase(adminHttpTrace.getUrl().toString(), url))
+                            && StringUtils.containsIgnoreCase(adminHttpTrace.getUrl().toString(), url)) {
                         adminHttpTraces.add(adminHttpTrace);
+                    }
                 } else if (StringUtils.isNotBlank(method)) {
-                    if (StringUtils.equalsIgnoreCase(method, adminHttpTrace.getMethod()))
+                    if (StringUtils.equalsIgnoreCase(method, adminHttpTrace.getMethod())) {
                         adminHttpTraces.add(adminHttpTrace);
+                    }
                 } else if (StringUtils.isNotBlank(url)) {
-                    if (StringUtils.containsIgnoreCase(adminHttpTrace.getUrl().toString(), url))
+                    if (StringUtils.containsIgnoreCase(adminHttpTrace.getUrl().toString(), url)) {
                         adminHttpTraces.add(adminHttpTrace);
+                    }
                 } else {
                     adminHttpTraces.add(adminHttpTrace);
                 }
             });
+
             Map<String, Object> data = new HashMap<>();
             data.put("rows", adminHttpTraces);
             data.put("total", adminHttpTraces.size());
+
             return new AdminResponse().success().data(data);
         } catch (Exception e) {
             String message = "请求追踪失败";

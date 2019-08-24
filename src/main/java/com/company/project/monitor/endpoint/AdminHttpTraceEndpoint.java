@@ -18,15 +18,15 @@ public class AdminHttpTraceEndpoint {
         this.repository = repository;
     }
 
-    public FebsHttpTraceDescriptor traces() {
-        return new FebsHttpTraceDescriptor(this.repository.findAll());
+    public AdminHttpTraceDescriptor traces() {
+        return new AdminHttpTraceDescriptor(this.repository.findAll());
     }
 
-    public static final class FebsHttpTraceDescriptor {
+    public static final class AdminHttpTraceDescriptor {
 
         private final List<HttpTrace> traces;
 
-        private FebsHttpTraceDescriptor(List<HttpTrace> traces) {
+        private AdminHttpTraceDescriptor(List<HttpTrace> traces) {
             this.traces = traces;
         }
 

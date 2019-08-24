@@ -30,8 +30,10 @@ public class SessionController {
     public AdminResponse list(String username) {
         List<ActiveUser> list = sessionService.list(username);
         Map<String, Object> data = new HashMap<>();
+
         data.put("rows", list);
         data.put("total", CollectionUtils.size(list));
+
         return new AdminResponse().success().data(data);
     }
 

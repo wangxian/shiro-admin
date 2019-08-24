@@ -33,10 +33,13 @@ public class AdminActuatorHelper {
     public List<AdminMetricsEndpoint.FebsMetricResponse> getMetricResponseByType(String type) {
         AdminMetricsEndpoint.ListNamesResponse listNames = metricsEndpoint.listNames();
         Set<String> names = listNames.getNames();
+
         Iterable<String> jvm = names.stream()
                 .filter(Predicates.containsPattern(type)::apply)
                 .collect(Collectors.toList());
+
         List<AdminMetricsEndpoint.FebsMetricResponse> metricResponseList = new ArrayList<>();
+
         jvm.forEach(s -> {
             AdminMetricsEndpoint.FebsMetricResponse metric = metricsEndpoint.metric(s, null);
             metricResponseList.add(metric);
@@ -48,8 +51,10 @@ public class AdminActuatorHelper {
         JvmInfo jvmInfo = new JvmInfo();
         metrics.forEach(d -> {
             String name = d.getName();
+
             AdminMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
             Double value = sample.getValue();
+
             switch (name) {
                 case "jvm.memory.max":
                     jvmInfo.setJvmMemoryMax(convertToMB(value));
@@ -101,6 +106,7 @@ public class AdminActuatorHelper {
 
     public TomcatInfo getTomcatInfoFromMetricData(List<AdminMetricsEndpoint.FebsMetricResponse> metrics) {
         TomcatInfo tomcatInfo = new TomcatInfo();
+
         metrics.forEach(d -> {
             String name = d.getName();
             AdminMetricsEndpoint.Sample sample = d.getMeasurements().get(0);
@@ -149,6 +155,7 @@ public class AdminActuatorHelper {
                                                   List<AdminMetricsEndpoint.FebsMetricResponse> systemInfo,
                                                   List<AdminMetricsEndpoint.FebsMetricResponse> processInfo) {
         ServerInfo serverInfo = new ServerInfo();
+
         jdbcInfo.forEach(j -> {
             String name = j.getName();
             AdminMetricsEndpoint.Sample sample = j.getMeasurements().get(0);
@@ -166,6 +173,7 @@ public class AdminActuatorHelper {
                 default:
             }
         });
+
         systemInfo.forEach(s -> {
             String name = s.getName();
             AdminMetricsEndpoint.Sample sample = s.getMeasurements().get(0);
@@ -180,6 +188,7 @@ public class AdminActuatorHelper {
                 default:
             }
         });
+
         processInfo.forEach(p -> {
             String name = p.getName();
             AdminMetricsEndpoint.Sample sample = p.getMeasurements().get(0);
