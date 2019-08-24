@@ -4,7 +4,7 @@ import Log;
 import FebsUtil;
 import FebsConstant;
 import BaseController;
-import FebsResponse;
+import AdminResponse;
 import QueryRequest;
 import FebsException;
 import ${basePackage}.${entityPackage}.${className};
@@ -46,26 +46,26 @@ public class ${className}Controller extends BaseController {
     @GetMapping("${className?uncap_first}")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:list")
-    public FebsResponse getAll${className}s(${className} ${className?uncap_first}) {
-        return new FebsResponse().success().data(${className?uncap_first}Service.find${className}s(${className?uncap_first}));
+public AdminResponse getAll${className}s(${className} ${className?uncap_first}) {
+return new AdminResponse().success().data(${className?uncap_first}Service.find${className}s(${className?uncap_first}));
     }
 
     @GetMapping("${className?uncap_first}/list")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:list")
-    public FebsResponse ${className?uncap_first}List(QueryRequest request, ${className} ${className?uncap_first}) {
+public AdminResponse ${className?uncap_first}List(QueryRequest request, ${className} ${className?uncap_first}) {
         Map<String, Object> dataTable = getDataTable(this.${className?uncap_first}Service.find${className}s(request, ${className?uncap_first}));
-        return new FebsResponse().success().data(dataTable);
+return new AdminResponse().success().data(dataTable);
     }
 
     @Log("新增${className}")
     @PostMapping("${className?uncap_first}")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:add")
-    public FebsResponse add${className}(@Valid ${className} ${className?uncap_first}) throws FebsException {
+public AdminResponse add${className}(@Valid ${className} ${className?uncap_first}) throws FebsException {
         try {
             this.${className?uncap_first}Service.create${className}(${className?uncap_first});
-            return new FebsResponse().success();
+return new AdminResponse().success();
         } catch (Exception e) {
             String message = "新增${className}失败";
             log.error(message, e);
@@ -77,10 +77,10 @@ public class ${className}Controller extends BaseController {
     @GetMapping("${className?uncap_first}/delete")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:delete")
-    public FebsResponse delete${className}(${className} ${className?uncap_first}) throws FebsException {
+public AdminResponse delete${className}(${className} ${className?uncap_first}) throws FebsException {
         try {
             this.${className?uncap_first}Service.delete${className}(${className?uncap_first});
-            return new FebsResponse().success();
+return new AdminResponse().success();
         } catch (Exception e) {
             String message = "删除${className}失败";
             log.error(message, e);
@@ -92,10 +92,10 @@ public class ${className}Controller extends BaseController {
     @PostMapping("${className?uncap_first}/update")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:update")
-    public FebsResponse update${className}(${className} ${className?uncap_first}) throws FebsException {
+public AdminResponse update${className}(${className} ${className?uncap_first}) throws FebsException {
         try {
             this.${className?uncap_first}Service.update${className}(${className?uncap_first});
-            return new FebsResponse().success();
+return new AdminResponse().success();
         } catch (Exception e) {
             String message = "修改${className}失败";
             log.error(message, e);

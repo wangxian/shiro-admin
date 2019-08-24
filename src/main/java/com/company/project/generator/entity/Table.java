@@ -25,7 +25,7 @@ public class Table {
     /**
      * 创建时间
      */
-    private String createdAt;
+    private String createTime;
 
     /**
      * 修改时间
