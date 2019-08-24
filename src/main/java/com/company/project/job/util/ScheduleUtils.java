@@ -93,6 +93,7 @@ public class ScheduleUtils {
             } else {
                 // 按新的 cronExpression表达式重新构建 trigger
                 trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
+
                 // 参数
                 trigger.getJobDataMap().put(Job.JOB_PARAM_KEY, scheduleJob);
             }

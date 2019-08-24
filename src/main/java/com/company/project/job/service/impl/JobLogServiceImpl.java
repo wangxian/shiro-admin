@@ -34,14 +34,18 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
         if (StringUtils.isNotBlank(jobLog.getBeanName())) {
             queryWrapper.eq(JobLog::getBeanName, jobLog.getBeanName());
         }
+
         if (StringUtils.isNotBlank(jobLog.getMethodName())) {
             queryWrapper.eq(JobLog::getMethodName, jobLog.getMethodName());
         }
+
         if (StringUtils.isNotBlank(jobLog.getStatus())) {
             queryWrapper.eq(JobLog::getStatus, jobLog.getStatus());
         }
+
         Page<JobLog> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, true);
+
         return this.page(page, queryWrapper);
     }
 

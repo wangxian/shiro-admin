@@ -35,6 +35,7 @@ public class Job implements Serializable {
          * 正常
          */
         NORMAL("0"),
+
         /**
          * 暂停
          */

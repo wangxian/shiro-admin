@@ -68,15 +68,19 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
         if (StringUtils.isNotBlank(job.getBeanName())) {
             queryWrapper.eq(Job::getBeanName, job.getBeanName());
         }
+
         if (StringUtils.isNotBlank(job.getMethodName())) {
             queryWrapper.eq(Job::getMethodName, job.getMethodName());
         }
+
         if (StringUtils.isNotBlank(job.getParams())) {
             queryWrapper.like(Job::getParams, job.getParams());
         }
+
         if (StringUtils.isNotBlank(job.getRemark())) {
             queryWrapper.like(Job::getRemark, job.getRemark());
         }
+
         if (StringUtils.isNotBlank(job.getStatus())) {
             queryWrapper.eq(Job::getStatus, job.getStatus());
         }
@@ -86,8 +90,10 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
                     .ge(Job::getCreatedAt, job.getCreateTimeFrom())
                     .le(Job::getCreatedAt, job.getCreateTimeTo());
         }
+
         Page<Job> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, true);
+
         return this.page(page, queryWrapper);
     }
 
@@ -96,7 +102,9 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
     public void createJob(Job job) {
         job.setCreatedAt(new Date());
         job.setStatus(Job.ScheduleStatus.PAUSE.getValue());
+
         this.save(job);
+
         ScheduleUtils.createScheduleJob(scheduler, job);
     }
 

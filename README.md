@@ -2,7 +2,7 @@
 
 ## 说明
 
-本项目基于 [wuyouzhuguli/FEBS-Shiro](https://github.com/wuyouzhuguli/FEBS-Shiro) 魔改而来，以适应更通用的企业应用，再次对 `FEBS` 参与开发的人员表示感谢。
+本项目基于 [wuyouzhuguli/FEBS-Shiro](https://github.com/wuyouzhuguli/FEBS-Shiro) 修改而来，以适应更通用的企业应用，再次对 `FEBS` 参与开发的人员表示感谢。
 感谢你们的辛苦劳动与付出。
 
 **主要调整**

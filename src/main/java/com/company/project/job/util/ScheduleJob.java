@@ -43,12 +43,13 @@ public class ScheduleJob extends QuartzJobBean {
         try {
             // 执行任务
             log.info("任务准备执行，任务ID：{}", scheduleJob.getJobId());
-            ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(), scheduleJob.getMethodName(),
-                    scheduleJob.getParams());
+            ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(), scheduleJob.getMethodName(), scheduleJob.getParams());
             Future<?> future = service.submit(task);
             future.get();
+
             long times = System.currentTimeMillis() - startTime;
             jobLog.setTimes(times);
+
             // 任务状态 0：成功 1：失败
             jobLog.setStatus(JobLog.JOB_SUCCESS);
 
@@ -57,6 +58,7 @@ public class ScheduleJob extends QuartzJobBean {
             log.error("任务执行失败，任务ID：" + scheduleJob.getJobId(), e);
             long times = System.currentTimeMillis() - startTime;
             jobLog.setTimes(times);
+
             // 任务状态 0：成功 1：失败
             jobLog.setStatus(JobLog.JOB_FAIL);
             jobLog.setError(StringUtils.substring(e.toString(), 0, 2000));
