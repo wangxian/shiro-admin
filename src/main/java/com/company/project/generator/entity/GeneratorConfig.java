@@ -98,10 +98,12 @@ public class GeneratorConfig {
      * java文件路径，固定值
      */
     private transient String javaPath = "/src/main/java/";
+
     /**
      * 配置文件存放路径，固定值
      */
     private transient String resourcesPath = "src/main/resources";
+
     /**
      * 文件生成日期
      */
@@ -111,10 +113,12 @@ public class GeneratorConfig {
      * 表名
      */
     private transient String tableName;
+
     /**
      * 表注释
      */
     private transient String tableComment;
+
     /**
      * 数据表对应的类名
      */
