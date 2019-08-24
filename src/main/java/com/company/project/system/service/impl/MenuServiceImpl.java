@@ -50,6 +50,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         if (StringUtils.isNotBlank(menu.getMenuName())) {
             queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
         }
+
         queryWrapper.lambda().orderByAsc(Menu::getOrderNum);
         List<Menu> menus = this.baseMapper.selectList(queryWrapper);
         List<MenuTree<Menu>> trees = this.convertMenus(menus);
@@ -63,6 +64,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         if (StringUtils.isNotBlank(menu.getMenuName())) {
             queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
         }
+
         queryWrapper.lambda().orderByAsc(Menu::getMenuId).orderByAsc(Menu::getOrderNum);
         return this.baseMapper.selectList(queryWrapper);
     }

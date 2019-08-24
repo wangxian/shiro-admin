@@ -38,8 +38,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     public List<DeptTree<Dept>> findDepts(Dept dept) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
-        if (StringUtils.isNotBlank(dept.getDeptName()))
+        if (StringUtils.isNotBlank(dept.getDeptName())) {
             queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
+        }
+
         queryWrapper.lambda().orderByAsc(Dept::getOrderNum);
 
         List<Dept> depts = this.baseMapper.selectList(queryWrapper);
@@ -51,8 +53,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     public List<Dept> findDepts(Dept dept, QueryRequest request) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
-        if (StringUtils.isNotBlank(dept.getDeptName()))
+        if (StringUtils.isNotBlank(dept.getDeptName())) {
             queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
+        }
+
         SortUtil.handleWrapperSort(request, queryWrapper, "orderNum", AdminConstant.ORDER_ASC, true);
         return this.baseMapper.selectList(queryWrapper);
     }
@@ -61,8 +65,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     @Transactional
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
-        if (parentId == null)
+        if (parentId == null) {
             dept.setParentId(0L);
+        }
+
         dept.setCreatedAt(new Date());
         this.save(dept);
     }
@@ -82,6 +88,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
     private List<DeptTree<Dept>> convertDepts(List<Dept> depts){
         List<DeptTree<Dept>> trees = new ArrayList<>();
+
         depts.forEach(dept -> {
             DeptTree<Dept> tree = new DeptTree<>();
             tree.setId(String.valueOf(dept.getDeptId()));

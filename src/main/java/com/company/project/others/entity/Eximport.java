@@ -26,8 +26,7 @@ public class Eximport {
     /**
      * 字段1
      */
-    @ExcelField(value = "字段1", required = true, maxLength = 20,
-            comment = "提示：必填，长度不能超过20个字符")
+    @ExcelField(value = "字段1", required = true, maxLength = 20, comment = "提示：必填，长度不能超过20个字符")
     private String field1;
 
     /**

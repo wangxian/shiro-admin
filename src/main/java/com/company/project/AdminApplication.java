@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class AdminApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(AdminApplication.class)
-                .run(args);
+        new SpringApplicationBuilder(AdminApplication.class).run(args);
     }
 
 }

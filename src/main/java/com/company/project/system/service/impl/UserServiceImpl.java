@@ -78,6 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setIsTab(User.TAB_OPEN);
         user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
         save(user);
+
         // 保存用户角色
         String[] roles = user.getRoleId().split(StringPool.COMMA);
         setUserRoles(user, roles);
@@ -87,8 +88,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional
     public void deleteUsers(String[] userIds) {
         List<String> list = Arrays.asList(userIds);
+
         // 删除用户
         this.removeByIds(list);
+
         // 删除关联角色
         this.userRoleService.deleteUserRolesByUserId(list);
     }
@@ -101,6 +104,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUsername(null);
         user.setModifyTime(new Date());
         updateById(user);
+
         // 更新关联角色
         this.userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
         String[] roles = user.getRoleId().split(StringPool.COMMA);

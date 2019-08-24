@@ -86,8 +86,10 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:update")
     public AdminResponse updateUser(@Valid User user) throws AdminException {
         try {
-            if (user.getUserId() == null)
+            if (user.getUserId() == null) {
                 throw new AdminException("用户ID为空");
+            }
+
             this.userService.updateUser(user);
             return new AdminResponse().success();
         } catch (Exception e) {
@@ -116,10 +118,12 @@ public class UserController extends BaseController {
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) throws AdminException {
         try {
+
             User user = getCurrentUser();
             if (!StringUtils.equals(user.getPassword(), MD5Util.encrypt(user.getUsername(), oldPassword))) {
                 throw new AdminException("原密码不正确");
             }
+
             userService.updatePassword(user.getUsername(), newPassword);
             return new AdminResponse().success();
         } catch (Exception e) {

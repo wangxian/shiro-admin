@@ -40,11 +40,17 @@ public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> i
         int count = total / max;
         int left = total % max;
         int length;
-        if (left == 0) length = count;
-        else length = count + 1;
+
+        if (left == 0) {
+            length = count;
+        } else {
+            length = count + 1;
+        }
+
         for (int i = 0; i < length; i++) {
             int start = max * i;
             int end = max * (i + 1);
+
             if (i != count) {
                 log.info("正在插入第" + (start + 1) + " ~ " + end + "条记录 ······");
                 saveBatch(list, end);

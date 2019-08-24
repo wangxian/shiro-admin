@@ -35,8 +35,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Autowired
     private IRoleMenuService roleMenuService;
+
     @Autowired
     private IUserRoleService userRoleService;
+
     @Autowired
     private ShiroRealm shiroRealm;
 
@@ -48,8 +50,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public List<Role> findRoles(Role role) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(role.getRoleName()))
+        if (StringUtils.isNotBlank(role.getRoleName())) {
             queryWrapper.lambda().like(Role::getRoleName, role.getRoleName());
+        }
+
         return this.baseMapper.selectList(queryWrapper);
     }
 
@@ -78,8 +82,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     public void updateRole(Role role) {
         role.setModifyTime(new Date());
         this.updateById(role);
+
         List<String> roleIdList = new ArrayList<>();
         roleIdList.add(String.valueOf(role.getRoleId()));
+
         this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
 
@@ -100,6 +106,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         if (StringUtils.isNotBlank(role.getMenuIds())) {
             String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
             List<RoleMenu> roleMenus = new ArrayList<>();
+
             Arrays.stream(menuIds).forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();
                 roleMenu.setMenuId(Long.valueOf(menuId));

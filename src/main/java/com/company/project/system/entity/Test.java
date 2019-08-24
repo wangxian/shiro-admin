@@ -15,5 +15,4 @@ public class Test implements Serializable {
     private static final long serialVersionUID = -2510534697977648681L;
     private String name;
     private int age;
-
 }

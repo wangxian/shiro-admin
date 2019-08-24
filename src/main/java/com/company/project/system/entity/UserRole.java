@@ -25,6 +25,4 @@ public class UserRole implements Serializable {
      */
     @TableField("role_id")
     private Long roleId;
-
-
 }

@@ -35,8 +35,10 @@ public class MenuController extends BaseController {
     @GetMapping("{username}")
     public AdminResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) throws AdminException {
         User currentUser = getCurrentUser();
-        if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername()))
+        if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername())) {
             throw new AdminException("您无权获取别人的菜单");
+        }
+
         MenuTree<Menu> userMenus = this.menuService.findUserMenus(username);
         return new AdminResponse().data(userMenus);
     }

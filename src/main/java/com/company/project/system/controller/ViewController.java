@@ -35,6 +35,7 @@ public class ViewController extends BaseController {
     @GetMapping("login")
     @ResponseBody
     public Object login(HttpServletRequest request) {
+
         if (AdminUtil.isAjaxRequest(request)) {
             throw new ExpiredSessionException();
         } else {
@@ -60,10 +61,14 @@ public class ViewController extends BaseController {
     public String index(Model model) {
         AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
         User user = super.getCurrentUser();
+
         user.setPassword("It's a secret");
-        model.addAttribute("user", userService.findByName(user.getUsername())); // 获取实时的用户信息
+
+        // 获取实时的用户信息
+        model.addAttribute("user", userService.findByName(user.getUsername()));
         model.addAttribute("permissions", authorizationInfo.getStringPermissions());
         model.addAttribute("roles",authorizationInfo.getRoles());
+
         return "index";
     }
 
@@ -159,13 +164,16 @@ public class ViewController extends BaseController {
     private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
         model.addAttribute("user", user);
+
         if (transform) {
             String sex = user.getSex();
             if (User.SEX_MALE.equals(sex)) user.setSex("男");
             else if (User.SEX_FEMALE.equals(sex)) user.setSex("女");
             else user.setSex("保密");
         }
-        if (user.getLastLoginTime() != null)
+
+        if (user.getLastLoginTime() != null) {
             model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+        }
     }
 }

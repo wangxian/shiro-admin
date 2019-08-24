@@ -63,6 +63,7 @@ public class EximportController extends BaseController {
             eximport.setField3("admin" + i + "@gmail.com");
             list.add(eximport);
         });
+
         // 构建模板
         ExcelKit.$Export(Eximport.class, response).downXlsx(list, true);
     }
@@ -77,10 +78,12 @@ public class EximportController extends BaseController {
             if (file.isEmpty()) {
                 throw new AdminException("导入数据为空");
             }
+
             String filename = file.getOriginalFilename();
             if (!StringUtils.endsWith(filename, ".xlsx")) {
                 throw new AdminException("只支持.xlsx类型文件导入");
             }
+
             // 开始导入操作
             Stopwatch stopwatch = Stopwatch.createStarted();
             final List<Eximport> data = Lists.newArrayList();
@@ -103,11 +106,13 @@ public class EximportController extends BaseController {
                 // 将合法的记录批量入库
                 this.eximportService.batchInsert(data);
             }
+
             ImmutableMap<String, Object> result = ImmutableMap.of(
                     "time", stopwatch.stop().toString(),
                     "data", data,
                     "error", error
             );
+
             return new AdminResponse().success().data(result);
         } catch (Exception e) {
             String message = "导入Excel数据失败," + e.getMessage();

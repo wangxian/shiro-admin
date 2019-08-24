@@ -35,6 +35,7 @@ public class LoginController extends BaseController {
 
     @Autowired
     private IUserService userService;
+
     @Autowired
     private ILoginLogService loginLogService;
 
@@ -45,13 +46,17 @@ public class LoginController extends BaseController {
             @NotBlank(message = "{required}") String password,
             @NotBlank(message = "{required}") String verifyCode,
             boolean rememberMe, HttpServletRequest request) throws AdminException {
+
         if (!CaptchaUtil.verify(verifyCode, request)) {
             throw new AdminException("验证码错误！");
         }
+
         password = MD5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+
         try {
             super.login(token);
+
             // 保存登录日志
             LoginLog loginLog = new LoginLog();
             loginLog.setUsername(username);
@@ -70,10 +75,12 @@ public class LoginController extends BaseController {
     public AdminResponse regist(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password) throws AdminException {
+
         User user = userService.findByName(username);
         if (user != null) {
             throw new AdminException("该用户名已存在");
         }
+
         this.userService.regist(username, password);
         return new AdminResponse().success();
     }
@@ -83,20 +90,26 @@ public class LoginController extends BaseController {
         // 更新登录时间
         this.userService.updateLoginTime(username);
         Map<String, Object> data = new HashMap<>();
+
         // 获取系统访问记录
         Long totalVisitCount = this.loginLogService.findTotalVisitCount();
         data.put("totalVisitCount", totalVisitCount);
+
         Long todayVisitCount = this.loginLogService.findTodayVisitCount();
         data.put("todayVisitCount", todayVisitCount);
+
         Long todayIp = this.loginLogService.findTodayIp();
         data.put("todayIp", todayIp);
+
         // 获取近期系统访问记录
         List<Map<String, Object>> lastSevenVisitCount = this.loginLogService.findLastSevenDaysVisitCount(null);
         data.put("lastSevenVisitCount", lastSevenVisitCount);
+
         User param = new User();
         param.setUsername(username);
         List<Map<String, Object>> lastSevenUserVisitCount = this.loginLogService.findLastSevenDaysVisitCount(param);
         data.put("lastSevenUserVisitCount", lastSevenUserVisitCount);
+
         return new AdminResponse().success().data(data);
     }
 
