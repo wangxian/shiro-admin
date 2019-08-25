@@ -1,8 +1,8 @@
 package com.company.project.controller;
 
 import Log;
-import FebsUtil;
-import FebsConstant;
+import AdminUtil;
+import AdminConstant;
 import BaseController;
 import AdminResponse;
 import QueryRequest;
@@ -38,9 +38,9 @@ public class ${className}Controller extends BaseController {
     @Autowired
     private I${className}Service ${className?uncap_first}Service;
 
-    @GetMapping(FebsConstant.VIEW_PREFIX + "${className?uncap_first}")
+    @GetMapping(AdminConstant.VIEW_PREFIX + "${className?uncap_first}")
     private String ${className?uncap_first}Index(){
-        return FebsUtil.view("${className?uncap_first}/${className?uncap_first}");
+        return AdminUtil.view("${className?uncap_first}/${className?uncap_first}");
     }
 
     @GetMapping("${className?uncap_first}")

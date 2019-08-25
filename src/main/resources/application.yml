@@ -23,10 +23,13 @@ spring:
 mybatis-plus:
   # 实体类扫描路径
   type-aliases-package: com.company.project.system.entity,com.company.project.generator.entity,com.company.project.job.entity
+
   # xml 扫描路径
   mapper-locations: classpath:mapper/*/*.xml
+
   configuration:
     jdbc-type-for-null: null
+
   global-config:
     # 关闭 mybatis-plus的 banner
     banner: false
