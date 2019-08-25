@@ -55,7 +55,7 @@ layui.define(['jquery'], function (exports) {
             var dropdown = self.dropdownElem;
 
             var top = $(this).offset().top + $(this).height() + 12;
-            var left = $(this).offset().left - 5;
+            var left = $(this).offset().left + 19;
             dropdown.css({
                 top: top - 10
             });
