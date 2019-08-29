@@ -27,7 +27,6 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.time.Duration;
 import java.util.Arrays;
 
@@ -145,7 +144,6 @@ public class RedisConfigure extends CachingConfigurerSupport {
 }
 
 class JacksonRedisSerializer<T> implements RedisSerializer<T> {
-    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     private Class<T> clazz;
     private ObjectMapper mapper;
 

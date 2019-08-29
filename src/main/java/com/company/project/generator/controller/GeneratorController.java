@@ -60,7 +60,7 @@ public class GeneratorController extends BaseController {
 
             String className = name;
             if (GeneratorConfig.TRIM_YES.equals(generatorConfig.getIsTrim())) {
-                className = name.replace(generatorConfig.getTrimValue(), "");
+                className = name.replaceFirst(generatorConfig.getTrimValue(), "");
             }
 
             generatorConfig.setTableName(name);
