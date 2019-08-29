@@ -35,4 +35,10 @@ public class ViewController {
 
         return AdminUtil.view("generator/configure");
     }
+
+    @GetMapping("swagger")
+    @RequiresPermissions("generator:swagger")
+    public String swagger() {
+        return AdminUtil.view("generator/swagger");
+    }
 }

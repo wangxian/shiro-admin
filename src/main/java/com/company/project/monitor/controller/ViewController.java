@@ -29,6 +29,7 @@ public class ViewController {
 
     @Autowired
     private AdminActuatorHelper actuatorHelper;
+
     @Autowired
     private IRedisService redisService;
 
@@ -101,5 +102,4 @@ public class ViewController {
         model.addAttribute("server", serverInfo);
         return AdminUtil.view("monitor/serverInfo");
     }
-
 }

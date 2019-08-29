@@ -21,8 +21,8 @@
                     <dl class="layui-nav-child">
                         <dd><a class="layui-nav-child-href" id="user-profile">个人中心</a></dd>
                         <dd><a class="layui-nav-child-href" id="password-update">密码修改</a></dd>
-                        <dd><a class="layui-nav-child-href" target="_blank" href="https://github.com/wangxian/admin-Shiro">项目地址</a></dd>
-                        <hr/>
+                        <dd><a class="layui-nav-child-href" target="_blank" href="https://github.com/wangxian/shiro-admin">项目地址</a></dd>
+                        <hr />
                         <dd><a class="layui-nav-child-href" data-th-href="@{logout}">退出登录</a></dd>
                     </dl>
                 </li>
@@ -74,7 +74,7 @@
                     var html = '
                     <dl class="layui-nav-child">';
                         layui.each(data,function(i,child){
-                        var left = index == 0 ? 36 : 36 + index * 20;
+                        var left = index == 0 ? 42 : 42 + index * 20;
                         html += '
                         <dd>
                             <a style="padding-left:' + left + 'px"target="'+(child.target||'')+'" lay-href="'+ (child.href||'') +'">
