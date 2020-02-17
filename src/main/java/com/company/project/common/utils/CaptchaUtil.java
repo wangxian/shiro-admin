@@ -3,11 +3,13 @@ package com.company.project.common.utils;
 import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.exception.RedisConnectException;
 import com.company.project.monitor.service.IRedisService;
-import com.wf.captcha.Captcha;
+import com.google.common.net.HttpHeaders;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -127,12 +129,13 @@ public class CaptchaUtil {
 
     public static void setHeader(HttpServletResponse response, int cType) {
         if (cType == GIF_TYPE) {
-            response.setContentType("image/gif");
+            response.setContentType(MediaType.IMAGE_GIF_VALUE);
         } else {
-            response.setContentType("image/png");
+            response.setContentType(MediaType.IMAGE_PNG_VALUE);
         }
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 0L);
+
+        response.setHeader(HttpHeaders.PRAGMA, "no-cache");
+        response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache");
+        response.setDateHeader(HttpHeaders.EXPIRES, 0L);
     }
 }
