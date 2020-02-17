@@ -1,16 +1,16 @@
 package com.company.project.system.controller;
 
-import com.company.project.common.entity.AdminResponse;
-import com.company.project.monitor.entity.LoginLog;
-import com.company.project.monitor.service.ILoginLogService;
 import com.company.project.common.annotation.Limit;
 import com.company.project.common.controller.BaseController;
+import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.exception.AdminException;
 import com.company.project.common.utils.CaptchaUtil;
 import com.company.project.common.utils.MD5Util;
+import com.company.project.monitor.entity.LoginLog;
+import com.company.project.monitor.service.ILoginLogService;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
-import com.wf.captcha.Captcha;
+import com.wf.captcha.base.Captcha;
 import org.apache.shiro.authc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

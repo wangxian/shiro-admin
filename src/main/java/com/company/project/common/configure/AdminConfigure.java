@@ -1,5 +1,6 @@
 package com.company.project.common.configure;
 
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.properties.AdminProperties;
 import com.company.project.common.properties.SwaggerProperties;
 import com.company.project.common.xss.XssFilter;
@@ -31,7 +32,7 @@ public class AdminConfigure {
     @Autowired
     private AdminProperties properties;
 
-    @Bean("adminAsyncThreadPool")
+    @Bean(AdminConstant.ASYNC_POOL)
     public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 

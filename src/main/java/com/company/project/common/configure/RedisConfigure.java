@@ -149,7 +149,7 @@ class JacksonRedisSerializer<T> implements RedisSerializer<T> {
 
     JacksonRedisSerializer(Class<T> clazz) {
         super();
-        this.clazz = clazz;
+        this.clazz  = clazz;
         this.mapper = new ObjectMapper();
         mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
     }
