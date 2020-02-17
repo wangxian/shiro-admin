@@ -25,10 +25,10 @@ public class Table {
     /**
      * 创建时间
      */
-    private String createTime;
+    private String createdAt;
 
     /**
      * 修改时间
      */
-    private String updateTime;
+    private String updatedAt;
 }

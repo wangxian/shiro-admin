@@ -9,7 +9,7 @@
     <!--查询数据库下面的表-->
     <select id="getTables" resultType="table" parameterType="string">
         SELECT
-        CREATE_TIME createTime,
+            CREATE_TIME createTime,
             UPDATE_TIME updateTime,
             TABLE_ROWS dataRows,
             TABLE_NAME name,

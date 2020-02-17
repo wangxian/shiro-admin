@@ -63,7 +63,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements
         }
 
         Page<SystemLog> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createTime", AdminConstant.ORDER_DESC, true);
+        SortUtil.handlePageSort(request, page, "id", AdminConstant.ORDER_DESC, true);
 
         return this.page(page, queryWrapper);
     }
