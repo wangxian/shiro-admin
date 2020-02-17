@@ -76,11 +76,10 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements
     }
 
     @Override
-    public void saveLog(ProceedingJoinPoint point, Method method, HttpServletRequest request, String operation, long start) {
+    public void saveLog(ProceedingJoinPoint point, Method method, String ip , String operation, long start) {
         SystemLog systemLog = new SystemLog();
 
         // 设置 IP地址
-        String ip = IPUtil.getIpAddr(request);
         systemLog.setIp(ip);
 
         // 设置操作用户

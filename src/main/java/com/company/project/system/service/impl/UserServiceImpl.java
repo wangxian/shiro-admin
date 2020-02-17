@@ -3,6 +3,7 @@ package com.company.project.system.service.impl;
 import com.company.project.common.authentication.ShiroRealm;
 import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
+import com.company.project.common.exception.AdminException;
 import com.company.project.common.utils.AdminUtil;
 import com.company.project.common.utils.MD5Util;
 import com.company.project.common.utils.SortUtil;
@@ -46,14 +47,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public IPage<User> findUserDetail(User user, QueryRequest request) {
+    public IPage<User> findUserDetailList(User user, QueryRequest request) {
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "userId", AdminConstant.ORDER_ASC, false);
         return this.baseMapper.findUserDetailPage(page, user);
     }
 
     @Override
-    public User findUserDetail(String username) {
+    public User findUserDetailList(String username) {
         User param = new User();
         param.setUsername(username);
         List<User> users = this.baseMapper.findUserDetail(param);
@@ -183,7 +184,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUsername(null);
         user.setRoleId(null);
         user.setPassword(null);
-        updateById(user);
+        if (isCurrentUser(user.getId())) {
+            updateById(user);
+        } else {
+            throw new AdminException("您无权修改别人的账号信息！");
+        }
+    }
+
+    private boolean isCurrentUser(Long id) {
+        User currentUser = AdminUtil.getCurrentUser();
+        return currentUser.getUserId().equals(id);
     }
 
     private void setUserRoles(User user, String[] roles) {
@@ -194,6 +204,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userRole.setRoleId(Long.valueOf(roleId));
             userRoles.add(userRole);
         });
+
         userRoleService.saveBatch(userRoles);
     }
 }

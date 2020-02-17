@@ -12,6 +12,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -40,8 +43,13 @@ public class ControllerEndpointAspect extends AspectSupport {
         try {
             result = point.proceed();
             if (StringUtils.isNotBlank(operation)) {
-                HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-                logService.saveLog(point, targetMethod, request, operation, start);
+                RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
+                ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) attributes;
+                String ip = StringUtils.EMPTY;
+                if (servletRequestAttributes != null) {
+                    ip = servletRequestAttributes.getRequest().getRemoteAddr();
+                }
+                logService.saveLog(point, targetMethod, ip, operation, start);
             }
             return result;
         } catch (Throwable throwable) {
