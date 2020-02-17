@@ -186,11 +186,11 @@ var url = admin.route.href;
             });
         });
         $view.find('#popup-clean').on('click', function () {
-            admin.modal.view('博客地址', 'https://mrbird.cc');
+            admin.modal.view('博客地址', 'https://www.baidu.com');
         });
 
         $view.find('#popup-with-button').on('click', function () {
-            admin.modal.view('博客地址', 'https://mrbird.cc', {
+            admin.modal.view('博客地址', 'https://www.baidu.com', {
                 btn: ['确定', '取消'],
                 yes: function () {
                     admin.alert.info('确定按钮回调');

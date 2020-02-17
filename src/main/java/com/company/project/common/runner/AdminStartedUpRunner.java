@@ -1,7 +1,7 @@
 package com.company.project.common.runner;
 
 import com.company.project.common.properties.AdminProperties;
-import com.company.project.monitor.service.IRedisService;
+import com.company.project.common.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +26,20 @@ public class AdminStartedUpRunner implements ApplicationRunner {
     @Autowired
     private AdminProperties adminProperties;
 
-    @Autowired
-    private IRedisService redisService;
-
     @Value("${server.port:8080}")
     private String port;
 
     @Value("${server.servlet.context-path:}")
     private String contextPath;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try {
             // 测试 Redis连接是否正常
-            redisService.exists("admin_test");
+            redisService.hasKey("admin_test");
         } catch (Exception e) {
             log.error(" ____   __    _   _ ");
             log.error("| |_   / /\\  | | | |");

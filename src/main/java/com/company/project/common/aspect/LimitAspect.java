@@ -33,11 +33,11 @@ import java.lang.reflect.Method;
 @Component
 public class LimitAspect extends AspectSupport {
 
-    private final RedisTemplate<String, Serializable> limitRedisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public LimitAspect(RedisTemplate<String, Serializable> limitRedisTemplate) {
-        this.limitRedisTemplate = limitRedisTemplate;
+    public LimitAspect(RedisTemplate<String, Object> limitRedisTemplate) {
+        this.redisTemplate = limitRedisTemplate;
     }
 
     @Pointcut("@annotation(com.company.project.common.annotation.Limit)")
@@ -73,7 +73,7 @@ public class LimitAspect extends AspectSupport {
         String luaScript = buildLuaScript();
 
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
+        Number count = redisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
 
         log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
 

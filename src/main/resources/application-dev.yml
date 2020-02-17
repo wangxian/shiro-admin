@@ -35,7 +35,7 @@ spring:
     port: 6379
     # Redis 密码
     password:
-    jedis:
+    lettuce:
       pool:
         # 连接池中的最小空闲连接
         min-idle: 8
@@ -47,4 +47,4 @@ spring:
         max-wait: 10000
 
     # 连接超时时间（毫秒）
-    timeout: 0
+    timeout: 5000

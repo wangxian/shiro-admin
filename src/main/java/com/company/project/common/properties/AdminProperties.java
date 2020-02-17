@@ -16,5 +16,7 @@ public class AdminProperties {
     private ShiroProperties shiro = new ShiroProperties();
     private SwaggerProperties swagger = new SwaggerProperties();
 
+    private ValidateCodeProperties code = new ValidateCodeProperties();
+
     private int maxBatchInsertNum = 1000;
 }

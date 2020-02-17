@@ -3,7 +3,7 @@ package com.company.project.common.properties;
 import lombok.Data;
 
 /**
- * @author MrBird
+ * @author ADMIN
  */
 @Data
 public class SwaggerProperties {

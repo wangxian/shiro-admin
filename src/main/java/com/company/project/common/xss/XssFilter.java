@@ -50,9 +50,8 @@ public class XssFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request, flag);
 
-        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,
-                flag);
         chain.doFilter(xssRequest, response);
     }
 

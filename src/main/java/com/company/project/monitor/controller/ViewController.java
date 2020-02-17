@@ -1,14 +1,11 @@
 package com.company.project.monitor.controller;
 
 import com.company.project.common.entity.AdminConstant;
-import com.company.project.common.exception.RedisConnectException;
 import com.company.project.common.utils.AdminUtil;
 import com.company.project.monitor.entity.JvmInfo;
-import com.company.project.monitor.entity.RedisInfo;
 import com.company.project.monitor.entity.ServerInfo;
 import com.company.project.monitor.entity.TomcatInfo;
 import com.company.project.monitor.helper.AdminActuatorHelper;
-import com.company.project.monitor.service.IRedisService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +27,6 @@ public class ViewController {
     @Autowired
     private AdminActuatorHelper actuatorHelper;
 
-    @Autowired
-    private IRedisService redisService;
-
     @GetMapping("online")
     @RequiresPermissions("online:view")
     public String online() {
@@ -49,22 +43,6 @@ public class ViewController {
     @RequiresPermissions("loginlog:view")
     public String loginLog() {
         return AdminUtil.view("monitor/loginLog");
-    }
-
-    @GetMapping("redis/info")
-    @RequiresPermissions("redis:view")
-    public String getRedisInfo(Model model) throws RedisConnectException {
-        List<RedisInfo> infoList = this.redisService.getRedisInfo();
-        model.addAttribute("infoList", infoList);
-        return AdminUtil.view("monitor/redisInfo");
-    }
-
-    @GetMapping("redis/terminal")
-    @RequiresPermissions("redis:terminal:view")
-    public String redisTerminal(Model model) {
-        String osName = System.getProperty("os.name");
-        model.addAttribute("osName", osName);
-        return AdminUtil.view("monitor/redisTerminal");
     }
 
     @GetMapping("httptrace")

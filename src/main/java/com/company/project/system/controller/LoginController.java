@@ -4,7 +4,7 @@ import com.company.project.common.annotation.Limit;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.exception.AdminException;
-import com.company.project.common.utils.CaptchaUtil;
+import com.company.project.common.service.ValidateCodeService;
 import com.company.project.common.utils.MD5Util;
 import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.service.ILoginLogService;
@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,9 @@ public class LoginController extends BaseController {
     private IUserService userService;
 
     @Autowired
+    private ValidateCodeService validateCodeService;
+
+    @Autowired
     private ILoginLogService loginLogService;
 
     @PostMapping("login")
@@ -47,9 +52,8 @@ public class LoginController extends BaseController {
             @NotBlank(message = "{required}") String verifyCode,
             boolean rememberMe, HttpServletRequest request) throws AdminException {
 
-        if (!CaptchaUtil.verify(verifyCode, request)) {
-            throw new AdminException("验证码错误！");
-        }
+        HttpSession session = request.getSession();
+        validateCodeService.check(session.getId(), verifyCode);
 
         password = MD5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
@@ -114,7 +118,7 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("images/captcha")
-    public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CaptchaUtil.outPng(110, 34, 4, Captcha.TYPE_ONLY_NUMBER, request, response);
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException, AdminException {
+        validateCodeService.create(request, response);
     }
 }
