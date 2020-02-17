@@ -48,7 +48,7 @@ public class RedisServiceImpl implements IRedisService {
                     client.info();
                     return client.getBulkReply();
                 }
-        );
+                                        );
         List<RedisInfo> infoList = new ArrayList<>();
         String[] strs = Objects.requireNonNull(info).split(separator);
         RedisInfo redisInfo;
@@ -76,7 +76,7 @@ public class RedisServiceImpl implements IRedisService {
                     client.dbSize();
                     return client.getIntegerReply();
                 }
-        );
+                                        );
         Map<String, Object> map = new HashMap<>();
         map.put("dbSize", dbSize);
         return map;
@@ -90,7 +90,7 @@ public class RedisServiceImpl implements IRedisService {
                     client.info();
                     return client.getBulkReply();
                 }
-        );
+                                        );
         String[] strs = Objects.requireNonNull(info).split(separator);
         Map<String, Object> map = null;
         for (String s : strs) {
@@ -111,17 +111,17 @@ public class RedisServiceImpl implements IRedisService {
 
     @Override
     public String get(String key) throws RedisConnectException {
-        return this.excuteByJedis(j -> j.get(key.toLowerCase()));
+        return this.excuteByJedis(j -> j.get(key));
     }
 
     @Override
     public String set(String key, String value) throws RedisConnectException {
-        return this.excuteByJedis(j -> j.set(key.toLowerCase(), value));
+        return this.excuteByJedis(j -> j.set(key, value));
     }
 
     @Override
     public String set(String key, String value, Long milliscends) throws RedisConnectException {
-        String result = this.set(key.toLowerCase(), value);
+        String result = this.set(key, value);
         this.pexpire(key, milliscends);
         return result;
     }

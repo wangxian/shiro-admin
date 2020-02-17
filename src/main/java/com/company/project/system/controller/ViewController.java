@@ -3,8 +3,8 @@ package com.company.project.system.controller;
 import com.company.project.common.authentication.ShiroHelper;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminConstant;
-import com.company.project.common.utils.DateUtil;
 import com.company.project.common.utils.AdminUtil;
+import com.company.project.common.utils.DateUtil;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -51,7 +51,6 @@ public class ViewController extends BaseController {
     }
 
 
-
     @GetMapping("/")
     public String redirectIndex() {
         return "redirect:/index";
@@ -60,14 +59,14 @@ public class ViewController extends BaseController {
     @GetMapping("index")
     public String index(Model model) {
         AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
+
         User user = super.getCurrentUser();
+        User currentUserDetail = userService.findByName(user.getUsername());
+        currentUserDetail.setPassword("It's a secret");
 
-        user.setPassword("It's a secret");
-
-        // 获取实时的用户信息
-        model.addAttribute("user", userService.findByName(user.getUsername()));
+        model.addAttribute("user", currentUserDetail);
         model.addAttribute("permissions", authorizationInfo.getStringPermissions());
-        model.addAttribute("roles",authorizationInfo.getRoles());
+        model.addAttribute("roles", authorizationInfo.getRoles());
 
         return "index";
     }

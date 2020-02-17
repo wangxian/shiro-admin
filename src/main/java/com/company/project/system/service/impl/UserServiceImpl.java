@@ -99,6 +99,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional
     public void updateUser(User user) {
+        String username = user.getUsername();
+
         // 更新用户
         user.setPassword(null);
         user.setUsername(null);
@@ -111,7 +113,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         setUserRoles(user, roles);
 
         User currentUser = AdminUtil.getCurrentUser();
-        if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), user.getUsername())) {
+        if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
             shiroRealm.clearCache();
         }
     }
@@ -143,7 +145,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         UserRole ur = new UserRole();
         ur.setUserId(user.getUserId());
-        ur.setRoleId(2L); // 注册用户角色 ID
+        ur.setRoleId(AdminConstant.REGISTER_ROLE_ID); // 注册用户角色 ID
         this.userRoleService.save(ur);
     }
 
@@ -187,10 +189,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private void setUserRoles(User user, String[] roles) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(roles).forEach(roleId -> {
-            UserRole ur = new UserRole();
-            ur.setUserId(user.getUserId());
-            ur.setRoleId(Long.valueOf(roleId));
-            userRoles.add(ur);
+            UserRole userRole = new UserRole();
+            userRole.setUserId(user.getUserId());
+            userRole.setRoleId(Long.valueOf(roleId));
+            userRoles.add(userRole);
         });
         userRoleService.saveBatch(userRoles);
     }

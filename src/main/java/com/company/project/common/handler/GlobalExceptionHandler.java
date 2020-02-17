@@ -6,6 +6,7 @@ import com.company.project.common.exception.FileDownloadException;
 import com.company.project.common.exception.LimitAccessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.core.Ordered;
@@ -98,6 +99,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ExpiredSessionException.class)
     public AdminResponse handleExpiredSessionException(ExpiredSessionException e) {
         log.error("ExpiredSessionException", e);
+        return new AdminResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
+    }
+
+    @ExceptionHandler(value = AuthorizationException.class)
+    public AdminResponse handleAuthorizationException(AuthorizationException e) {
+        log.debug("AuthorizationException", e);
         return new AdminResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 

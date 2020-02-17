@@ -1,15 +1,17 @@
 package com.company.project.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.common.authentication.ShiroRealm;
 import com.company.project.common.entity.MenuTree;
 import com.company.project.common.utils.TreeUtil;
 import com.company.project.system.entity.Menu;
 import com.company.project.system.mapper.MenuMapper;
-import com.company.project.system.mapper.RoleMenuMapper;
 import com.company.project.system.service.IMenuService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.company.project.system.service.IRoleMenuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +31,8 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Autowired
-    private RoleMenuMapper roleMenuMapper;
+    private IRoleMenuService roleMenuService;
+
     @Autowired
     private ShiroRealm shiroRealm;
 
@@ -92,11 +96,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Transactional
     public void deleteMeuns(String menuIds) {
         String[] menuIdsArray = menuIds.split(StringPool.COMMA);
-        for (String menuId : menuIdsArray) {
-            // 递归删除这些菜单/按钮
-            this.baseMapper.deleteMenus(menuId);
-            this.roleMenuMapper.deleteRoleMenus(menuId);
-        }
+        this.delete(Arrays.asList(menuIdsArray));
 
         shiroRealm.clearCache();
     }
@@ -122,6 +122,24 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         if (Menu.TYPE_BUTTON.equals(menu.getType())) {
             menu.setUrl(null);
             menu.setIcon(null);
+        }
+    }
+
+    private void delete(List<String> menuIds) {
+        List<String> list = new ArrayList<>(menuIds);
+        removeByIds(menuIds);
+
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(Menu::getParentId, menuIds);
+        List<Menu> menus = baseMapper.selectList(queryWrapper);
+        if (CollectionUtils.isNotEmpty(menus)) {
+            List<String> menuIdList = new ArrayList<>();
+            menus.forEach(m -> menuIdList.add(String.valueOf(m.getMenuId())));
+            list.addAll(menuIdList);
+            this.roleMenuService.deleteRoleMenusByMenuId(list);
+            this.delete(menuIdList);
+        } else {
+            this.roleMenuService.deleteRoleMenusByMenuId(list);
         }
     }
 }

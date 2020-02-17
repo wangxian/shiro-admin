@@ -15,4 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 public class AdminProperties {
     private ShiroProperties shiro = new ShiroProperties();
     private SwaggerProperties swagger = new SwaggerProperties();
+
+    private int maxBatchInsertNum = 1000;
 }

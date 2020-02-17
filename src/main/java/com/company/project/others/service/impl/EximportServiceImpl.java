@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.common.entity.QueryRequest;
+import com.company.project.common.properties.AdminProperties;
 import com.company.project.others.entity.Eximport;
 import com.company.project.others.mapper.EximportMapper;
 import com.company.project.others.service.IEximportService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,8 +25,8 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> implements IEximportService {
 
-    @Value("${admin.max.batch.insert.num:1000}")
-    private int batchInsertMaxNum;
+    @Autowired
+    private AdminProperties properties;
 
     @Override
     public IPage<Eximport> findEximports(QueryRequest request, Eximport eximport) {
@@ -35,7 +37,7 @@ public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> i
     @Override
     @Transactional
     public void batchInsert(List<Eximport> list) {
-        saveBatch(list, batchInsertMaxNum);
+        saveBatch(list, properties.getMaxBatchInsertNum());
     }
 
 }
