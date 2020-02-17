@@ -30,7 +30,7 @@ public class GeneratorServiceImpl implements IGeneratorService {
     @Override
     public IPage<Table> getTables(String tableName, QueryRequest request, String databaseType, String schemaName) {
         Page<Table> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "id", AdminConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "createTime", AdminConstant.ORDER_ASC, false);
         return generatorMapper.getTables(page, tableName, databaseType, schemaName);
     }
 
