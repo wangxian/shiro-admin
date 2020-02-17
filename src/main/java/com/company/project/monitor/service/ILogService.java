@@ -1,27 +1,31 @@
 package com.company.project.monitor.service;
 
 
+import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
-import com.company.project.monitor.entity.Log;
+import com.company.project.monitor.entity.SystemLog;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+
 /**
  * @author ADMIN
  */
-public interface ILogService extends IService<Log> {
+public interface ILogService extends IService<SystemLog> {
 
     /**
      * 查询操作日志分页
      *
-     * @param log     日志
-     * @param request QueryRequest
+     * @param systemLog 日志
+     * @param request   QueryRequest
      * @return IPage<Log>
      */
-    IPage<Log> findLogs(Log log, QueryRequest request);
+    IPage<SystemLog> findLogs(SystemLog systemLog, QueryRequest request);
 
     /**
      * 删除操作日志
@@ -32,11 +36,15 @@ public interface ILogService extends IService<Log> {
 
     /**
      * 异步保存操作日志
+     * 异步保存操作日志
      *
-     * @param point 切点
-     * @param log   日志
-     * @throws JsonProcessingException 异常
+     *
+     * @param point     切点
+     * @param method    Method
+     * @param request   HttpServletRequest
+     * @param operation 操作内容
+     * @param start     开始时间
      */
-    @Async("adminAsyncThreadPool")
-    void saveLog(ProceedingJoinPoint point, Log log) throws JsonProcessingException;
+    @Async(AdminConstant.ASYNC_POOL)
+    void saveLog(ProceedingJoinPoint point, Method method, HttpServletRequest request, String operation, long start);
 }

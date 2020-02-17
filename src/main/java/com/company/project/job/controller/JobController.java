@@ -1,6 +1,6 @@
 package com.company.project.job.controller;
 
-import com.company.project.common.annotation.Log;
+import com.company.project.common.annotation.ControllerEndpoint;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
@@ -50,100 +50,59 @@ public class JobController extends BaseController {
         }
     }
 
-    @Log("新增定时任务")
     @PostMapping
     @RequiresPermissions("job:add")
-    public AdminResponse addJob(@Valid Job job) throws AdminException {
-        try {
-            this.jobService.createJob(job);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "新增定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "新增定时任务", exceptionMessage = "新增定时任务失败")
+    public AdminResponse addJob(@Valid Job job) {
+        this.jobService.createJob(job);
+        return new AdminResponse().success();
     }
 
-    @Log("删除定时任务")
     @GetMapping("delete/{jobIds}")
     @RequiresPermissions("job:delete")
-    public AdminResponse deleteJob(@NotBlank(message = "{required}") @PathVariable String jobIds) throws AdminException {
-        try {
-            String[] ids = jobIds.split(StringPool.COMMA);
-            this.jobService.deleteJobs(ids);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "删除定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "删除定时任务", exceptionMessage = "删除定时任务失败")
+    public AdminResponse deleteJob(@NotBlank(message = "{required}") @PathVariable String jobIds) {
+        String[] ids = jobIds.split(StringPool.COMMA);
+        this.jobService.deleteJobs(ids);
+        return new AdminResponse().success();
     }
 
-    @Log("修改定时任务")
     @PostMapping("update")
-    public AdminResponse updateJob(@Valid Job job) throws AdminException {
-        try {
-            this.jobService.updateJob(job);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "修改定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "修改定时任务", exceptionMessage = "修改定时任务失败")
+    public AdminResponse updateJob(@Valid Job job) {
+        this.jobService.updateJob(job);
+        return new AdminResponse().success();
     }
 
-    @Log("执行定时任务")
     @RequiresPermissions("job:run")
     @GetMapping("run/{jobIds}")
-    public AdminResponse runJob(@NotBlank(message = "{required}") @PathVariable String jobIds) throws AdminException {
-        try {
-            this.jobService.run(jobIds);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "执行定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "执行定时任务", exceptionMessage = "执行定时任务失败")
+    public AdminResponse runJob(@NotBlank(message = "{required}") @PathVariable String jobIds) {
+        this.jobService.run(jobIds);
+        return new AdminResponse().success();
     }
 
-    @Log("暂停定时任务")
     @GetMapping("pause/{jobIds}")
     @RequiresPermissions("job:pause")
-    public AdminResponse pauseJob(@NotBlank(message = "{required}") @PathVariable String jobIds) throws AdminException {
-        try {
-            this.jobService.pause(jobIds);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "暂停定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "暂停定时任务", exceptionMessage = "暂停定时任务失败")
+    public AdminResponse pauseJob(@NotBlank(message = "{required}") @PathVariable String jobIds) {
+        this.jobService.pause(jobIds);
+        return new AdminResponse().success();
     }
 
-    @Log("恢复定时任务")
     @GetMapping("resume/{jobIds}")
     @RequiresPermissions("job:resume")
-    public AdminResponse resumeJob(@NotBlank(message = "{required}") @PathVariable String jobIds) throws AdminException {
-        try {
-            this.jobService.resume(jobIds);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "恢复定时任务失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "恢复定时任务", exceptionMessage = "恢复定时任务失败")
+    public AdminResponse resumeJob(@NotBlank(message = "{required}") @PathVariable String jobIds) {
+        this.jobService.resume(jobIds);
+        return new AdminResponse().success();
     }
 
     @GetMapping("excel")
     @RequiresPermissions("job:export")
-    public void export(QueryRequest request, Job job, HttpServletResponse response) throws AdminException {
-        try {
-            List<Job> jobs = this.jobService.findJobs(request, job).getRecords();
-            ExcelKit.$Export(Job.class, response).downXlsx(jobs, false);
-        } catch (Exception e) {
-            String message = "导出Excel失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    public void export(QueryRequest request, Job job, HttpServletResponse response) {
+        List<Job> jobs = this.jobService.findJobs(request, job).getRecords();
+        ExcelKit.$Export(Job.class, response).downXlsx(jobs, false);
     }
 }

@@ -5,7 +5,7 @@ package com.company.project.common.exception;
  *
  * @author ADMIN
  */
-public class AdminException extends Exception {
+public class AdminException extends RuntimeException {
 
     private static final long serialVersionUID = -994962710559017255L;
 

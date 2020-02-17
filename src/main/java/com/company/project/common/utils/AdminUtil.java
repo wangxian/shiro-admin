@@ -97,6 +97,18 @@ public class AdminUtil {
         return (User) SecurityUtils.getSubject().getPrincipal();
     }
 
+    /**
+     * 判断是否包含中文
+     *
+     * @param value 内容
+     * @return 结果
+     */
+    public static boolean containChinese(String value) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(value);
+        return m.find();
+    }
+
     public static String view(String viewName) {
         return AdminConstant.VIEW_PREFIX + viewName;
     }

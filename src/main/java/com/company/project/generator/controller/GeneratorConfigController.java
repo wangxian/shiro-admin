@@ -1,6 +1,6 @@
 package com.company.project.generator.controller;
 
-import com.company.project.common.annotation.Log;
+import com.company.project.common.annotation.ControllerEndpoint;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.exception.AdminException;
@@ -34,21 +34,15 @@ public class GeneratorConfigController extends BaseController {
         return new AdminResponse().success().data(generatorConfigService.findGeneratorConfig());
     }
 
-    @Log("修改GeneratorConfig")
     @PostMapping("update")
     @RequiresPermissions("generator:configure:update")
-    public AdminResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) throws AdminException {
-        try {
-            if (StringUtils.isBlank(generatorConfig.getId())) {
-                throw new AdminException("配置id不能为空");
-            }
-
-            this.generatorConfigService.updateGeneratorConfig(generatorConfig);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "修改GeneratorConfig失败";
-            log.error(message, e);
-            throw new AdminException(message);
+    @ControllerEndpoint(operation = "修改GeneratorConfig", exceptionMessage = "修改GeneratorConfig失败")
+    public AdminResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) {
+        if (StringUtils.isBlank(generatorConfig.getId())) {
+            throw new AdminException("配置id不能为空");
         }
+
+        this.generatorConfigService.updateGeneratorConfig(generatorConfig);
+        return new AdminResponse().success();
     }
 }

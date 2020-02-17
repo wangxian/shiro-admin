@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
-    String value() default "";
+public @interface ControllerEndpoint {
+    String operation() default "";
+    String exceptionMessage() default "ADMIN系统内部异常";
 }

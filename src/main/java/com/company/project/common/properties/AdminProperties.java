@@ -13,8 +13,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:admin.properties"})
 @ConfigurationProperties(prefix = "admin")
 public class AdminProperties {
-
     private ShiroProperties shiro = new ShiroProperties();
-    private boolean openAopLog = true;
     private SwaggerProperties swagger = new SwaggerProperties();
 }

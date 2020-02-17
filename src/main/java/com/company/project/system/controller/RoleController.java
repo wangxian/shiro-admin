@@ -1,7 +1,7 @@
 package com.company.project.system.controller;
 
 
-import com.company.project.common.annotation.Log;
+import com.company.project.common.annotation.ControllerEndpoint;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
@@ -43,59 +43,36 @@ public class RoleController extends BaseController {
         return new AdminResponse().success().data(dataTable);
     }
 
-    @Log("新增角色")
     @PostMapping
     @RequiresPermissions("role:add")
-    public AdminResponse addRole(@Valid Role role) throws AdminException {
-        try {
-            this.roleService.createRole(role);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "新增角色失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "新增角色", exceptionMessage = "新增角色失败")
+    public AdminResponse addRole(@Valid Role role) {
+        this.roleService.createRole(role);
+        return new AdminResponse().success();
     }
 
-    @Log("删除角色")
     @GetMapping("delete/{roleIds}")
     @RequiresPermissions("role:delete")
-    public AdminResponse deleteRoles(@NotBlank(message = "{required}") @PathVariable String roleIds) throws AdminException {
-        try {
-            this.roleService.deleteRoles(roleIds);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "删除角色失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "删除角色", exceptionMessage = "删除角色失败")
+    public AdminResponse deleteRoles(@NotBlank(message = "{required}") @PathVariable String roleIds) {
+        this.roleService.deleteRoles(roleIds);
+        return new AdminResponse().success();
     }
 
-    @Log("修改角色")
     @PostMapping("update")
     @RequiresPermissions("role:update")
-    public AdminResponse updateRole(Role role) throws AdminException {
-        try {
-            this.roleService.updateRole(role);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "修改角色失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(operation = "修改角色", exceptionMessage = "修改角色失败")
+    public AdminResponse updateRole(Role role) {
+        this.roleService.updateRole(role);
+        return new AdminResponse().success();
     }
 
     @GetMapping("excel")
     @RequiresPermissions("role:export")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) throws AdminException {
-        try {
-            List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
-            ExcelKit.$Export(Role.class, response).downXlsx(roles, false);
-        } catch (Exception e) {
-            String message = "导出Excel失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+        List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
+        ExcelKit.$Export(Role.class, response).downXlsx(roles, false);
     }
 
 }

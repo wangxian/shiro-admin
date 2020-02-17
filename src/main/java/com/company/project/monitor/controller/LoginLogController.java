@@ -1,10 +1,11 @@
 package com.company.project.monitor.controller;
 
+import com.company.project.common.annotation.ControllerEndpoint;
 import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.exception.AdminException;
-import com.company.project.monitor.entity.Log;
+import com.company.project.monitor.entity.SystemLog;
 import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.service.ILoginLogService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -42,28 +43,18 @@ public class LoginLogController extends BaseController {
 
     @GetMapping("delete/{ids}")
     @RequiresPermissions("loginlog:delete")
-    public AdminResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) throws AdminException {
-        try {
-            String[] loginLogIds = ids.split(StringPool.COMMA);
-            this.loginLogService.deleteLoginLogs(loginLogIds);
-            return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "删除日志失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(exceptionMessage = "删除日志失败")
+    public AdminResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) {
+        String[] loginLogIds = ids.split(StringPool.COMMA);
+        this.loginLogService.deleteLoginLogs(loginLogIds);
+        return new AdminResponse().success();
     }
 
     @GetMapping("excel")
     @RequiresPermissions("loginlog:export")
-    public void export(QueryRequest request, LoginLog loginLog, HttpServletResponse response) throws AdminException {
-        try {
-            List<LoginLog> loginLogs = this.loginLogService.findLoginLogs(loginLog, request).getRecords();
-            ExcelKit.$Export(Log.class, response).downXlsx(loginLogs, false);
-        } catch (Exception e) {
-            String message = "导出Excel失败";
-            log.error(message, e);
-            throw new AdminException(message);
-        }
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    public void export(QueryRequest request, LoginLog loginLog, HttpServletResponse response) {
+        List<LoginLog> loginLogs = this.loginLogService.findLoginLogs(loginLog, request).getRecords();
+        ExcelKit.$Export(LoginLog.class, response).downXlsx(loginLogs, false);
     }
 }

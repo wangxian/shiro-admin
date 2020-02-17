@@ -1,22 +1,23 @@
 package com.company.project.monitor.service.impl;
 
 
-import com.company.project.common.annotation.Log;
-import com.company.project.common.entity.AdminConstant;
-import com.company.project.common.entity.QueryRequest;
-import com.company.project.common.utils.AddressUtil;
-import com.company.project.common.utils.SortUtil;
-import com.company.project.monitor.mapper.LogMapper;
-import com.company.project.monitor.service.ILogService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.company.project.common.entity.AdminConstant;
+import com.company.project.common.entity.QueryRequest;
+import com.company.project.common.utils.AddressUtil;
+import com.company.project.common.utils.IPUtil;
+import com.company.project.common.utils.SortUtil;
+import com.company.project.monitor.entity.SystemLog;
+import com.company.project.monitor.mapper.LogMapper;
+import com.company.project.monitor.service.ILogService;
+import com.company.project.system.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -33,32 +35,35 @@ import java.util.*;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class LogServiceImpl extends ServiceImpl<LogMapper, com.company.project.monitor.entity.Log> implements ILogService {
+public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements ILogService {
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
-    public IPage<com.company.project.monitor.entity.Log> findLogs(com.company.project.monitor.entity.Log log, QueryRequest request) {
-        QueryWrapper<com.company.project.monitor.entity.Log> queryWrapper = new QueryWrapper<>();
+    public IPage<SystemLog> findLogs(SystemLog systemLog, QueryRequest request) {
+        QueryWrapper<SystemLog> queryWrapper = new QueryWrapper<>();
 
-        if (StringUtils.isNotBlank(log.getUsername())) {
-            queryWrapper.lambda().eq(com.company.project.monitor.entity.Log::getUsername, log.getUsername().toLowerCase());
+        if (StringUtils.isNotBlank(systemLog.getUsername())) {
+            queryWrapper.lambda().eq(SystemLog::getUsername, systemLog.getUsername().toLowerCase());
         }
-        if (StringUtils.isNotBlank(log.getOperation())) {
-            queryWrapper.lambda().like(com.company.project.monitor.entity.Log::getOperation, log.getOperation());
+
+        if (StringUtils.isNotBlank(systemLog.getOperation())) {
+            queryWrapper.lambda().like(SystemLog::getOperation, systemLog.getOperation());
         }
-        if (StringUtils.isNotBlank(log.getLocation())) {
-            queryWrapper.lambda().like(com.company.project.monitor.entity.Log::getLocation, log.getLocation());
+
+        if (StringUtils.isNotBlank(systemLog.getLocation())) {
+            queryWrapper.lambda().like(SystemLog::getLocation, systemLog.getLocation());
         }
-        if (StringUtils.isNotBlank(log.getCreateTimeFrom()) && StringUtils.isNotBlank(log.getCreateTimeTo())) {
+
+        if (StringUtils.isNotBlank(systemLog.getCreateTimeFrom()) && StringUtils.isNotBlank(systemLog.getCreateTimeTo())) {
             queryWrapper.lambda()
-                    .ge(com.company.project.monitor.entity.Log::getCreatedAt, log.getCreateTimeFrom())
-                    .le(com.company.project.monitor.entity.Log::getCreatedAt, log.getCreateTimeTo());
+                        .ge(SystemLog::getCreatedAt, systemLog.getCreateTimeFrom())
+                        .le(SystemLog::getCreatedAt, systemLog.getCreateTimeTo());
         }
 
-        Page<com.company.project.monitor.entity.Log> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, true);
+        Page<SystemLog> page = new Page<>(request.getPageNum(), request.getPageSize());
+        SortUtil.handlePageSort(request, page, "createTime", AdminConstant.ORDER_DESC, true);
 
         return this.page(page, queryWrapper);
     }
@@ -71,64 +76,91 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, com.company.project.m
     }
 
     @Override
-    public void saveLog(ProceedingJoinPoint point, com.company.project.monitor.entity.Log log) throws JsonProcessingException {
-        MethodSignature signature = (MethodSignature) point.getSignature();
-        Method method = signature.getMethod();
-        Log logAnnotation = method.getAnnotation(Log.class);
-        if (logAnnotation != null) {
-            // 注解上的描述
-            log.setOperation(logAnnotation.value());
+    public void saveLog(ProceedingJoinPoint point, Method method, HttpServletRequest request, String operation, long start) {
+        SystemLog systemLog = new SystemLog();
+
+        // 设置 IP地址
+        String ip = IPUtil.getIpAddr(request);
+        systemLog.setIp(ip);
+
+        // 设置操作用户
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if (user != null) {
+            systemLog.setUsername(user.getUsername());
         }
+
+        // 设置耗时
+        systemLog.setTime(System.currentTimeMillis() - start);
+
+        // 设置操作描述
+        systemLog.setOperation(operation);
+
         // 请求的类名
         String className = point.getTarget().getClass().getName();
+
         // 请求的方法名
-        String methodName = signature.getName();
-        log.setMethod(className + "." + methodName + "()");
+        String methodName = method.getName();
+
+        systemLog.setMethod(className + "." + methodName + "()");
+
         // 请求的方法参数值
         Object[] args = point.getArgs();
+
         // 请求的方法参数名称
         LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
         String[] paramNames = u.getParameterNames(method);
+
         if (args != null && paramNames != null) {
             StringBuilder params = new StringBuilder();
             params = handleParams(params, args, Arrays.asList(paramNames));
-            log.setParams(params.toString());
+            systemLog.setParams(params.toString());
         }
-        log.setCreatedAt(new Date());
-        log.setLocation(AddressUtil.getCityInfo(log.getIp()));
+
+        systemLog.setCreatedAt(new Date());
+        systemLog.setLocation(AddressUtil.getCityInfo(ip));
+
         // 保存系统日志
-        save(log);
+        save(systemLog);
     }
 
-    private StringBuilder handleParams(StringBuilder params, Object[] args, List paramNames) throws JsonProcessingException {
-        for (int i = 0; i < args.length; i++) {
-            if (args[i] instanceof Map) {
-                Set set = ((Map) args[i]).keySet();
-                List<Object> list = new ArrayList<>();
-                List<Object> paramList = new ArrayList<>();
-                for (Object key : set) {
-                    list.add(((Map) args[i]).get(key));
-                    paramList.add(key);
-                }
-                return handleParams(params, list.toArray(), paramList);
-            } else {
-                if (args[i] instanceof Serializable) {
-                    Class<?> aClass = args[i].getClass();
-                    try {
-                        aClass.getDeclaredMethod("toString", new Class[]{null});
-                        // 如果不抛出 NoSuchMethodException 异常则存在 toString 方法 ，安全的 writeValueAsString ，否则 走 Object的 toString方法
-                        params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i]));
-                    } catch (NoSuchMethodException e) {
-                        params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i].toString()));
+    private StringBuilder handleParams(StringBuilder params, Object[] args, List paramNames) {
+        try {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i] instanceof Map) {
+                    Set set = ((Map) args[i]).keySet();
+                    List<Object> list = new ArrayList<>();
+                    List<Object> paramList = new ArrayList<>();
+
+                    for (Object key : set) {
+                        list.add(((Map) args[i]).get(key));
+                        paramList.add(key);
                     }
-                } else if (args[i] instanceof MultipartFile) {
-                    MultipartFile file = (MultipartFile) args[i];
-                    params.append(" ").append(paramNames.get(i)).append(": ").append(file.getName());
+
+                    return handleParams(params, list.toArray(), paramList);
                 } else {
-                    params.append(" ").append(paramNames.get(i)).append(": ").append(args[i]);
+                    if (args[i] instanceof Serializable) {
+                        Class<?> aClass = args[i].getClass();
+
+                        try {
+                            aClass.getDeclaredMethod("toString", new Class[]{null});
+                            // 如果不抛出 NoSuchMethodException 异常则存在 toString 方法 ，安全的 writeValueAsString ，否则 走 Object的 toString方法
+                            params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i]));
+                        } catch (NoSuchMethodException e) {
+                            params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i].toString()));
+                        }
+
+                    } else if (args[i] instanceof MultipartFile) {
+                        MultipartFile file = (MultipartFile) args[i];
+                        params.append(" ").append(paramNames.get(i)).append(": ").append(file.getName());
+                    } else {
+                        params.append(" ").append(paramNames.get(i)).append(": ").append(args[i]);
+                    }
                 }
             }
+        } catch (Exception ignore) {
+            params.append("参数解析失败");
         }
+
         return params;
     }
 }
