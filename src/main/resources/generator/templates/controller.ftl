@@ -1,12 +1,11 @@
 package com.company.project.controller;
 
-import Log;
+import ${basePackage}.common.annotation.ControllerEndpoint;
 import AdminUtil;
 import AdminConstant;
 import BaseController;
 import AdminResponse;
 import QueryRequest;
-import FebsException;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
 import com.wuwenze.poi.ExcelKit;
@@ -58,62 +57,39 @@ public AdminResponse ${className?uncap_first}List(QueryRequest request, ${classN
 return new AdminResponse().success().data(dataTable);
     }
 
-    @Log("新增${className}")
+    @ControllerEndpoint(operation = "新增${className}", exceptionMessage = "新增${className}失败")
     @PostMapping("${className?uncap_first}")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:add")
-public AdminResponse add${className}(@Valid ${className} ${className?uncap_first}) throws FebsException {
-        try {
-            this.${className?uncap_first}Service.create${className}(${className?uncap_first});
-return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "新增${className}失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
+public AdminResponse add${className}(@Valid ${className} ${className?uncap_first}) {
+        this.${className?uncap_first}Service.create${className}(${className?uncap_first});
+        return new AdminResponse().success();
     }
 
-    @Log("删除${className}")
+    @ControllerEndpoint(operation = "删除${className}", exceptionMessage = "删除${className}失败")
     @GetMapping("${className?uncap_first}/delete")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:delete")
-public AdminResponse delete${className}(${className} ${className?uncap_first}) throws FebsException {
-        try {
-            this.${className?uncap_first}Service.delete${className}(${className?uncap_first});
-return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "删除${className}失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
+public AdminResponse delete${className}(${className} ${className?uncap_first}) {
+        this.${className?uncap_first}Service.delete${className}(${className?uncap_first});
+        return new AdminResponse().success();
     }
 
-    @Log("修改${className}")
+    @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "修改${className}失败")
     @PostMapping("${className?uncap_first}/update")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:update")
-public AdminResponse update${className}(${className} ${className?uncap_first}) throws FebsException {
-        try {
-            this.${className?uncap_first}Service.update${className}(${className?uncap_first});
-return new AdminResponse().success();
-        } catch (Exception e) {
-            String message = "修改${className}失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
+public AdminResponse update${className}(${className} ${className?uncap_first}) {
+        this.${className?uncap_first}Service.update${className}(${className?uncap_first});
+        return new AdminResponse().success();
     }
 
+    @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "导出Excel失败")
     @PostMapping("${className?uncap_first}/excel")
     @ResponseBody
     @RequiresPermissions("${className?uncap_first}:export")
-    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) throws FebsException {
-        try {
-            List<${className}> ${className?uncap_first}s = this.${className?uncap_first}Service.find${className}s(queryRequest, ${className?uncap_first}).getRecords();
-            ExcelKit.$Export(${className}.class, response).downXlsx(${className?uncap_first}s, false);
-        } catch (Exception e) {
-            String message = "导出Excel失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
+    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) {
+        List<${className}> ${className?uncap_first}s = this.${className?uncap_first}Service.find${className}s(queryRequest, ${className?uncap_first}).getRecords();
+        ExcelKit.$Export(${className}.class, response).downXlsx(${className?uncap_first}s, false);
     }
 }
