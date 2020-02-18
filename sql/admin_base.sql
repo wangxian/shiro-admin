@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 29/08/2019 19:22:01
+ Date: 18/02/2020 22:50:22
 */
 
 SET NAMES utf8mb4;
@@ -153,7 +153,33 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1042 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1062 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+
+-- ----------------------------
+-- Records of admin_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin_log` VALUES (1042, 'admin', '执行Redis keys命令', 13, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.29', '2019-08-29 19:32:20', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1043, 'admin', '执行Redis set命令', 1, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"name,wangxian\"', '192.168.1.29', '2019-08-29 19:32:26', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1044, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:28', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1045, 'admin', '执行Redis keys命令', 0, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.29', '2019-08-29 19:32:33', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1046, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:35', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1047, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:41', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1048, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:43', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1049, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:51', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1050, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:14', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1051, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"a\"', '192.168.1.29', '2019-08-29 19:33:20', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1052, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:44', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1053, 'admin', '执行Redis del命令', 1, 'com.company.project.monitor.controller.RedisController.del()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:50', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1054, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"abc\"', '192.168.1.29', '2019-08-29 19:33:54', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1055, 'admin', '执行Redis set命令', 1, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"abc,123,11\"', '192.168.1.29', '2019-08-29 19:34:01', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1056, 'admin', '执行Redis set命令', 0, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"abc,123\"', '192.168.1.29', '2019-08-29 19:34:06', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1057, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"abc\"', '192.168.1.29', '2019-08-29 19:34:09', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1058, 'admin', '修改用户', 19, 'com.company.project.system.controller.UserController.updateUser()', ' user: \"User(userId=3, username=null, password=null, deptId=4, email=Reina@hotmail.com, mobile=17711111111, status=0, createdAt=null, modifyTime=Tue Sep 17 19:43:30 CST 2019, lastLoginTime=null, sex=1, avatar=null, theme=null, isTab=null, description=由于公款私用，已被封禁。1, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=77, roleName=null)\"', '192.168.1.29', '2019-09-17 19:43:31', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1059, 'admin', '执行Redis keys命令', 23, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', NULL, '2020-02-18 01:14:17', '');
+INSERT INTO `admin_log` VALUES (1060, 'admin', '修改菜单/按钮', 22, 'com.company.project.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=113, parentId=2, menuName=Redis监控, url=/monitor/redis/info, perms=redis:view, icon=layui-icon-eye, type=0, orderNum=4, createdAt=null, modifyTime=Tue Feb 18 04:35:29 CST 2020)\"', '192.168.0.7', '2020-02-18 04:35:29', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (1061, 'admin', '删除菜单/按钮', 46, 'com.company.project.system.controller.MenuController.deleteMenus()', ' menuIds: \"113,114\"', '127.0.0.1', '2020-02-18 22:22:19', '内网IP|0|0|内网IP|内网IP');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_login_log
@@ -168,7 +194,22 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+
+-- ----------------------------
+-- Records of admin_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin_login_log` VALUES (1, 'admin', '2019-09-17 19:43:04', '内网IP|0|0|内网IP|内网IP', '192.168.1.29', 'Mac OS X 10.14; ', 'Firefox 69');
+INSERT INTO `admin_login_log` VALUES (2, 'admin', '2020-02-18 01:14:00', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
+INSERT INTO `admin_login_log` VALUES (3, 'admin', '2020-02-18 01:27:11', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
+INSERT INTO `admin_login_log` VALUES (4, 'admin', '2020-02-18 01:42:34', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
+INSERT INTO `admin_login_log` VALUES (5, 'admin', '2020-02-18 03:55:55', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
+INSERT INTO `admin_login_log` VALUES (6, 'admin', '2020-02-18 04:15:27', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
+INSERT INTO `admin_login_log` VALUES (7, 'admin', '2020-02-18 04:30:13', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10_15_2', 'Chrome 80');
+INSERT INTO `admin_login_log` VALUES (8, 'admin', '2020-02-18 22:09:13', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_15_2', 'Chrome 80');
+INSERT INTO `admin_login_log` VALUES (10, 'admin', '2020-02-18 22:22:59', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 73');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -224,8 +265,6 @@ INSERT INTO `admin_menu` VALUES (107, 102, '恢复任务', NULL, 'job:resume', N
 INSERT INTO `admin_menu` VALUES (108, 102, '立即执行任务', NULL, 'job:run', NULL, '1', NULL, '2018-02-24 15:59:45', NULL);
 INSERT INTO `admin_menu` VALUES (109, 101, '调度日志', '/job/log', 'job:log:view', 'layui-icon-file-text', '0', 2, '2018-02-24 16:00:45', '2019-06-09 02:48:19');
 INSERT INTO `admin_menu` VALUES (110, 109, '删除日志', NULL, 'job:log:delete', NULL, '1', NULL, '2018-02-24 16:01:21', NULL);
-INSERT INTO `admin_menu` VALUES (113, 2, 'Redis监控', '/monitor/redis/info', 'redis:view', 'layui-icon-info-circle', '0', 4, '2018-06-28 14:29:42', '2019-07-14 01:53:30');
-INSERT INTO `admin_menu` VALUES (114, 2, 'Redis终端', '/monitor/redis/terminal', 'redis:terminal:view', 'layui-icon-right-square', '0', 5, '2018-06-28 15:35:21', '2019-07-14 01:53:46');
 INSERT INTO `admin_menu` VALUES (115, 0, '其他模块', NULL, NULL, 'layui-icon-gift', '0', 5, '2019-05-27 10:18:07', NULL);
 INSERT INTO `admin_menu` VALUES (116, 115, 'Apex图表', '', '', 'layui-icon-piechart', '0', 2, '2019-05-27 10:21:35', NULL);
 INSERT INTO `admin_menu` VALUES (117, 116, '线性图表', '/others/apex/line', 'apex:line:view', 'layui-icon-linechart', '0', 1, '2019-05-27 10:24:49', NULL);
@@ -325,8 +364,6 @@ INSERT INTO `admin_role_menu` VALUES (2, 10);
 INSERT INTO `admin_role_menu` VALUES (2, 170);
 INSERT INTO `admin_role_menu` VALUES (2, 136);
 INSERT INTO `admin_role_menu` VALUES (2, 172);
-INSERT INTO `admin_role_menu` VALUES (2, 113);
-INSERT INTO `admin_role_menu` VALUES (2, 114);
 INSERT INTO `admin_role_menu` VALUES (2, 127);
 INSERT INTO `admin_role_menu` VALUES (2, 128);
 INSERT INTO `admin_role_menu` VALUES (2, 129);
@@ -360,8 +397,6 @@ INSERT INTO `admin_role_menu` VALUES (2, 167);
 INSERT INTO `admin_role_menu` VALUES (2, 168);
 INSERT INTO `admin_role_menu` VALUES (2, 169);
 INSERT INTO `admin_role_menu` VALUES (77, 2);
-INSERT INTO `admin_role_menu` VALUES (77, 113);
-INSERT INTO `admin_role_menu` VALUES (77, 114);
 INSERT INTO `admin_role_menu` VALUES (78, 2);
 INSERT INTO `admin_role_menu` VALUES (78, 8);
 INSERT INTO `admin_role_menu` VALUES (78, 23);
@@ -371,8 +406,6 @@ INSERT INTO `admin_role_menu` VALUES (78, 170);
 INSERT INTO `admin_role_menu` VALUES (78, 136);
 INSERT INTO `admin_role_menu` VALUES (78, 171);
 INSERT INTO `admin_role_menu` VALUES (78, 172);
-INSERT INTO `admin_role_menu` VALUES (78, 113);
-INSERT INTO `admin_role_menu` VALUES (78, 114);
 INSERT INTO `admin_role_menu` VALUES (78, 127);
 INSERT INTO `admin_role_menu` VALUES (78, 128);
 INSERT INTO `admin_role_menu` VALUES (78, 129);
@@ -427,8 +460,6 @@ INSERT INTO `admin_role_menu` VALUES (1, 170);
 INSERT INTO `admin_role_menu` VALUES (1, 136);
 INSERT INTO `admin_role_menu` VALUES (1, 171);
 INSERT INTO `admin_role_menu` VALUES (1, 172);
-INSERT INTO `admin_role_menu` VALUES (1, 113);
-INSERT INTO `admin_role_menu` VALUES (1, 114);
 INSERT INTO `admin_role_menu` VALUES (1, 127);
 INSERT INTO `admin_role_menu` VALUES (1, 128);
 INSERT INTO `admin_role_menu` VALUES (1, 129);
@@ -500,8 +531,8 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-08-29 18:53:53', '2019-08-29 18:52:20', '0', '1', 'black', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
-INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2020-02-18 01:43:11', '2020-02-18 22:22:59', '0', '1', 'white', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-09-17 19:43:31', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。1');
 COMMIT;
 
 -- ----------------------------
@@ -517,8 +548,8 @@ CREATE TABLE `admin_user_role` (
 -- Records of admin_user_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user_role` VALUES (3, 77);
 INSERT INTO `admin_user_role` VALUES (1, 1);
+INSERT INTO `admin_user_role` VALUES (3, 77);
 COMMIT;
 
 -- ----------------------------
