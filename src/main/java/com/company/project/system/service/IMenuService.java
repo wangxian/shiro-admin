@@ -1,8 +1,8 @@
 package com.company.project.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.company.project.common.entity.MenuTree;
 import com.company.project.system.entity.Menu;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ public interface IMenuService extends IService<Menu> {
     /**
      * 查找所有的菜单/按钮 （树形结构）
      *
+     * @param menu menu
      * @return MenuTree<Menu>
      */
     MenuTree<Menu> findMenus(Menu menu);
@@ -37,6 +38,7 @@ public interface IMenuService extends IService<Menu> {
     /**
      * 查找所有的菜单/按钮
      *
+     * @param menu menu
      * @return MenuTree<Menu>
      */
     List<Menu> findMenuList(Menu menu);

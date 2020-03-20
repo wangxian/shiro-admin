@@ -4,6 +4,8 @@ import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.utils.AdminUtil;
 import com.company.project.job.entity.Job;
 import com.company.project.job.service.IJobService;
+import com.company.project.monitor.helper.AdminActuatorHelper;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,10 @@ import javax.validation.constraints.NotBlank;
  */
 @Controller("jobView")
 @RequestMapping(AdminConstant.VIEW_PREFIX + "job")
+@RequiredArgsConstructor
 public class ViewController {
 
-    @Autowired
-    private IJobService jobService;
+    private final IJobService jobService;
 
     @GetMapping("job")
     @RequiresPermissions("job:view")

@@ -20,7 +20,7 @@ public class TimeConverter implements WriteConverter {
             return "";
         } else {
             try {
-                return DateUtil.formatCSTTime(value.toString(), DateUtil.FULL_TIME_SPLIT_PATTERN);
+                return DateUtil.formatCstTime(value.toString(), DateUtil.FULL_TIME_SPLIT_PATTERN);
             } catch (ParseException e) {
                 String message = "时间转换异常";
                 log.error(message, e);

@@ -5,6 +5,7 @@ import com.company.project.common.utils.DateUtil;
 import com.company.project.monitor.entity.ActiveUser;
 import com.company.project.monitor.service.ISessionService;
 import com.company.project.system.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -22,10 +23,10 @@ import java.util.List;
  * @author ADMIN
  */
 @Service
+@RequiredArgsConstructor
 public class SessionServiceImpl implements ISessionService {
 
-    @Autowired
-    private SessionDAO sessionDAO;
+    private final SessionDAO sessionDAO;
 
     @Override
     public List<ActiveUser> list(String username) {

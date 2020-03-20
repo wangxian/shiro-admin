@@ -23,6 +23,7 @@ import java.util.Date;
 public class Dept implements Serializable {
 
     private static final long serialVersionUID = 5702271568363798328L;
+    public static final Long TOP_NODE = 0L;
 
     /**
      * 部门 ID
@@ -60,6 +61,6 @@ public class Dept implements Serializable {
 
     @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
-    private Date modifyTime;
+    private Date updatedAt;
 
 }

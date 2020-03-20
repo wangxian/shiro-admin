@@ -9,6 +9,7 @@ import com.company.project.job.entity.Job;
 import com.company.project.job.service.IJobService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.quartz.CronExpression;
@@ -29,10 +30,10 @@ import java.util.Map;
 @Validated
 @RestController
 @RequestMapping("job")
+@RequiredArgsConstructor
 public class JobController extends BaseController {
 
-    @Autowired
-    private IJobService jobService;
+    private final IJobService jobService;
 
     @GetMapping
     @RequiresPermissions("job:view")

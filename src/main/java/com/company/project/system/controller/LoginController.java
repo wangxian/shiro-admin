@@ -5,12 +5,12 @@ import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.exception.AdminException;
 import com.company.project.common.service.ValidateCodeService;
-import com.company.project.common.utils.MD5Util;
+import com.company.project.common.utils.Md5Util;
 import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.service.ILoginLogService;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
-import com.wf.captcha.base.Captcha;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -33,16 +33,12 @@ import java.util.Map;
  */
 @Validated
 @RestController
+@RequiredArgsConstructor
 public class LoginController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private ValidateCodeService validateCodeService;
-
-    @Autowired
-    private ILoginLogService loginLogService;
+    private final IUserService userService;
+    private final ValidateCodeService validateCodeService;
+    private final ILoginLogService loginLogService;
 
     @PostMapping("login")
     @Limit(key = "login", period = 60, count = 20, name = "登录接口", prefix = "limit")
@@ -55,7 +51,7 @@ public class LoginController extends BaseController {
         HttpSession session = request.getSession();
         validateCodeService.check(session.getId(), verifyCode);
 
-        password = MD5Util.encrypt(username.toLowerCase(), password);
+        password = Md5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
 
         try {
@@ -93,7 +89,7 @@ public class LoginController extends BaseController {
     public AdminResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
         // 更新登录时间
         this.userService.updateLoginTime(username);
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(5);
 
         // 获取系统访问记录
         Long totalVisitCount = this.loginLogService.findTotalVisitCount();

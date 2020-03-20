@@ -6,6 +6,7 @@ import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.exception.AdminException;
 import com.company.project.generator.entity.GeneratorConfig;
 import com.company.project.generator.servie.IGeneratorConfigService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -23,10 +24,10 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("generatorConfig")
+@RequiredArgsConstructor
 public class GeneratorConfigController extends BaseController {
 
-    @Autowired
-    private IGeneratorConfigService generatorConfigService;
+    private final IGeneratorConfigService generatorConfigService;
 
     @GetMapping
     @RequiresPermissions("generator:configure:view")

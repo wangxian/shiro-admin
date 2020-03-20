@@ -8,13 +8,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.AddressUtil;
-import com.company.project.common.utils.IPUtil;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.monitor.entity.SystemLog;
 import com.company.project.monitor.mapper.LogMapper;
 import com.company.project.monitor.service.ILogService;
 import com.company.project.system.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -34,11 +33,11 @@ import java.util.*;
  * @author ADMIN
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements ILogService {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Override
     public IPage<SystemLog> findLogs(SystemLog systemLog, QueryRequest request) {
@@ -69,7 +68,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteLogs(String[] logIds) {
         List<String> list = Arrays.asList(logIds);
         baseMapper.deleteBatchIds(list);

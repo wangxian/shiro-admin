@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,17 +31,13 @@ import java.util.List;
  * @author ADMIN
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
-
-    @Autowired
-    private IUserRoleService userRoleService;
-
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final IRoleMenuService roleMenuService;
+    private final IUserRoleService userRoleService;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public List<Role> findUserRole(String username) {
@@ -70,7 +67,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createRole(Role role) {
         role.setCreatedAt(new Date());
         this.baseMapper.insert(role);
@@ -78,9 +75,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateRole(Role role) {
-        role.setModifyTime(new Date());
+        role.setUpdatedAt(new Date());
         this.updateById(role);
 
         List<String> roleIdList = new ArrayList<>();
@@ -93,7 +90,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String roleIds) {
         List<String> list = Arrays.asList(roleIds.split(StringPool.COMMA));
         this.baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));

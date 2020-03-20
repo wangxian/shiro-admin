@@ -1,7 +1,7 @@
 package com.company.project;
 
 import com.company.project.common.utils.AddressUtil;
-import com.company.project.common.utils.MD5Util;
+import com.company.project.common.utils.Md5Util;
 
 public class UserPassword {
     public static void main(String[] args) {
@@ -9,10 +9,10 @@ public class UserPassword {
         String username = "admin";
         String password = "s6321";
 
-        System.out.println("password=" + MD5Util.encrypt(username, password));
+        System.out.println("password=" + Md5Util.encrypt(username, password));
 
-        System.out.println("md5(a)=" + MD5Util.MD5("a"));
-        System.out.println("md5(111111)=" + MD5Util.MD5("111111"));
+        System.out.println("md5(a)=" + Md5Util.MD5("a"));
+        System.out.println("md5(111111)=" + Md5Util.MD5("111111"));
 
         // 根据IP解析城市
         System.out.println(AddressUtil.getCityInfo("202.106.0.20"));

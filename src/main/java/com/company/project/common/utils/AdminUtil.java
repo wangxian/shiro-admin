@@ -1,9 +1,9 @@
 package com.company.project.common.utils;
 
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.company.project.common.entity.AdminConstant;
 import com.company.project.system.entity.User;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +20,8 @@ import java.util.stream.IntStream;
  */
 @Slf4j
 public class AdminUtil {
+
+    private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
 
     /**
      * 驼峰转下划线
@@ -104,9 +106,8 @@ public class AdminUtil {
      * @return 结果
      */
     public static boolean containChinese(String value) {
-        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-        Matcher m = p.matcher(value);
-        return m.find();
+        Matcher matcher = CHINESE_PATTERN.matcher(value);
+        return matcher.find();
     }
 
     public static String view(String viewName) {

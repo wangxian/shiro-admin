@@ -9,6 +9,7 @@ import com.company.project.common.exception.AdminException;
 import com.company.project.system.entity.Role;
 import com.company.project.system.service.IRoleService;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("role")
+@RequiredArgsConstructor
 public class RoleController extends BaseController {
 
-    @Autowired
-    private IRoleService roleService;
+    private final IRoleService roleService;
 
     @GetMapping
     public AdminResponse getAllRoles(Role role) {

@@ -8,6 +8,7 @@ import com.company.project.common.entity.QueryRequest;
 import com.company.project.job.entity.JobLog;
 import com.company.project.job.service.IJobLogService;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,10 @@ import java.util.Map;
 @Validated
 @RestController
 @RequestMapping("jobLog")
+@RequiredArgsConstructor
 public class JobLogController extends BaseController {
 
-    @Autowired
-    private IJobLogService jobLogService;
+    private final IJobLogService jobLogService;
 
     @GetMapping
     @RequiresPermissions("job:log:view")

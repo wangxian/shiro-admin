@@ -3,6 +3,7 @@ package com.company.project.monitor.controller;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.monitor.entity.ActiveUser;
 import com.company.project.monitor.service.ISessionService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,16 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("session")
+@RequiredArgsConstructor
 public class SessionController {
 
-    @Autowired
-    private ISessionService sessionService;
+    private final ISessionService sessionService;
 
     @GetMapping("list")
     @RequiresPermissions("online:view")
     public AdminResponse list(String username) {
         List<ActiveUser> list = sessionService.list(username);
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(2);
 
         data.put("rows", list);
         data.put("total", CollectionUtils.size(list));

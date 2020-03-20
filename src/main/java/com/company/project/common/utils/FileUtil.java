@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
@@ -92,9 +94,16 @@ public class FileUtil {
         File file = new File(filePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files != null) Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            if (files != null) {
+                Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            }
         }
-        file.delete();
+
+        try {
+            Files.delete(Paths.get(filePath));
+        } catch (IOException e) {
+            log.error("删除失败", e);
+        }
     }
 
     /**

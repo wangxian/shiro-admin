@@ -124,7 +124,7 @@ public class User implements Serializable {
      */
     @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
-    private Date modifyTime;
+    private Date updatedAt;
 
     /**
      * 最近访问时间

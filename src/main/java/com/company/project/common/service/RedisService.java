@@ -1,5 +1,6 @@
 package com.company.project.common.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,10 @@ import java.util.concurrent.TimeUnit;
  * @author ADMIN
  */
 @Service
+@RequiredArgsConstructor
 public class RedisService {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 指定缓存失效时间

@@ -48,7 +48,7 @@ public class AdminMetricsEndpoint {
     }
 
     @ReadOperation
-    public FebsMetricResponse metric(@Selector String requiredMetricName, @Nullable List<String> tag) {
+    public AdminMetricResponse metric(@Selector String requiredMetricName, @Nullable List<String> tag) {
         List<Tag> tags = this.parseTags(tag);
         Collection<Meter> meters = this.findFirstMatchingMeters(this.registry, requiredMetricName, tags);
         if (meters.isEmpty()) {
@@ -60,7 +60,7 @@ public class AdminMetricsEndpoint {
                 Set<String> var10000 = availableTags.remove(t.getKey());
             });
             Meter.Id meterId = meters.iterator().next().getId();
-            return new FebsMetricResponse(requiredMetricName, meterId.getDescription(), meterId.getBaseUnit(), this.asList(samples, Sample::new), this.asList(availableTags, AvailableTag::new));
+            return new AdminMetricResponse(requiredMetricName, meterId.getDescription(), meterId.getBaseUnit(), this.asList(samples, Sample::new), this.asList(availableTags, AvailableTag::new));
         }
     }
 
@@ -102,7 +102,7 @@ public class AdminMetricsEndpoint {
     }
 
     private Map<String, Set<String>> getAvailableTags(Collection<Meter> meters) {
-        Map<String, Set<String>> availableTags = new HashMap<>();
+        Map<String, Set<String>> availableTags = new HashMap<>(10);
         meters.forEach((meter) -> this.mergeAvailableTags(availableTags, meter));
         return availableTags;
     }
@@ -142,6 +142,7 @@ public class AdminMetricsEndpoint {
             return this.value;
         }
 
+        @Override
         public String toString() {
             return "MeasurementSample{statistic=" + this.statistic + ", value=" + this.value + '}';
         }
@@ -165,14 +166,14 @@ public class AdminMetricsEndpoint {
         }
     }
 
-    public static final class FebsMetricResponse {
+    public static final class AdminMetricResponse {
         private final String name;
         private final String description;
         private final String baseUnit;
         private final List<Sample> measurements;
         private final List<AvailableTag> availableTags;
 
-        FebsMetricResponse(String name, String description, String baseUnit, List<Sample> measurements, List<AvailableTag> availableTags) {
+        AdminMetricResponse(String name, String description, String baseUnit, List<Sample> measurements, List<AvailableTag> availableTags) {
             this.name          = name;
             this.description   = description;
             this.baseUnit      = baseUnit;

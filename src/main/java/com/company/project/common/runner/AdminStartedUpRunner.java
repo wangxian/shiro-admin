@@ -2,6 +2,7 @@ package com.company.project.common.runner;
 
 import com.company.project.common.properties.AdminProperties;
 import com.company.project.common.service.RedisService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,18 @@ import java.net.InetAddress;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class AdminStartedUpRunner implements ApplicationRunner {
 
-    @Autowired
-    private ConfigurableApplicationContext context;
-
-    @Autowired
-    private AdminProperties adminProperties;
+    private final ConfigurableApplicationContext context;
+    private final AdminProperties adminProperties;
+    private final RedisService redisService;
 
     @Value("${server.port:8080}")
     private String port;
 
     @Value("${server.servlet.context-path:}")
     private String contextPath;
-
-    @Autowired
-    private RedisService redisService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

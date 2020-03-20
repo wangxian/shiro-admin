@@ -10,6 +10,7 @@ import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.service.ILoginLogService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("loginLog")
+@RequiredArgsConstructor
 public class LoginLogController extends BaseController {
 
-    @Autowired
-    private ILoginLogService loginLogService;
+    private final ILoginLogService loginLogService;
 
     @GetMapping("list")
     @RequiresPermissions("loginlog:view")

@@ -12,6 +12,7 @@ import com.company.project.system.entity.Menu;
 import com.company.project.system.mapper.MenuMapper;
 import com.company.project.system.service.IMenuService;
 import com.company.project.system.service.IRoleMenuService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,14 +28,12 @@ import java.util.List;
  * @author ADMIN
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
-
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final IRoleMenuService roleMenuService;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public List<Menu> findUserPermissions(String username) {
@@ -74,7 +73,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createMenu(Menu menu) {
         menu.setCreatedAt(new Date());
         this.setMenu(menu);
@@ -83,9 +82,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateMenu(Menu menu) {
-        menu.setModifyTime(new Date());
+        menu.setUpdatedAt(new Date());
         this.setMenu(menu);
         this.baseMapper.updateById(menu);
 
@@ -93,7 +92,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMeuns(String menuIds) {
         String[] menuIdsArray = menuIds.split(StringPool.COMMA);
         this.delete(Arrays.asList(menuIdsArray));
@@ -117,8 +116,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private void setMenu(Menu menu) {
-        if (menu.getParentId() == null)
+        if (menu.getParentId() == null) {
             menu.setParentId(Menu.TOP_NODE);
+        }
+
         if (Menu.TYPE_BUTTON.equals(menu.getType())) {
             menu.setUrl(null);
             menu.setIcon(null);

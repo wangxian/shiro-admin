@@ -10,6 +10,7 @@ import com.company.project.system.entity.Menu;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IMenuService;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -27,10 +28,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("menu")
+@RequiredArgsConstructor
 public class MenuController extends BaseController {
 
-    @Autowired
-    private IMenuService menuService;
+    private final IMenuService menuService;
 
     @GetMapping("{username}")
     public AdminResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) throws AdminException {

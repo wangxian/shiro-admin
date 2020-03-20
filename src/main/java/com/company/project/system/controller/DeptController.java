@@ -10,6 +10,7 @@ import com.company.project.common.exception.AdminException;
 import com.company.project.system.entity.Dept;
 import com.company.project.system.service.IDeptService;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("dept")
+@RequiredArgsConstructor
 public class DeptController {
 
-    @Autowired
-    private IDeptService deptService;
+    private final IDeptService deptService;
 
     @GetMapping("select/tree")
     @ControllerEndpoint(exceptionMessage = "获取部门树失败")

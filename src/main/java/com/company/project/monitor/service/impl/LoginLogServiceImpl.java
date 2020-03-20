@@ -4,7 +4,7 @@ import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.utils.AddressUtil;
 import com.company.project.common.utils.HttpContextUtil;
-import com.company.project.common.utils.IPUtil;
+import com.company.project.common.utils.IpUtil;
 import com.company.project.common.utils.SortUtil;
 import com.company.project.monitor.entity.LoginLog;
 import com.company.project.monitor.mapper.LoginLogMapper;
@@ -29,7 +29,7 @@ import java.util.Map;
  * @author ADMIN
  */
 @Service("loginLogService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> implements ILoginLogService {
 
     @Override
@@ -52,18 +52,18 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveLoginLog(LoginLog loginLog) {
         loginLog.setLoginTime(new Date());
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-        String ip = IPUtil.getIpAddr(request);
+        String ip = IpUtil.getIpAddr(request);
         loginLog.setIp(ip);
         loginLog.setLocation(AddressUtil.getCityInfo(ip));
         this.save(loginLog);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteLoginLogs(String[] ids) {
         List<String> list = Arrays.asList(ids);
         baseMapper.deleteBatchIds(list);

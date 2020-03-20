@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> implements IEximportService {
 
     @Autowired
@@ -35,7 +35,7 @@ public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> i
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void batchInsert(List<Eximport> list) {
         saveBatch(list, properties.getMaxBatchInsertNum());
     }

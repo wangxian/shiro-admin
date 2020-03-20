@@ -8,6 +8,7 @@ import com.company.project.common.properties.ValidateCodeProperties;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,13 +26,11 @@ import java.io.IOException;
  * @author ADMIN
  */
 @Service
+@RequiredArgsConstructor
 public class ValidateCodeService {
 
-    @Autowired
-    private RedisService redisService;
-
-    @Autowired
-    private AdminProperties properties;
+    private final RedisService redisService;
+    private final AdminProperties properties;
 
 
     public void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -60,7 +59,7 @@ public class ValidateCodeService {
     }
 
     private Captcha createCaptcha(ValidateCodeProperties code) {
-        Captcha captcha = null;
+        Captcha captcha;
         if (StringUtils.equalsIgnoreCase(code.getType(), ImageType.GIF)) {
             captcha = new GifCaptcha(code.getWidth(), code.getHeight(), code.getLength());
         } else {

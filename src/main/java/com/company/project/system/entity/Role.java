@@ -59,7 +59,7 @@ public class Role implements Serializable {
      */
     @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
-    private Date modifyTime;
+    private Date updatedAt;
 
     /**
      * 角色对应的菜单（按钮） id

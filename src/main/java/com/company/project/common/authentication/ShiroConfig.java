@@ -2,6 +2,7 @@ package com.company.project.common.authentication;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.company.project.common.properties.AdminProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -33,10 +34,10 @@ import java.util.LinkedHashMap;
  * @author ADMIN
  */
 @Configuration
+@RequiredArgsConstructor
 public class ShiroConfig {
 
-    @Autowired
-    private AdminProperties adminProperties;
+    private final AdminProperties adminProperties;
 
     @Value("${spring.redis.host}")
     private String host;

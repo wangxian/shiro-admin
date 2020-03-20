@@ -7,10 +7,10 @@ import com.company.project.common.utils.AdminUtil;
 import com.company.project.common.utils.DateUtil;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +25,11 @@ import javax.servlet.http.HttpServletRequest;
  * @author ADMIN
  */
 @Controller("systemView")
+@RequiredArgsConstructor
 public class ViewController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private ShiroHelper shiroHelper;
+    private final IUserService userService;
+    private final ShiroHelper shiroHelper;
 
     @GetMapping("login")
     @ResponseBody
@@ -166,9 +165,13 @@ public class ViewController extends BaseController {
 
         if (transform) {
             String sex = user.getSex();
-            if (User.SEX_MALE.equals(sex)) user.setSex("男");
-            else if (User.SEX_FEMALE.equals(sex)) user.setSex("女");
-            else user.setSex("保密");
+            if (User.SEX_MALE.equals(sex)) {
+                user.setSex("男");
+            } else if (User.SEX_FEMALE.equals(sex)) {
+                user.setSex("女");
+            } else {
+                user.setSex("保密");
+            }
         }
 
         if (user.getLastLoginTime() != null) {

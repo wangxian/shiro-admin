@@ -12,7 +12,7 @@
             u.sex sex,
             u.dept_id deptId,
             u.last_login_time lastLoginTime,
-            u.updated_at modifyTime,
+            u.updated_at,
             u.description,
             u.avatar,
             d.dept_name deptName,
@@ -22,7 +22,7 @@
           admin_user u
         LEFT JOIN admin_dept d ON (u.dept_id = d.id)
         LEFT JOIN admin_user_role ur ON (u.id = ur.user_id)
-        LEFT JOIN admin_role r ON r.id = ur.role_id
+        LEFT JOIN admin_role r ON r.id = ur.user_id
         WHERE 1 = 1
         <if test="user.username != null and user.username != ''">
             AND u.username = #{user.username}
@@ -67,7 +67,7 @@
         u.sex sex,
         u.dept_id deptId,
         u.last_login_time lastLoginTime,
-        u.updated_at modifyTime,
+        u.updated_at updatedAt,
         u.description,
         u.avatar,
         u.theme,
@@ -79,7 +79,7 @@
         admin_user u
         LEFT JOIN admin_dept d ON (u.dept_id = d.id)
         LEFT JOIN admin_user_role ur ON (u.id = ur.user_id)
-        LEFT JOIN admin_role r ON r.id = ur.role_id
+        LEFT JOIN admin_role r ON r.id = ur.user_id
         WHERE  u.username = #{username}
         group by u.id
     </select>

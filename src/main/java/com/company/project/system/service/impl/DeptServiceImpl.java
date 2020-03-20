@@ -24,7 +24,7 @@ import java.util.List;
  * @author ADMIN
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 
     @Override
@@ -62,7 +62,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
         if (parentId == null) {
@@ -74,19 +74,19 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateDept(Dept dept) {
-        dept.setModifyTime(new Date());
+        dept.setUpdatedAt(new Date());
         this.baseMapper.updateById(dept);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteDepts(String[] deptIds) {
         Arrays.stream(deptIds).forEach(deptId -> this.baseMapper.deleteDepts(deptId));
     }
 
-    private List<DeptTree<Dept>> convertDepts(List<Dept> depts){
+    private List<DeptTree<Dept>> convertDepts(List<Dept> depts) {
         List<DeptTree<Dept>> trees = new ArrayList<>();
 
         depts.forEach(dept -> {

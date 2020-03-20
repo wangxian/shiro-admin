@@ -9,6 +9,7 @@ import com.company.project.generator.mapper.GeneratorMapper;
 import com.company.project.generator.servie.IGeneratorService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,10 @@ import java.util.List;
  * @author ADMIN
  */
 @Service
+@RequiredArgsConstructor
 public class GeneratorServiceImpl implements IGeneratorService {
-    @Autowired
-    private GeneratorMapper generatorMapper;
+
+    private final GeneratorMapper generatorMapper;
 
     @Override
     public List<String> getDatabases(String databaseType) {

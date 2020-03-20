@@ -6,6 +6,7 @@ import com.company.project.system.entity.User;
 import com.company.project.system.service.IMenuService;
 import com.company.project.system.service.IRoleService;
 import com.company.project.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -26,14 +27,26 @@ import java.util.stream.Collectors;
  * @author ADMIN
  */
 @Component
+@RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
-    @Autowired
     private IUserService userService;
-    @Autowired
     private IRoleService roleService;
-    @Autowired
     private IMenuService menuService;
+
+    @Autowired
+    public void setMenuService(IMenuService menuService) {
+        this.menuService = menuService;
+    }
+
+    @Autowired
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+    @Autowired
+    public void setRoleService(IRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
      * 授权模块，获取用户角色和权限
@@ -75,6 +88,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 通过用户名到数据库查询用户信息
         User user = this.userService.findByName(userName);
+        System.out.println(user);
 
         if (user == null) {
             throw new UnknownAccountException("用户不存在");

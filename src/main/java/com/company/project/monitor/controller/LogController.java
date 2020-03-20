@@ -8,6 +8,7 @@ import com.company.project.monitor.entity.SystemLog;
 import com.company.project.monitor.service.ILogService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("log")
+@RequiredArgsConstructor
 public class LogController extends BaseController {
 
-    @Autowired
-    private ILogService logService;
+    private final ILogService logService;
 
     @GetMapping("list")
     @RequiresPermissions("log:view")

@@ -4,6 +4,7 @@ import com.company.project.common.entity.AdminConstant;
 import com.company.project.common.properties.AdminProperties;
 import com.company.project.common.properties.SwaggerProperties;
 import com.company.project.common.xss.XssFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +28,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Configuration
 @EnableSwagger2
+@RequiredArgsConstructor
 public class AdminConfigure {
 
-    @Autowired
-    private AdminProperties properties;
+    private final AdminProperties properties;
 
     @Bean(AdminConstant.ASYNC_POOL)
     public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor() {
@@ -65,7 +66,7 @@ public class AdminConfigure {
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
 
-        Map<String, String> initParameters = new HashMap<>();
+        Map<String, String> initParameters = new HashMap<>(2);
         initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
         initParameters.put("isIncludeRichText", "true");
 

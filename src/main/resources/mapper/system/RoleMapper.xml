@@ -6,7 +6,7 @@
         <result column="role_name" jdbcType="VARCHAR" property="roleName" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
-        <result column="updated_at" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
     </resultMap>
 
     <select id="findUserRole" resultMap="roleMap">
@@ -14,7 +14,7 @@
             r.*
         FROM
             admin_role r
-        LEFT JOIN admin_user_role ur ON (r.id = ur.role_id)
+        LEFT JOIN admin_user_role ur ON (r.id = ur.user_id)
         LEFT JOIN admin_user u ON (u.id = ur.user_id)
         WHERE
             u.username = #{username}
@@ -26,7 +26,7 @@
             r.role_name roleName,
             r.remark,
             r.created_at createdAt,
-            r.updated_at modifyTime,
+            r.updated_at updatedAt,
             GROUP_CONCAT( rm.menu_id ) menuIds
         FROM
             admin_role r

@@ -7,21 +7,15 @@ import org.apache.shiro.util.ByteSource;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-import com.google.common.hash.Hashing;
 /**
  * @author ADMIN
  */
-public class MD5Util {
-
-    protected MD5Util() {
-
-    }
-
+public class Md5Util {
     /**
      * MD5
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return MD5后字符串
      */
     public static String MD5(String str) {
         try {
@@ -47,9 +41,9 @@ public class MD5Util {
     /**
      * 生成密码
      *
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return 新密码
      */
     public static String encrypt(String username, String password) {
         String source = StringUtils.lowerCase(username);

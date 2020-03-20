@@ -6,6 +6,7 @@ import com.company.project.common.utils.DateUtil;
 import com.company.project.monitor.endpoint.AdminHttpTraceEndpoint;
 import com.company.project.monitor.entity.AdminHttpTrace;
 import com.company.project.monitor.helper.AdminActuatorHelper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,13 +29,10 @@ import static com.company.project.monitor.endpoint.AdminHttpTraceEndpoint.AdminH
 @Slf4j
 @RestController
 @RequestMapping("admin/actuator")
+@RequiredArgsConstructor
 public class AdminActuatorController {
 
-    @Autowired
-    private AdminHttpTraceEndpoint httpTraceEndpoint;
-
-    @Autowired
-    private AdminActuatorHelper actuatorHelper;
+    private final AdminHttpTraceEndpoint httpTraceEndpoint;
 
     @GetMapping("httptrace")
     @RequiresPermissions("httptrace:view")
@@ -73,7 +71,7 @@ public class AdminActuatorController {
             }
         });
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(2);
         data.put("rows", adminHttpTraces);
         data.put("total", adminHttpTraces.size());
 

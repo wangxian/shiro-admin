@@ -11,7 +11,7 @@
         <result column="type" jdbcType="CHAR" property="type" />
         <result column="order_num" jdbcType="DECIMAL" property="orderNum" />
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
-        <result column="updated_at" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
     </resultMap>
 
     <select id="findUserPermissions" resultMap="menu">
@@ -19,7 +19,7 @@
             m.perms
         FROM
             admin_role r
-        LEFT JOIN admin_user_role ur ON (r.id = ur.role_id)
+        LEFT JOIN admin_user_role ur ON (r.id = ur.user_id)
         LEFT JOIN admin_user u ON (u.id = ur.user_id)
         LEFT JOIN admin_role_menu rm ON (rm.role_id = r.id)
         LEFT JOIN admin_menu m ON (m.id = rm.menu_id)
@@ -35,7 +35,7 @@
         FROM
             admin_menu m
         WHERE
-            m.type &lt;&gt; 1
+            m.type != 1
         AND m.id IN (
             SELECT DISTINCT
                 rm.menu_id

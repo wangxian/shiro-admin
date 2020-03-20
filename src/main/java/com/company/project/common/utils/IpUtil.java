@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author ADMIN
  */
-public class IPUtil {
+public class IpUtil {
 
 	private static final String UNKNOWN = "unknown";
 
-	protected IPUtil(){
+	protected IpUtil(){
 
 	}
 

@@ -24,10 +24,14 @@ public class Menu implements Serializable {
 
     private static final long serialVersionUID = 8571011372410167901L;
 
-    // 菜单
+    /**
+     * 菜单
+     */
     public static final String TYPE_MENU = "0";
 
-    // 按钮
+    /**
+     * 按钮
+     */
     public static final String TYPE_BUTTON = "1";
 
     public static final Long TOP_NODE = 0L;
@@ -103,7 +107,7 @@ public class Menu implements Serializable {
      */
     @TableField("updated_at")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
-    private Date modifyTime;
+    private Date updatedAt;
 
 
 }

@@ -5,11 +5,12 @@ import com.company.project.common.controller.BaseController;
 import com.company.project.common.entity.AdminResponse;
 import com.company.project.common.entity.QueryRequest;
 import com.company.project.common.exception.AdminException;
-import com.company.project.common.utils.MD5Util;
+import com.company.project.common.utils.Md5Util;
 import com.company.project.system.entity.User;
 import com.company.project.system.service.IUserService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -30,10 +31,10 @@ import java.util.Map;
 @Validated
 @RestController
 @RequestMapping("user")
+@RequiredArgsConstructor
 public class UserController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
 
     @GetMapping("{username}")
     public User getUser(@NotBlank(message = "{required}") @PathVariable String username) {
@@ -96,7 +97,7 @@ public class UserController extends BaseController {
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) {
         User user = getCurrentUser();
-        if (!StringUtils.equals(user.getPassword(), MD5Util.encrypt(user.getUsername(), oldPassword))) {
+        if (!StringUtils.equals(user.getPassword(), Md5Util.encrypt(user.getUsername(), oldPassword))) {
             throw new AdminException("原密码不正确");
         }
         userService.updatePassword(user.getUsername(), newPassword);
