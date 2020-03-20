@@ -22,7 +22,7 @@ spring:
 
 mybatis-plus:
   # 实体类扫描路径
-  type-aliases-package: com.company.project.*.entity
+  type-aliases-package: io.webapp.*.entity
 
   # xml 扫描路径
   mapper-locations: classpath:mapper/*/*.xml
