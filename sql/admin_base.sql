@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 18/02/2020 22:50:22
+ Date: 21/03/2020 11:31:45
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `admin_generator_config` (
 -- Records of admin_generator_config
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_generator_config` VALUES (1, 'AdminGenerator', 'com.company.project.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
+INSERT INTO `admin_generator_config` VALUES (1, 'AdminGenerator', 'io.webapp.gen', 'entity', 'mapper', 'mapper', 'service', 'service.impl', 'controller', '1', 't_');
 COMMIT;
 
 -- ----------------------------
@@ -153,33 +153,7 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1062 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
-
--- ----------------------------
--- Records of admin_log
--- ----------------------------
-BEGIN;
-INSERT INTO `admin_log` VALUES (1042, 'admin', '执行Redis keys命令', 13, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.29', '2019-08-29 19:32:20', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1043, 'admin', '执行Redis set命令', 1, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"name,wangxian\"', '192.168.1.29', '2019-08-29 19:32:26', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1044, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:28', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1045, 'admin', '执行Redis keys命令', 0, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', '192.168.1.29', '2019-08-29 19:32:33', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1046, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:35', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1047, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:41', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1048, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:43', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1049, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:32:51', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1050, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:14', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1051, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"a\"', '192.168.1.29', '2019-08-29 19:33:20', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1052, 'admin', '执行Redis get命令', 1, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:44', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1053, 'admin', '执行Redis del命令', 1, 'com.company.project.monitor.controller.RedisController.del()', ' arg: \"name\"', '192.168.1.29', '2019-08-29 19:33:50', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1054, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"abc\"', '192.168.1.29', '2019-08-29 19:33:54', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1055, 'admin', '执行Redis set命令', 1, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"abc,123,11\"', '192.168.1.29', '2019-08-29 19:34:01', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1056, 'admin', '执行Redis set命令', 0, 'com.company.project.monitor.controller.RedisController.set()', ' arg: \"abc,123\"', '192.168.1.29', '2019-08-29 19:34:06', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1057, 'admin', '执行Redis get命令', 0, 'com.company.project.monitor.controller.RedisController.get()', ' arg: \"abc\"', '192.168.1.29', '2019-08-29 19:34:09', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1058, 'admin', '修改用户', 19, 'UserController.updateUser()', ' user: \"User(userId=3, username=null, password=null, deptId=4, email=Reina@hotmail.com, mobile=17711111111, status=0, createdAt=null, modifyTime=Tue Sep 17 19:43:30 CST 2019, lastLoginTime=null, sex=1, avatar=null, theme=null, isTab=null, description=由于公款私用，已被封禁。1, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=77, roleName=null)\"', '192.168.1.29', '2019-09-17 19:43:31', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1059, 'admin', '执行Redis keys命令', 23, 'com.company.project.monitor.controller.RedisController.keys()', ' arg: \"*\"', NULL, '2020-02-18 01:14:17', '');
-INSERT INTO `admin_log` VALUES (1060, 'admin', '修改菜单/按钮', 22, 'MenuController.updateMenu()', ' menu: \"Menu(menuId=113, parentId=2, menuName=Redis监控, url=/monitor/redis/info, perms=redis:view, icon=layui-icon-eye, type=0, orderNum=4, createdAt=null, modifyTime=Tue Feb 18 04:35:29 CST 2020)\"', '192.168.0.7', '2020-02-18 04:35:29', '内网IP|0|0|内网IP|内网IP');
-INSERT INTO `admin_log` VALUES (1061, 'admin', '删除菜单/按钮', 46, 'MenuController.deleteMenus()', ' menuIds: \"113,114\"', '127.0.0.1', '2020-02-18 22:22:19', '内网IP|0|0|内网IP|内网IP');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
 
 -- ----------------------------
 -- Table structure for admin_login_log
@@ -194,22 +168,7 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
-
--- ----------------------------
--- Records of admin_login_log
--- ----------------------------
-BEGIN;
-INSERT INTO `admin_login_log` VALUES (1, 'admin', '2019-09-17 19:43:04', '内网IP|0|0|内网IP|内网IP', '192.168.1.29', 'Mac OS X 10.14; ', 'Firefox 69');
-INSERT INTO `admin_login_log` VALUES (2, 'admin', '2020-02-18 01:14:00', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
-INSERT INTO `admin_login_log` VALUES (3, 'admin', '2020-02-18 01:27:11', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
-INSERT INTO `admin_login_log` VALUES (4, 'admin', '2020-02-18 01:42:34', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
-INSERT INTO `admin_login_log` VALUES (5, 'admin', '2020-02-18 03:55:55', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
-INSERT INTO `admin_login_log` VALUES (6, 'admin', '2020-02-18 04:15:27', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10.15; ', 'Firefox 73');
-INSERT INTO `admin_login_log` VALUES (7, 'admin', '2020-02-18 04:30:13', '内网IP|0|0|内网IP|内网IP', '192.168.0.7', 'Mac OS X 10_15_2', 'Chrome 80');
-INSERT INTO `admin_login_log` VALUES (8, 'admin', '2020-02-18 22:09:13', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_15_2', 'Chrome 80');
-INSERT INTO `admin_login_log` VALUES (10, 'admin', '2020-02-18 22:22:59', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 73');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -327,7 +286,6 @@ CREATE TABLE `admin_role` (
 BEGIN;
 INSERT INTO `admin_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2019-08-29 18:26:26');
 INSERT INTO `admin_role` VALUES (2, '注册账户', '注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限', '2019-06-14 16:00:15', '2019-06-14 20:47:47');
-INSERT INTO `admin_role` VALUES (77, 'Redis监控员', '负责Redis模块', '2019-06-14 20:49:22', NULL);
 INSERT INTO `admin_role` VALUES (78, '系统监控员', '负责整个系统监控模块', '2019-06-14 20:50:07', NULL);
 INSERT INTO `admin_role` VALUES (79, '跑批人员', '负责任务调度跑批模块', '2019-06-14 20:51:02', NULL);
 INSERT INTO `admin_role` VALUES (80, '开发人员', '拥有代码生成模块的权限', '2019-06-14 20:51:26', '2019-08-29 18:26:08');
@@ -396,7 +354,6 @@ INSERT INTO `admin_role_menu` VALUES (2, 125);
 INSERT INTO `admin_role_menu` VALUES (2, 167);
 INSERT INTO `admin_role_menu` VALUES (2, 168);
 INSERT INTO `admin_role_menu` VALUES (2, 169);
-INSERT INTO `admin_role_menu` VALUES (77, 2);
 INSERT INTO `admin_role_menu` VALUES (78, 2);
 INSERT INTO `admin_role_menu` VALUES (78, 8);
 INSERT INTO `admin_role_menu` VALUES (78, 23);
@@ -531,8 +488,8 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2020-02-18 01:43:11', '2020-02-18 22:22:59', '0', '1', 'white', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
-INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-09-17 19:43:31', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。1');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2020-03-21 02:34:14', '2020-03-21 03:57:23', '0', '1', 'white', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2020-03-21 02:35:50', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
 COMMIT;
 
 -- ----------------------------
@@ -549,7 +506,7 @@ CREATE TABLE `admin_user_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `admin_user_role` VALUES (1, 1);
-INSERT INTO `admin_user_role` VALUES (3, 77);
+INSERT INTO `admin_user_role` VALUES (3, 79);
 COMMIT;
 
 -- ----------------------------
