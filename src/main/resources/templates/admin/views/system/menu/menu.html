@@ -38,16 +38,17 @@
                 <div class="layui-card-header" id="form-header">新增菜单</div>
                 <div class="layui-card-body admin-table-full">
                     <form class="layui-form layui-table-form" action="" lay-filter="menu-form">
-                        <div class="layui-form-item admin-hide">
-                            <label class="layui-form-label admin-form-item-require">ID：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="menuId" class="layui-input">
-                            </div>
-                        </div>
+
                         <div class="layui-form-item">
                             <label class="layui-form-label">上级ID：</label>
                             <div class="layui-input-block">
                                 <input type="text" value="" name="parentId" readonly class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label admin-form-item-require">当前ID：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="menuId" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
