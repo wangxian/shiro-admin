@@ -106,6 +106,10 @@ public class AdminUtil {
      * @return 结果
      */
     public static boolean containChinese(String value) {
+        if (StringUtils.isBlank(value)) {
+            return false;
+        }
+
         Matcher matcher = CHINESE_PATTERN.matcher(value);
         return matcher.find();
     }
@@ -113,4 +117,5 @@ public class AdminUtil {
     public static String view(String viewName) {
         return AdminConstant.VIEW_PREFIX + viewName;
     }
+
 }
