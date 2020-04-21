@@ -14,6 +14,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -45,7 +46,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 统一处理请求参数校验(实体对象传参)
+     * 统一处理请求参数校验(实体对象传参-form)
      *
      * @param e BindException
      * @return AdminResponse
@@ -81,6 +82,23 @@ public class GlobalExceptionHandler {
         }
 
         message = new StringBuilder(message.substring(0, message.length() - 1));
+        return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
+    }
+
+    /**
+     * 统一处理请求参数校验(json)
+     *
+     * @param e ConstraintViolationException
+     * @return AdminResponse
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public AdminResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        StringBuilder message = new StringBuilder();
+        for (FieldError error : e.getBindingResult().getFieldErrors()) {
+            message.append(error.getField()).append(error.getDefaultMessage()).append(",");
+        }
+        message = new StringBuilder(message.substring(0, message.length() - 1));
+        log.error(message.toString(), e);
         return new AdminResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
     }
 
