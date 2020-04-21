@@ -17,15 +17,8 @@
         select
         date_format(l.login_time, '%m-%d') days,
         count(1) count
-        from
-        (
-        select
-        *
-        from
-        admin_login_log
-        where
-        date_sub(curdate(), interval 10 day) &lt;= date(login_time)
-        ) as l where 1 = 1
+        from ( select * from admin_login_log where date_sub(curdate(), interval 10 day) &lt;= date(login_time) ) as l
+        where 1 = 1
         <if test="username != null and username != ''">
             and l.username = #{username}
         </if>
