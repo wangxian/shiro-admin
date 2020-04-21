@@ -177,8 +177,10 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private String createTimeFrom;
+
     @TableField(exist = false)
     private String createTimeTo;
+
     /**
      * 角色 ID
      */
