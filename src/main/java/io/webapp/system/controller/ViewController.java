@@ -57,7 +57,7 @@ public class ViewController extends BaseController {
 
     @GetMapping("index")
     public String index(Model model) {
-        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
+        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentUserAuthorizationInfo();
 
         User user = super.getCurrentUser();
         User currentUserDetail = userService.findByName(user.getUsername());

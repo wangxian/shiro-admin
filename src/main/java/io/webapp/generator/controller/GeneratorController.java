@@ -1,5 +1,7 @@
 package io.webapp.generator.controller;
 
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminResponse;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,17 +45,31 @@ public class GeneratorController extends BaseController {
     private final IGeneratorConfigService generatorConfigService;
     private final GeneratorHelper generatorHelper;
 
+    private final DynamicDataSourceProperties properties;
+
+    @GetMapping("datasource")
+    @RequiresPermissions("generator:view")
+    public AdminResponse datasource() {
+        Map<String, DataSourceProperty> datasource = properties.getDatasource();
+        List<String> datasourceNames = new ArrayList<>();
+        datasource.forEach((k, v) -> {
+            String datasourceName = StringUtils.substringBefore(StringUtils.substringAfterLast(v.getUrl(), "/"), "?");
+            datasourceNames.add(datasourceName);
+        });
+        return new AdminResponse().success().data(datasourceNames);
+    }
+
     @GetMapping("tables/info")
     @RequiresPermissions("generator:view")
-    public AdminResponse tablesInfo(String tableName, QueryRequest request) {
-        Map<String, Object> dataTable = getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME));
+    public AdminResponse tablesInfo(String tableName, String datasource, QueryRequest request) {
+        Map<String, Object> dataTable = getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE, datasource));
         return new AdminResponse().success().data(dataTable);
     }
 
     @GetMapping
     @RequiresPermissions("generator:generate")
     @ControllerEndpoint(exceptionMessage = "代码生成失败")
-    public void generate(@NotBlank(message = "{required}") String name, String remark, HttpServletResponse response) throws Exception {
+    public void generate(@NotBlank(message = "{required}") String name, String remark, String datasource, HttpServletResponse response) throws Exception {
         GeneratorConfig generatorConfig = generatorConfigService.findGeneratorConfig();
         if (generatorConfig == null) {
             throw new AdminException("代码生成配置为空");
@@ -68,7 +85,8 @@ public class GeneratorController extends BaseController {
         generatorConfig.setTableComment(remark);
 
         // 生成代码到临时目录
-        List<Column> columns = generatorService.getColumns(GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME, name);
+        List<Column> columns = generatorService.getColumns(GeneratorConstant.DATABASE_TYPE, datasource, name);
+
         generatorHelper.generateEntityFile(columns, generatorConfig);
         generatorHelper.generateMapperFile(columns, generatorConfig);
         generatorHelper.generateMapperXmlFile(columns, generatorConfig);

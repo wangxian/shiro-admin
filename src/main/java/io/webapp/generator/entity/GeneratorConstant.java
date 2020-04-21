@@ -13,12 +13,6 @@ public class GeneratorConstant {
     public static final String DATABASE_TYPE = "mysql";
 
     /**
-     * 数据库名称
-     */
-    public static final String DATABASE_NAME = "admin_base";
-
-
-    /**
      * 生成代码的临时目录
      */
     public static final String TEMP_PATH = "admin_gen_temp/";

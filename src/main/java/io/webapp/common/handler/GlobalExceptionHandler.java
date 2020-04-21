@@ -110,19 +110,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = UnauthorizedException.class)
     public AdminResponse handleUnauthorizedException(UnauthorizedException e) {
-        log.error("UnauthorizedException", e);
+        log.error("UnauthorizedException, {}", e.getMessage());
         return new AdminResponse().code(HttpStatus.FORBIDDEN).message(e.getMessage());
     }
 
     @ExceptionHandler(value = ExpiredSessionException.class)
     public AdminResponse handleExpiredSessionException(ExpiredSessionException e) {
-        log.error("ExpiredSessionException", e);
+        log.error("ExpiredSessionException, {}", e.getMessage());
         return new AdminResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 
     @ExceptionHandler(value = AuthorizationException.class)
     public AdminResponse handleAuthorizationException(AuthorizationException e) {
-        log.debug("AuthorizationException", e);
+        log.error("AuthorizationException, {}", e.getMessage());
         return new AdminResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 
