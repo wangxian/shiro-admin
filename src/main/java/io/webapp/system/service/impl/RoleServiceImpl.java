@@ -56,6 +56,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public IPage<Role> findRoles(Role role, QueryRequest request) {
         Page<Role> page = new Page<>(request.getPageNum(), request.getPageSize());
+        page.setSearchCount(false);
+        page.setTotal(baseMapper.countRole(role));
         SortUtil.handlePageSort(request, page, "createdAt", AdminConstant.ORDER_DESC, false);
         return this.baseMapper.findRolePage(page, role);
     }

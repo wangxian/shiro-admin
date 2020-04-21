@@ -67,7 +67,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
         }
 
-        queryWrapper.lambda().orderByAsc(Menu::getMenuId).orderByAsc(Menu::getOrderNum);
+        // queryWrapper.lambda().orderByAsc(Menu::getMenuId).orderByAsc(Menu::getOrderNum);
+        queryWrapper.lambda().orderByAsc(Menu::getMenuId);
         return this.baseMapper.selectList(queryWrapper);
     }
 
