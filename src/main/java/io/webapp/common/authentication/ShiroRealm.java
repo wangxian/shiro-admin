@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
  * @author ADMIN
  */
 @Component
-@RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
     private IUserService userService;
@@ -43,6 +42,7 @@ public class ShiroRealm extends AuthorizingRealm {
     public void setUserService(IUserService userService) {
         this.userService = userService;
     }
+
     @Autowired
     public void setRoleService(IRoleService roleService) {
         this.roleService = roleService;
@@ -57,17 +57,17 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        String userName = user.getUsername();
+        String username = user.getUsername();
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
         // 获取用户角色集
-        List<Role> roleList = this.roleService.findUserRole(userName);
+        List<Role> roleList = this.roleService.findUserRole(username);
         Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
         simpleAuthorizationInfo.setRoles(roleSet);
 
         // 获取用户权限集
-        List<Menu> permissionList = this.menuService.findUserPermissions(userName);
+        List<Menu> permissionList = this.menuService.findUserPermissions(username);
         Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
         simpleAuthorizationInfo.setStringPermissions(permissionSet);
         return simpleAuthorizationInfo;
@@ -83,18 +83,14 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         // 获取用户输入的用户名和密码
-        String userName = (String) token.getPrincipal();
+        String username = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
 
         // 通过用户名到数据库查询用户信息
-        User user = this.userService.findByName(userName);
-        System.out.println(user);
+        User user = this.userService.findByName(username);
+        // System.out.println(user);
 
-        if (user == null) {
-            throw new UnknownAccountException("用户不存在");
-        }
-
-        if (!StringUtils.equals(password, user.getPassword())) {
+        if (user == null || !StringUtils.equals(password, user.getPassword())) {
             throw new IncorrectCredentialsException("用户名或密码错误");
         }
 

@@ -57,7 +57,6 @@ public class AdminActuatorController {
                 if (StringUtils.equalsIgnoreCase(method, adminHttpTrace.getMethod())) {
                     adminHttpTraces.add(adminHttpTrace);
                 }
-
             } else if (StringUtils.isNotBlank(url)) {
                 if (StringUtils.containsIgnoreCase(adminHttpTrace.getUrl().toString(), url)) {
                     adminHttpTraces.add(adminHttpTrace);

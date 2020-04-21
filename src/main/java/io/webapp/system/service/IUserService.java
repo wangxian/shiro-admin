@@ -1,9 +1,11 @@
 package io.webapp.system.service;
 
+import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.system.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.scheduling.annotation.Async;
 
 /**
  * @author ADMIN
@@ -40,6 +42,7 @@ public interface IUserService extends IService<User> {
      *
      * @param username 用户名
      */
+    @Async(AdminConstant.ASYNC_POOL)
     void updateLoginTime(String username);
 
     /**

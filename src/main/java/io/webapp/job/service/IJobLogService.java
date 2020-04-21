@@ -1,9 +1,11 @@
 package io.webapp.job.service;
 
+import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.job.entity.JobLog;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.scheduling.annotation.Async;
 
 /**
  * @author ADMIN
@@ -24,6 +26,7 @@ public interface IJobLogService extends IService<JobLog> {
      *
      * @param log 定时任务日志
      */
+    @Async(AdminConstant.ASYNC_POOL)
     void saveJobLog(JobLog log);
 
     /**

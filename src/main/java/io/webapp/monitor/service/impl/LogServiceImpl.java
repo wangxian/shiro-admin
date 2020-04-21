@@ -33,7 +33,6 @@ import java.util.*;
  */
 @Service
 @RequiredArgsConstructor
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements ILogService {
 
     private final ObjectMapper objectMapper;
@@ -67,7 +66,6 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteLogs(String[] logIds) {
         List<String> list = Arrays.asList(logIds);
         baseMapper.deleteBatchIds(list);

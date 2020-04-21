@@ -24,7 +24,6 @@ import java.util.List;
  */
 @Slf4j
 @Service("JobLogService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> implements IJobLogService {
 
     @Override
@@ -50,13 +49,11 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void saveJobLog(JobLog log) {
         this.save(log);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteJobLogs(String[] jobLogIds) {
         List<String> list = Arrays.asList(jobLogIds);
         this.baseMapper.deleteBatchIds(list);

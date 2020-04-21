@@ -44,7 +44,7 @@ public class SessionServiceImpl implements ISessionService {
             } else {
                 principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                user = (User) principalCollection.getPrimaryPrincipal();
+                user                = (User) principalCollection.getPrimaryPrincipal();
                 activeUser.setUsername(user.getUsername());
                 activeUser.setUserId(user.getUserId().toString());
             }
@@ -64,8 +64,7 @@ public class SessionServiceImpl implements ISessionService {
                 activeUser.setCurrent(true);
             }
 
-            if (StringUtils.isBlank(username)
-                    || StringUtils.equalsIgnoreCase(activeUser.getUsername(), username)) {
+            if (StringUtils.isBlank(username) || StringUtils.equalsIgnoreCase(activeUser.getUsername(), username)) {
                 list.add(activeUser);
             }
         }
