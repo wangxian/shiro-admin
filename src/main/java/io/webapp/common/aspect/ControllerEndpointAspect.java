@@ -5,6 +5,7 @@ import io.webapp.common.exception.AdminException;
 import io.webapp.common.utils.AdminUtil;
 import io.webapp.monitor.service.ILogService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,6 +21,7 @@ import java.lang.reflect.Method;
 /**
  * @author ADMIN
  */
+@Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
@@ -51,6 +53,7 @@ public class ControllerEndpointAspect extends BaseAspectSupport {
             }
             return result;
         } catch (Throwable throwable) {
+            log.error(throwable.getMessage(), throwable);
             String exceptionMessage = annotation.exceptionMessage();
             String message = throwable.getMessage();
             String error = AdminUtil.containChinese(message) ? exceptionMessage + "，" + message : exceptionMessage;

@@ -17,7 +17,7 @@
                   <div class="layui-inline">
                     <label class="layui-form-label layui-form-label-sm">数据库</label>
                     <div class="layui-input-inline">
-                      <select name="datasource" id="datasource"></select>
+                      <select name="datasource" id="datasource" lay-filter="datasource"></select>
                     </div>
                   </div>
 
@@ -82,6 +82,9 @@
         }
         $datasource.append(options)
         form.render();
+        form.on('select(datasource)', function(data){
+          $query.click();
+        });
       });
     }
 
