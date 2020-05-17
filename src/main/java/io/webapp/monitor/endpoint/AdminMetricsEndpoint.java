@@ -1,11 +1,11 @@
 package io.webapp.monitor.endpoint;
 
-import io.webapp.common.annotation.AdminEndPoint;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Statistic;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
+import io.webapp.common.annotation.AdminEndPoint;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -56,9 +56,7 @@ public class AdminMetricsEndpoint {
         } else {
             Map<Statistic, Double> samples = this.getSamples(meters);
             Map<String, Set<String>> availableTags = this.getAvailableTags(meters);
-            tags.forEach((t) -> {
-                Set<String> var10000 = availableTags.remove(t.getKey());
-            });
+            tags.forEach((t) -> availableTags.remove(t.getKey()));
             Meter.Id meterId = meters.iterator().next().getId();
             return new AdminMetricResponse(requiredMetricName, meterId.getDescription(), meterId.getBaseUnit(), this.asList(samples, Sample::new), this.asList(availableTags, AvailableTag::new));
         }
@@ -92,9 +90,7 @@ public class AdminMetricsEndpoint {
     }
 
     private void mergeMeasurements(Map<Statistic, Double> samples, Meter meter) {
-        meter.measure().forEach((measurement) -> {
-            Double var10000 = samples.merge(measurement.getStatistic(), measurement.getValue(), this.mergeFunction(measurement.getStatistic()));
-        });
+        meter.measure().forEach((measurement) -> samples.merge(measurement.getStatistic(), measurement.getValue(), this.mergeFunction(measurement.getStatistic())));
     }
 
     private BiFunction<Double, Double, Double> mergeFunction(Statistic statistic) {
