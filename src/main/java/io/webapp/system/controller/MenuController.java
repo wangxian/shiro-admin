@@ -60,7 +60,7 @@ public class MenuController extends BaseController {
     @RequiresPermissions("menu:delete")
     @ControllerEndpoint(operation = "删除菜单/按钮", exceptionMessage = "删除菜单/按钮失败")
     public AdminResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
-        this.menuService.deleteMeuns(menuIds);
+        this.menuService.deleteMenus(menuIds);
         return new AdminResponse().success();
     }
 
