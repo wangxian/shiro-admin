@@ -42,7 +42,7 @@ public class LogController extends BaseController {
     @GetMapping("delete/{ids}")
     @RequiresPermissions("log:delete")
     @ControllerEndpoint(exceptionMessage = "删除日志失败")
-    public AdminResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) {
+    public AdminResponse deleteLogs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] logIds = ids.split(StringPool.COMMA);
         this.logService.deleteLogs(logIds);
         return new AdminResponse().success();

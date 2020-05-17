@@ -5,14 +5,15 @@ package io.webapp.common.entity;
  *
  * @author ADMIN
  */
-public class ImageType {
+public interface ImageType {
 
     /**
      * gif类型
      */
-    public static final String GIF = "gif";
+    String GIF = "gif";
+
     /**
      * png类型
      */
-    public static final String PNG = "png";
+    String PNG = "png";
 }

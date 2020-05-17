@@ -5,39 +5,39 @@ package io.webapp.common.entity;
  *
  * @author ADMIN
  */
-public class AdminConstant {
+public interface AdminConstant {
     /**
      * 注册用户角色ID
      */
-    public static final Long REGISTER_ROLE_ID = 2L;
+    Long REGISTER_ROLE_ID = 2L;
 
     /**
      * 排序规则：降序
      */
-    public static final String ORDER_DESC = "desc";
+    String ORDER_DESC = "desc";
 
     /**
      * 排序规则：升序
      */
-    public static final String ORDER_ASC = "asc";
+    String ORDER_ASC = "asc";
 
     /**
      * 前端页面路径前缀
      */
-    public static final String VIEW_PREFIX = "admin/views/";
+    String VIEW_PREFIX = "admin/views/";
 
     /**
      * 验证码 Session Key
      */
-    public static final String CODE_PREFIX = "admin_captcha_";
+    String CODE_PREFIX = "admin_captcha_";
 
     /**
      * 允许下载的文件类型，根据需求自己添加（小写）
      */
-    public static final String[] VALID_FILE_TYPE = {"xlsx", "zip"};
+    String[] VALID_FILE_TYPE = {"xlsx", "zip"};
 
     /**
      * 异步线程池名称
      */
-    public static final String ASYNC_POOL = "adminAsyncThreadPool";
+    String ASYNC_POOL = "adminAsyncThreadPool";
 }
