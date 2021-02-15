@@ -35,3 +35,13 @@ mybatis-plus:
     banner: false
     db-config:
       select-strategy: not_empty
+
+# 数据脱敏
+logging:
+  level:
+    com:
+      baomidou:
+        mybatisplus:
+          core:
+            metadata:
+              TableInfoHelper: error

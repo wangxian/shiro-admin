@@ -1,5 +1,6 @@
 package io.webapp.system.entity;
 
+import io.webapp.common.annotation.Desensitization;
 import io.webapp.common.annotation.IsMobile;
 import io.webapp.common.converter.TimeConverter;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import io.webapp.common.entity.DesensitizationType;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -94,6 +96,7 @@ public class User implements Serializable {
     @Size(max = 50, message = "{noMoreThan}")
     @Email(message = "{email}")
     @ExcelField(value = "邮箱")
+    @Desensitization(type = DesensitizationType.EMAIL)
     private String email;
 
     /**
@@ -102,6 +105,7 @@ public class User implements Serializable {
     @TableField("mobile")
     @IsMobile(message = "{mobile}")
     @ExcelField(value = "联系电话")
+    @Desensitization(type = DesensitizationType.PHONE)
     private String mobile;
 
     /**

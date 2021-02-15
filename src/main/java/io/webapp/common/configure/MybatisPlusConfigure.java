@@ -3,8 +3,10 @@ package io.webapp.common.configure;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import io.webapp.common.interceptor.DesensitizationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class MybatisPlusConfigure {
      * 分页插件
      */
     @Bean
+    @Order(0)
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         List<ISqlParser> sqlParserList = new ArrayList<>();
@@ -26,5 +29,14 @@ public class MybatisPlusConfigure {
         sqlParserList.add(new BlockAttackSqlParser());
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
+    }
+
+    /**
+     * 数据脱敏
+     */
+    @Bean
+    @Order(-1)
+    public DesensitizationInterceptor desensitizationInterceptor() {
+        return new DesensitizationInterceptor();
     }
 }
