@@ -40,8 +40,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = AdminException.class)
-    public AdminResponse handleParamsInvalidException(AdminException e) {
-        log.error("系统错误", e);
+    public AdminResponse handleAdminException(AdminException e) {
+        log.debug("系统错误", e);
         return new AdminResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage());
     }
 

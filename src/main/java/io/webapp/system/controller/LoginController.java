@@ -4,6 +4,7 @@ import io.webapp.common.annotation.Limit;
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminResponse;
 import io.webapp.common.exception.AdminException;
+import io.webapp.common.properties.AdminProperties;
 import io.webapp.common.service.ValidateCodeService;
 import io.webapp.common.utils.Md5Util;
 import io.webapp.monitor.entity.LoginLog;
@@ -38,6 +39,7 @@ public class LoginController extends BaseController {
     private final IUserService userService;
     private final ValidateCodeService validateCodeService;
     private final ILoginLogService loginLogService;
+    private final AdminProperties properties;
 
     @PostMapping("login")
     @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
@@ -62,7 +64,7 @@ public class LoginController extends BaseController {
             loginLog.setSystemBrowserInfo();
             this.loginLogService.saveLoginLog(loginLog);
 
-            return new AdminResponse().success();
+            return new AdminResponse().success().data(properties.getShiro().getSuccessUrl());
         } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
             throw new AdminException(e.getMessage());
         } catch (AuthenticationException e) {

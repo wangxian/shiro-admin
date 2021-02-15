@@ -48,3 +48,7 @@ spring:
 
     # 连接超时时间（毫秒）
     timeout: 5000
+
+logging:
+  level:
+    io.webapp: debug
