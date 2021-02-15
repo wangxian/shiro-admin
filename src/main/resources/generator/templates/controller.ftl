@@ -1,4 +1,4 @@
-package io.webapp.controller;
+package ${basePackage}.${controllerPackage};
 
 import ${basePackage}.common.annotation.ControllerEndpoint;
 import AdminUtil;
