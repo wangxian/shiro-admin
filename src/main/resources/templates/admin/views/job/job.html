@@ -275,12 +275,9 @@
     }
 
     function getQueryParams() {
-      return {
-        status             : $searchForm.find("select[name='status']").val(),
-        beanName           : $searchForm.find("input[name='beanName']").val().trim(),
-        methodName         : $searchForm.find("input[name='methodName']").val().trim(),
-        invalidate_ie_cache: new Date()
-      };
+      let params = $searchForm.serializeJson();
+      params.invalidate_ie_cache = new Date();
+      return params;
     }
   })
 </script>
