@@ -9,7 +9,7 @@ spring:
         max-pool-size: 15
         min-idle: 5
         connection-test-query: select 1
-        pool-name: FebsHikariCP
+        pool-name: AdminHikariCP
       # 配置默认数据源
       primary: base
       datasource:
