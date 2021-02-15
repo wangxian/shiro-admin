@@ -1,24 +1,28 @@
-//视图路由
+// 视图路由
 layui
     .extend({
-      loadBar: 'lay/modules/loadBar',
-      dropdown: 'lay/modules/dropdown'
-    })
+              loadBar : 'lay/modules/loadBar',
+              dropdown: 'lay/modules/dropdown'
+            })
     .define(
         ['jquery', 'laytpl', 'element', 'form', 'loadBar', 'dropdown'],
         function (exports) {
-          var $ = layui.jquery;
-          var laytpl = layui.laytpl;
-          var conf = layui.conf;
+          var $       = layui.jquery;
+          var laytpl  = layui.laytpl;
+          var conf    = layui.conf;
+          var $window = $(window);
+
           conf.viewTabs = currentUser.isTab === '1';
-          var loadBar = layui.loadBar;
-          var self = {
+          var loadBar   = layui.loadBar;
+          var self      = {
             ie8:
                 navigator.appName === 'Microsoft Internet Explorer' &&
                 navigator.appVersion.split(';')[1].replace(/[ ]/g, '') === 'MSIE8.0',
-            container: $('#' + conf.container),
+
+            container    : $('#' + conf.container),
             containerBody: null
           };
+
           self.loadBar = loadBar;
           /**
            * 字符串是否含有html标签的检测
@@ -28,10 +32,10 @@ layui
             var reg = /<[^>]+>/g;
             return reg.test(htmlStr)
           };
-          self.parse = function (container) {
+          self.parse   = function (container) {
             if (container === undefined) container = self.containerBody;
             var template =
-                container.get(0).tagName === 'SCRIPT'
+                    container.get(0).tagName === 'SCRIPT'
                     ? container
                     : container.find('[template]');
 
@@ -52,9 +56,9 @@ layui
             };
 
             layui.each(template, function (index, t) {
-              var tem = $(t);
-              var url = tem.attr('lay-url') || '';
-              var api = tem.attr('lay-api') || '';
+              var tem  = $(t);
+              var url  = tem.attr('lay-url') || '';
+              var api  = tem.attr('lay-api') || '';
               var type = tem.attr('lay-type') || 'get';
               var data = new Function('return ' + tem.attr('lay-data'))();
               var done = tem.attr('lay-done') || '';
@@ -62,29 +66,29 @@ layui
               if (url || api) {
                 //进行AJAX请求
                 self.request({
-                  url: url,
-                  api: api,
-                  type: type,
-                  data: data,
-                  success: function (res) {
-                    templateData = data;
-                    renderTemplate(tem, res.data);
-                    if (done) new Function(done)()
-                  }
-                })
+                               url    : url,
+                               api    : api,
+                               type   : type,
+                               data   : data,
+                               success: function (res) {
+                                 templateData = data;
+                                 renderTemplate(tem, res.data);
+                                 if (done) new Function(done)()
+                               }
+                             })
               } else {
                 renderTemplate(
                     tem,
                     {},
                     self.ie8
-                        ? function (elem) {
-                          if (elem[0] && elem[0].tagName !== 'LINK') return;
-                          container.hide();
-                          elem.load(function () {
-                            container.show()
-                          })
-                        }
-                        : null
+                    ? function (elem) {
+                      if (elem[0] && elem[0].tagName !== 'LINK') return;
+                      container.hide();
+                      elem.load(function () {
+                        container.show()
+                      })
+                    }
+                    : null
                 );
                 if (done) new Function(done)()
               }
@@ -104,17 +108,17 @@ layui
           self.setTitle = function (title) {
             $(document).attr({title: title + ' - ' + conf.name})
           };
-          self.clear = function () {
+          self.clear    = function () {
             self.containerBody.html('')
           };
 
           self.modal = {};
 
           self.modal.base = function (msg, params) {
-            params = params || {};
+            params               = params || {};
             params.titleIcoColor = params.titleIcoColor || '#5a8bff';
-            params.titleIco = params.titleIco || 'exclaimination';
-            params.title = params.title || [
+            params.titleIco      = params.titleIco || 'exclaimination';
+            params.title         = params.title || [
               '<i class="layui-icon layui-icon-' +
               params.titleIco +
               '" style="font-size:12px;background:' +
@@ -123,11 +127,11 @@ layui
               params.titleValue,
               'background:#fff;border:none;font-weight:bold;font-size:16px;color:#08132b;padding-top:20px;height:36px;line-height:46px;padding-bottom:0;'
             ];
-            params = $.extend(
+            params               = $.extend(
                 {
-                  skin: 'layui-layer-admin-modal admin-alert',
-                  area: [$(window).width() <= 750 ? '60%' : '400px'],
-                  closeBtn: 0,
+                  skin      : 'layui-layer-admin-modal admin-alert',
+                  area      : [$(window).width() <= 750 ? '60%' : '400px'],
+                  closeBtn  : 0,
                   shadeClose: false
                 },
                 params
@@ -136,18 +140,18 @@ layui
           };
 
           self.notify = function (title, msg, yes, params) {
-            params = params || {};
-            params.titleIco = 'exclaimination';
+            params               = params || {};
+            params.titleIco      = 'exclaimination';
             params.titleIcoColor = '#ffc107';
-            params.titleValue = title;
-            params.shadeClose = false;
-            params = $.extend({
-              btn: ['确定']
-              , yes: function (index, layero) {
+            params.titleValue    = title;
+            params.shadeClose    = false;
+            params               = $.extend({
+                                              btn  : ['确定']
+                                              , yes: function (index, layero) {
                 yes && (yes)();
                 layer.close(index);
               }
-            }, params);
+                                            }, params);
             self.modal.base(msg, params);
           };
 
@@ -163,118 +167,118 @@ layui
             }
 
             $.ajax({
-              url:
-                  (url.indexOf(conf.base) === 0 ? '' : conf.views) +
-                  url +
-                  conf.engine +
-                  '?v=' +
-                  conf.v,
-              type: 'get',
-              data: {
-                '_': new Date().getTime()
-              },
-              dataType: 'html',
-              success: function (r) {
-                var result;
-                try {
-                  result = JSON.parse(r);
-                } catch (e) {
-                  result = {'code': 'err'};
-                }
-                if (result.code === 401) {
-                  self.notify('登录失效', '登录已失效，请重新登录', function () {
-                    window.location.reload();
-                    window.location.hash = '';
-                  });
-                  loadBar.finish();
-                  return;
-                }
-                if (result.code === 403) {
-                  self.tab.change('/403');
-                  loadBar.finish();
-                  return;
-                }
-                if (result.code === 404) {
-                  self.tab.change('/404');
-                  loadBar.finish();
-                  return;
-                }
-                if (result.code === 500) {
-                  self.tab.change('/500');
-                  loadBar.finish();
-                  return;
-                }
-                callback({html: r, url: url});
-                loadBar.finish()
-              },
-              error: function (res) {
-                if (res.status === 404) {
-                  self.tab.change('/404');
-                }
-                if (res.status === 403) {
-                  self.tab.change('/403');
-                }
-                if (res.status === 500) {
-                  self.tab.change('/500');
-                }
-                self.log(
-                    '请求视图文件异常\n文件路径：' + url + '\n状态：' + res.status
-                );
-                loadBar.error();
-              }
-            })
+                     url     :
+                         (url.indexOf(conf.base) === 0 ? '' : conf.views) +
+                         url +
+                         conf.engine +
+                         '?v=' +
+                         conf.v,
+                     type    : 'get',
+                     data    : {
+                       '_': new Date().getTime()
+                     },
+                     dataType: 'html',
+                     success : function (r) {
+                       var result;
+                       try {
+                         result = JSON.parse(r);
+                       } catch (e) {
+                         result = {'code': 'err'};
+                       }
+                       if (result.code === 401) {
+                         self.notify('登录失效', '登录已失效，请重新登录', function () {
+                           window.location.reload();
+                           window.location.hash = '';
+                         });
+                         loadBar.finish();
+                         return;
+                       }
+                       if (result.code === 403) {
+                         self.tab.change('/403');
+                         loadBar.finish();
+                         return;
+                       }
+                       if (result.code === 404) {
+                         self.tab.change('/404');
+                         loadBar.finish();
+                         return;
+                       }
+                       if (result.code === 500) {
+                         self.tab.change('/500');
+                         loadBar.finish();
+                         return;
+                       }
+                       callback({html: r, url: url});
+                       loadBar.finish()
+                     },
+                     error   : function (res) {
+                       if (res.status === 404) {
+                         self.tab.change('/404');
+                       }
+                       if (res.status === 403) {
+                         self.tab.change('/403');
+                       }
+                       if (res.status === 500) {
+                         self.tab.change('/500');
+                       }
+                       self.log(
+                           '请求视图文件异常\n文件路径：' + url + '\n状态：' + res.status
+                       );
+                       loadBar.error();
+                     }
+                   })
           };
 
           self.tab = {
-            isInit: false,
-            data: [],
+            isInit      : false,
+            data        : [],
             tabMenuTplId: 'TPL-app-tabsmenu',
-            minLeft: null,
-            maxLeft: null,
-            wrap: '.admin-tabs-wrap',
-            menu: '.admin-tabs-menu',
-            next: '.admin-tabs-next',
-            prev: '.admin-tabs-prev',
-            step: 200,
-            init: function () {
-              var tab = this;
+            minLeft     : null,
+            maxLeft     : null,
+            wrap        : '.admin-tabs-wrap',
+            menu        : '.admin-tabs-menu',
+            next        : '.admin-tabs-next',
+            prev        : '.admin-tabs-prev',
+            step        : 200,
+            init        : function () {
+              var tab    = this;
               var btnCls = tab.wrap + ' .admin-tabs-btn';
 
               layui.dropdown.render({
-                elem: '.admin-tabs-down',
-                click: function (name) {
-                  if (name === 'all') {
-                    tab.delAll();
-                  }
-                  if (name === 'other') {
-                    tab.delOther();
-                  }
-                  if (name === 'current') {
-                    tab.del(layui.admin.route.fileurl);
-                  }
-                  if (name === 'refresh') {
-                    tab.refresh();
-                  }
-                },
-                options: [
-                  {
-                    name: 'current',
-                    title: '关闭当前选项卡'
-                  },
-                  {
-                    name: 'other',
-                    title: '关闭其他选项卡'
-                  },
-                  {
-                    name: 'all',
-                    title: '关闭所有选项卡'
-                  },
-                  {
-                    name: 'refresh',
-                    title: '刷新当前选项卡'
-                  }
-                ]
-              });
+                                      elem   : '.admin-tabs-down',
+                                      click  : function (name) {
+                                        if (name === 'all') {
+                                          tab.delAll();
+                                        }
+                                        if (name === 'other') {
+                                          tab.delOther();
+                                        }
+                                        if (name === 'current') {
+                                          tab.del(layui.admin.route.fileurl);
+                                        }
+                                        if (name === 'refresh') {
+                                          tab.refresh();
+                                        }
+                                      },
+                                      options: [
+                                        {
+                                          name : 'current',
+                                          title: '关闭当前选项卡'
+                                        },
+                                        {
+                                          name : 'other',
+                                          title: '关闭其他选项卡'
+                                        },
+                                        {
+                                          name : 'all',
+                                          title: '关闭所有选项卡'
+                                        },
+                                        {
+                                          name : 'refresh',
+                                          title: '刷新当前选项卡'
+                                        }
+                                      ]
+                                    });
 
               $(document).on('click', btnCls, function (e) {
                 var url = $(this).attr('lay-url');
@@ -286,16 +290,16 @@ layui
                     tab.change(tab.has(url))
                   } else if (type === 'prev' || type === 'next') {
                     tab.menuElem = $(tab.menu);
-                    var menu = tab.menuElem;
-                    tab.minLeft = tab.minLeft || parseInt(menu.css('left'));
-                    tab.maxLeft = tab.maxLeft || $(tab.next).offset().left;
+                    var menu     = tab.menuElem;
+                    tab.minLeft  = tab.minLeft || parseInt(menu.css('left'));
+                    tab.maxLeft  = tab.maxLeft || $(tab.next).offset().left;
 
                     var left = 0;
                     if (type === 'prev') {
                       left = parseInt(menu.css('left')) + tab.step;
                       if (left >= tab.minLeft) left = tab.minLeft
                     } else {
-                      left = parseInt(menu.css('left')) - tab.step;
+                      left     = parseInt(menu.css('left')) - tab.step;
                       var last = menu.find('li:last');
                       if (last.offset().left + last.width() < tab.maxLeft) return
                     }
@@ -307,15 +311,15 @@ layui
               $('.admin-tabs-hidden').addClass('layui-show');
               this.isInit = true
             },
-            has: function (url) {
+            has         : function (url) {
               var exists = false;
               layui.each(this.data, function (i, data) {
                 if (data.fileurl === url) return (exists = data)
               });
               return exists
             },
-            delAll: function (type) {
-              var tab = this;
+            delAll      : function (type) {
+              var tab         = this;
               var menuBtnClas = tab.menu + ' .admin-tabs-btn';
               $(menuBtnClas).each(function () {
                 var url = $(this).attr('lay-url');
@@ -323,8 +327,8 @@ layui
                 tab.del(url)
               })
             },
-            delOther: function () {
-              var tab = this;
+            delOther    : function () {
+              var tab         = this;
               var menuBtnClas = tab.menu + ' .admin-tabs-btn';
               $(menuBtnClas + '.admin-tabs-active')
                   .siblings()
@@ -333,7 +337,7 @@ layui
                     tab.del(url)
                   })
             },
-            del: function (url, backgroundDel) {
+            del         : function (url, backgroundDel) {
               var tab = this;
               if (tab.data.length <= 1 && backgroundDel === undefined) return;
               layui.each(tab.data, function (i, data) {
@@ -343,7 +347,7 @@ layui
                 }
               });
 
-              var lay = '[lay-url="' + url + '"]';
+              var lay      = '[lay-url="' + url + '"]';
               var thisBody = $(
                   '#' + conf.containerBody + ' > .admin-tabs-item' + lay
               );
@@ -357,25 +361,25 @@ layui
                 }
               }
             },
-            refresh: function (url) {
+            refresh     : function (url) {
               url = url || layui.admin.route.fileurl;
               if (this.has(url)) {
                 this.del(url, true);
                 self.renderTabs(url)
               }
             },
-            clear: function () {
-              this.data = [];
+            clear       : function () {
+              this.data   = [];
               this.isInit = false;
               $(document).off('click', this.wrap + ' .admin-tabs-btn')
             },
-            change: function (route, callback) {
+            change      : function (route, callback) {
               if (typeof route == 'string') {
-                route = layui.router('#' + route);
+                route         = layui.router('#' + route);
                 route.fileurl = '/' + route.path.join('/')
               }
               var fileurl = route.fileurl;
-              var tab = this;
+              var tab     = this;
               if (tab.isInit === false) tab.init();
 
               var changeView = function (lay) {
@@ -385,26 +389,22 @@ layui
                     .hide()
               };
 
-              var lay = '[lay-url="' + fileurl + '"]';
-
+              var lay       = '[lay-url="' + fileurl + '"]';
               var activeCls = 'admin-tabs-active';
-
               var existsTab = tab.has(fileurl);
+
               if (existsTab) {
-                var menu = $(this.menu);
+                var menu        = $(this.menu);
                 var currentMenu = menu.find(lay);
 
                 if (existsTab.href !== route.href) {
                   tab.del(existsTab.fileurl, true);
                   tab.change(route);
                   return false
-                  //tab.del(route.fileurl)
+                  // tab.del(route.fileurl)
                 }
-                currentMenu
-                    .addClass(activeCls)
-                    .siblings()
-                    .removeClass(activeCls);
 
+                currentMenu.addClass(activeCls).siblings().removeClass(activeCls);
                 changeView(lay);
 
                 this.minLeft = this.minLeft || parseInt(menu.css('left'));
@@ -415,6 +415,7 @@ layui
                 } else if (offsetLeft - this.minLeft > menu.width() * 0.5) {
                   $(this.next).click()
                 }
+
                 $(document).scrollTop(-100);
 
                 layui.admin.navigate(route.href)
@@ -427,7 +428,8 @@ layui
                       res.html +
                       '</div></div>'
                   );
-                  var params = self.fillHtml(fileurl, htmlElem, 'prepend');
+
+                  var params  = self.fillHtml(fileurl, htmlElem, 'prepend');
                   route.title = params.title;
                   tab.data.push(route);
                   layui.admin.render(tab.tabMenuTplId);
@@ -440,14 +442,17 @@ layui
                   if ($.isFunction(callback)) callback(params)
                 })
               }
+
               layui.admin.sidebarFocus(route.href);
+              $window.resize();
+
               return false
             },
-            onChange: function () {
+            onChange    : function () {
             }
           };
 
-          self.fillHtml = function (url, htmlElem, modeName) {
+          self.fillHtml            = function (url, htmlElem, modeName) {
             var fluid = htmlElem.find('.layui-fluid[lay-title]');
             var title = '';
             if (fluid.length > 0) {
@@ -465,20 +470,20 @@ layui
             return {title: title, url: url, htmlElem: htmlElem}
           };
           //解析普通文件
-          self.render = function (fileurl, callback) {
+          self.render              = function (fileurl, callback) {
             self.loadHtml(fileurl, function (res) {
               var htmlElem = $('<div>' + res.html + '</div>');
-              var params = self.fillHtml(res.url, htmlElem, 'html');
+              var params   = self.fillHtml(res.url, htmlElem, 'html');
               if ($.isFunction(callback)) callback(params)
             })
           };
           //加载 tab
-          self.renderTabs = function (route, callback) {
+          self.renderTabs          = function (route, callback) {
             var tab = self.tab;
             tab.change(route, callback)
           };
           //加载layout文件
-          self.renderLayout = function (callback, url) {
+          self.renderLayout        = function (callback, url) {
             if (url === undefined) url = 'layout';
             self.containerBody = null;
 
@@ -492,20 +497,20 @@ layui
             })
           };
           //加载单页面
-          self.renderIndPage = function (fileurl, callback) {
+          self.renderIndPage       = function (fileurl, callback) {
             self.renderLayout(function () {
               self.containerBody = null;
               if ($.isFunction(callback)) callback()
             }, fileurl)
           };
-          self.log = function (msg, type) {
+          self.log                 = function (msg, type) {
             if (conf.debug === false) return;
             if (type === undefined) type = 'error';
             console.error(msg)
           };
           self.createRequestParams = function (params) {
             var success = params.success;
-            var error = params.error;
+            var error   = params.error;
 
             if (params.api) {
               if (!layui.api[params.api]) {
@@ -518,14 +523,14 @@ layui
             }
 
             var defaultParams = {
-              timeout: 5000,
-              type: 'get',
+              timeout : 5000,
+              type    : 'get',
               dataType: 'json',
-              headers: conf.requestHeaders || {},
-              success: function (res) {
+              headers : conf.requestHeaders || {},
+              success : function (res) {
                 if ($.isFunction(success)) success(res)
               },
-              error: function (res) {
+              error   : function (res) {
                 if (res.status === conf.logoutHttpCode) {
                   // do nothing
                 } else {
@@ -546,7 +551,7 @@ layui
 
             return $.extend(defaultParams, params)
           };
-          self.request = function (params) {
+          self.request             = function (params) {
             params = self.createRequestParams(params);
             $.ajax(params)
           };

@@ -596,8 +596,11 @@ layui.extend({
       done: function () {
         var noneDiv = $(".layui-table-body").find(".layui-none").first();
         if (noneDiv.length === 1) {
-          var table = $(".layui-table").first();
-          noneDiv.width(table.width())
+          let table      = $(".layui-table").first();
+          let tableWidth = table.width();
+          if (tableWidth !== 0) {
+            noneDiv.width(table.width());
+          }
         }
       }
     };
@@ -631,28 +634,39 @@ layui.extend({
   self.download = function (url, params, fileName) {
     self.view.loadBar.start();
     url += '?' + parseParams(params);
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = "blob";
+
     xhr.onload       = function () {
       if (this.status === 200) {
         self.view.loadBar.finish();
-        var fileType = this.response.type;
-        var blob     = this.response;
-        var reader   = new FileReader();
+        let fileType = this.response.type;
+        let blob     = this.response;
+        let reader   = new FileReader();
         reader.readAsDataURL(blob);
+
         reader.onload = function (e) {
           if ('msSaveOrOpenBlob' in navigator) { //  IE，Edge
             var base64file = e.target.result + '';
             window.navigator.msSaveOrOpenBlob(createFile(base64file.replace('data:' + fileType + ';base64,', ''), fileType), fileName);
           } else { //  chrome，firefox
-            var link           = document.createElement('a');
-            link.style.display = 'none';
-            link.href          = e.target.result;
-            link.setAttribute('download', fileName);
-            document.body.appendChild(link);
-            link.click();
-            $(link).remove();
+            let link = document.createElement('a');
+            link.download = fileName;
+            link.style.display = "none";
+
+            // 解决某些浏览器下载大文件限制2MB的问题
+            let blobs = new Blob([blob]);
+            if (blobs.size === 0) {
+              layer.msg('下载失败，文件内容为空！');
+            } else {
+              link.href = URL.createObjectURL(blobs);
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+
           }
         }
       } else {
