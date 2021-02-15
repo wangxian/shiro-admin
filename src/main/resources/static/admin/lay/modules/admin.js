@@ -16,6 +16,7 @@ layui.extend({
   var windowWidth = $(window).width();
 
   conf.viewTabs            = currentUser.isTab === '1';
+  self.defaultView         = layui.router('#' + conf.entry);
   self.route               = layui.router();
   self.view                = view;
   self.api                 = layui.api;
@@ -44,16 +45,31 @@ layui.extend({
       layui.link(url + '?v=' + conf.v);
     });
 
-    self.initView(self.route);
+    // 刷新后保留 系统首页 和 当前页面 路由
+    if (!self.route.href || self.route.href === '/') {
+      self.route = self.defaultView;
+    }
+    if (conf.viewTabs) {
+      if (self.route.href !== self.defaultView.href) {
+        self.initView(self.defaultView, {unshift: true, focus: false});
+      }
+    }
 
+    // 等待上面的 viewTabs 调度完成
+    setTimeout(function () {
+      self.initView(self.route);
+    }, 0);
+  };
+
+  // hook startsWith function
+  if (typeof String.prototype.startsWith != "function") {
     String.prototype.startsWith = function (str) {
       if (str == null || str === "" || this.length === 0 || str.length > this.length) {
         return false;
       }
       return this.substr(0, str.length) === str;
     }
-
-  };
+  }
 
   self.post = function (params) {
     view.request($.extend({type: 'post'}, params))
