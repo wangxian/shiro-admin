@@ -4,9 +4,11 @@ import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.exception.AdminException;
 import io.webapp.common.utils.AdminUtil;
 import io.webapp.monitor.service.ILogService;
+import io.webapp.system.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -49,7 +51,9 @@ public class ControllerEndpointAspect extends BaseAspectSupport {
                 if (servletRequestAttributes != null) {
                     ip = servletRequestAttributes.getRequest().getRemoteAddr();
                 }
-                logService.saveLog(point, targetMethod, ip, operation, start);
+                // 设置操作用户
+                User user = (User) SecurityUtils.getSubject().getPrincipal();
+                logService.saveLog(user, point, targetMethod, ip, operation, start);
             }
             return result;
         } catch (Throwable throwable) {
