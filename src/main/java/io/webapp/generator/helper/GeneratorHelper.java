@@ -1,17 +1,16 @@
 package io.webapp.generator.helper;
 
-import io.webapp.common.annotation.Helper;
-import io.webapp.common.utils.AddressUtil;
-import io.webapp.common.utils.AdminUtil;
-import io.webapp.generator.entity.FieldType;
-import io.webapp.generator.entity.GeneratorConstant;
-import io.webapp.generator.entity.Column;
-import io.webapp.generator.entity.GeneratorConfig;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.Files;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import io.webapp.common.annotation.Helper;
+import io.webapp.common.utils.AddressUtil;
+import io.webapp.common.utils.AdminUtil;
+import io.webapp.generator.entity.Column;
+import io.webapp.generator.entity.FieldType;
+import io.webapp.generator.entity.GeneratorConfig;
+import io.webapp.generator.entity.GeneratorConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,23 +34,18 @@ public class GeneratorHelper {
 
         File entityFile = new File(path);
 
-        JSONObject data = toJsonObject(configure);
-
-        data.put("hasDate", false);
-        data.put("hasBigDecimal", false);
-
         columns.forEach(c -> {
             c.setField(AdminUtil.underscoreToCamel(StringUtils.lowerCase(c.getName())));
             if (StringUtils.containsAny(c.getType(), FieldType.DATE, FieldType.DATETIME, FieldType.TIMESTAMP)) {
-                data.put("hasDate", true);
+                configure.setHasDate(true);
             }
             if (StringUtils.containsAny(c.getType(), FieldType.DECIMAL, FieldType.NUMERIC)) {
-                data.put("hasBigDecimal", true);
+                configure.setHasBigDecimal(true);
             }
         });
 
-        data.put("columns", columns);
-        this.generateFileByTemplate(templateName, entityFile, data);
+        configure.setColumns(columns);
+        this.generateFileByTemplate(templateName, entityFile, configure);
     }
 
     public void generateMapperFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -61,7 +55,7 @@ public class GeneratorHelper {
 
         File mapperFile = new File(path);
 
-        generateFileByTemplate(templateName, mapperFile, toJsonObject(configure));
+        generateFileByTemplate(templateName, mapperFile, configure);
     }
 
     public void generateServiceFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -71,7 +65,7 @@ public class GeneratorHelper {
 
         File serviceFile = new File(path);
 
-        generateFileByTemplate(templateName, serviceFile, toJsonObject(configure));
+        generateFileByTemplate(templateName, serviceFile, configure);
     }
 
     public void generateServiceImplFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -81,7 +75,7 @@ public class GeneratorHelper {
 
         File serviceImplFile = new File(path);
 
-        generateFileByTemplate(templateName, serviceImplFile, toJsonObject(configure));
+        generateFileByTemplate(templateName, serviceImplFile, configure);
     }
 
     public void generateControllerFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -91,7 +85,7 @@ public class GeneratorHelper {
 
         File controllerFile = new File(path);
 
-        generateFileByTemplate(templateName, controllerFile, toJsonObject(configure));
+        generateFileByTemplate(templateName, controllerFile, configure);
     }
 
     public void generateMapperXmlFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -100,11 +94,11 @@ public class GeneratorHelper {
         String templateName = GeneratorConstant.MAPPERXML_TEMPLATE;
 
         File mapperXmlFile = new File(path);
-        JSONObject data = toJsonObject(configure);
-        columns.forEach(c -> c.setField(AdminUtil.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
-        data.put("columns", columns);
 
-        generateFileByTemplate(templateName, mapperXmlFile, data);
+        columns.forEach(c -> c.setField(AdminUtil.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
+        configure.setColumns(columns);
+
+        generateFileByTemplate(templateName, mapperXmlFile, configure);
     }
 
     @SuppressWarnings("UnstableApiUsage")
@@ -137,10 +131,6 @@ public class GeneratorHelper {
         return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
     }
 
-    private JSONObject toJsonObject(Object o) {
-        return JSONObject.parseObject(JSONObject.toJSON(o).toString());
-    }
-
     private Template getTemplate(String templateName) throws Exception {
         Configuration configuration = new freemarker.template.Configuration(Configuration.VERSION_2_3_23);
         String templatePath = GeneratorHelper.class.getResource("/generator/templates/").getPath();
@@ -148,14 +138,14 @@ public class GeneratorHelper {
 
         if (!file.exists()) {
             templatePath = System.getProperties().getProperty("java.io.tmpdir");
-            file = new File(templatePath + "/" + templateName);
+            file         = new File(templatePath + "/" + templateName);
             FileUtils.copyInputStreamToFile(Objects.requireNonNull(AddressUtil.class.getClassLoader().getResourceAsStream("classpath:generator/templates/" + templateName)), file);
         }
 
         configuration.setDirectoryForTemplateLoading(new File(templatePath));
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
-        
+
         return configuration.getTemplate(templateName);
 
     }
