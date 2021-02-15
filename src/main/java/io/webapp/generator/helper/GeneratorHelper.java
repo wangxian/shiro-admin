@@ -128,18 +128,21 @@ public class GeneratorHelper {
     }
 
     private static String packageConvertPath(String packageName) {
-        return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
+        return String.format("%s%s%s", File.separator,
+                             packageName.contains(".") ? packageName.replaceAll("\\.", File.separator) : packageName,
+                             File.separator);
     }
 
     private Template getTemplate(String templateName) throws Exception {
+        final String templatePathPrefix = File.separator + "generator" + File.separator + "templates" + File.separator;
         Configuration configuration = new freemarker.template.Configuration(Configuration.VERSION_2_3_23);
-        String templatePath = GeneratorHelper.class.getResource("/generator/templates/").getPath();
+        String templatePath = GeneratorHelper.class.getResource(templatePathPrefix).getPath();
         File file = new File(templatePath);
 
         if (!file.exists()) {
             templatePath = System.getProperties().getProperty("java.io.tmpdir");
-            file         = new File(templatePath + "/" + templateName);
-            FileUtils.copyInputStreamToFile(Objects.requireNonNull(AddressUtil.class.getClassLoader().getResourceAsStream("classpath:generator/templates/" + templateName)), file);
+            file         = new File(templatePath + File.separator + templateName);
+            FileUtils.copyInputStreamToFile(Objects.requireNonNull(AddressUtil.class.getClassLoader().getResourceAsStream("classpath:generator" + File.separator + "templates" + File.separator + templateName)), file);
         }
 
         configuration.setDirectoryForTemplateLoading(new File(templatePath));

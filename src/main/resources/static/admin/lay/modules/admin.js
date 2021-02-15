@@ -41,15 +41,18 @@ layui.extend({
   self.initPage = function (initCallback) {
     // 加载样式文件
     layui.each(layui.conf.style, function (index, url) {
-      layui.link(url + '?v=' + conf.v)
+      layui.link(url + '?v=' + conf.v);
     });
+
     self.initView(self.route);
+
     String.prototype.startsWith = function (str) {
       if (str == null || str === "" || this.length === 0 || str.length > this.length) {
         return false;
       }
       return this.substr(0, str.length) === str;
-    };
+    }
+
   };
 
   self.post = function (params) {
@@ -57,7 +60,7 @@ layui.extend({
   };
 
   // 初始化视图区域
-  self.initView     = function (route) {
+  self.initView = function (route) {
     if (!self.route.href || self.route.href === '/') {
       self.route = layui.router('#' + conf.entry);
       route      = self.route
@@ -92,6 +95,7 @@ layui.extend({
       })
     }
   };
+
   // 根据当前加载的 URL高亮左侧导航
   self.sidebarFocus = function (url) {
     url      = url || self.route.href;
