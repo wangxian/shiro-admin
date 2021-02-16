@@ -1,18 +1,12 @@
 package io.webapp.common.authentication;
 
 import io.webapp.monitor.service.ISessionService;
-import io.webapp.system.entity.Menu;
-import io.webapp.system.entity.Role;
 import io.webapp.system.entity.User;
-import io.webapp.system.service.IMenuService;
-import io.webapp.system.service.IRoleService;
-import io.webapp.system.service.IUserDataPermissionService;
 import io.webapp.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -26,8 +20,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 自定义实现 ShiroRealm，包含认证和授权两大模块

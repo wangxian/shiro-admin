@@ -40,8 +40,8 @@ public class DeptController {
     @GetMapping("tree")
     @ControllerEndpoint(exceptionMessage = "获取部门树失败")
     public AdminResponse getDeptTree(Dept dept) throws AdminException {
-        List<DeptTree<Dept>> depts = this.deptService.findDept(dept);
-        return new AdminResponse().success().data(depts);
+        List<DeptTree<Dept>> deptList = this.deptService.findDept(dept);
+        return new AdminResponse().success().data(deptList);
     }
 
     @PostMapping
