@@ -2,6 +2,8 @@ server:
   port: 8080
   tomcat:
     uri-encoding: utf-8
+  # 平滑关闭
+  shutdown: graceful
 
 spring:
   profiles:
