@@ -34,13 +34,13 @@ public class DeptController {
     @GetMapping("select/tree")
     @ControllerEndpoint(exceptionMessage = "获取部门树失败")
     public List<DeptTree<Dept>> getDeptTree() throws AdminException {
-        return this.deptService.findDepts();
+        return this.deptService.findDept();
     }
 
     @GetMapping("tree")
     @ControllerEndpoint(exceptionMessage = "获取部门树失败")
     public AdminResponse getDeptTree(Dept dept) throws AdminException {
-        List<DeptTree<Dept>> depts = this.deptService.findDepts(dept);
+        List<DeptTree<Dept>> depts = this.deptService.findDept(dept);
         return new AdminResponse().success().data(depts);
     }
 
@@ -57,7 +57,7 @@ public class DeptController {
     @ControllerEndpoint(operation = "删除部门", exceptionMessage = "删除部门失败")
     public AdminResponse deleteDepts(@NotBlank(message = "{required}") @PathVariable String deptIds) throws AdminException {
         String[] ids = deptIds.split(StringPool.COMMA);
-        this.deptService.deleteDepts(ids);
+        this.deptService.deleteDept(ids);
         return new AdminResponse().success();
     }
 
@@ -73,7 +73,7 @@ public class DeptController {
     @RequiresPermissions("dept:export")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(Dept dept, QueryRequest request, HttpServletResponse response) throws AdminException {
-        List<Dept> depts = this.deptService.findDepts(dept, request);
+        List<Dept> depts = this.deptService.findDept(dept, request);
         ExcelKit.$Export(Dept.class, response).downXlsx(depts, false);
     }
 }

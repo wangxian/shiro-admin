@@ -82,7 +82,7 @@ public class LoginController extends BaseController {
             throw new AdminException("该用户名已存在");
         }
 
-        this.userService.regist(username, password);
+        this.userService.register(username, password);
         return new AdminResponse().success();
     }
 

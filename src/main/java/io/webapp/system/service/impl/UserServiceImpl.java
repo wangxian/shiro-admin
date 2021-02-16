@@ -139,7 +139,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void regist(String username, String password) {
+    public void register(String username, String password) {
         User user = new User();
         user.setPassword(Md5Util.encrypt(username, password));
         user.setUsername(username);

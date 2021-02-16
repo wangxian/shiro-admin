@@ -28,14 +28,14 @@ import java.util.List;
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 
     @Override
-    public List<DeptTree<Dept>> findDepts() {
-        List<Dept> depts = this.baseMapper.selectList(new QueryWrapper<>());
-        List<DeptTree<Dept>> trees = this.convertDepts(depts);
+    public List<DeptTree<Dept>> findDept() {
+        List<Dept> deptList = this.baseMapper.selectList(new QueryWrapper<>());
+        List<DeptTree<Dept>> trees = this.convertDept(deptList);
         return TreeUtil.buildDeptTree(trees);
     }
 
     @Override
-    public List<DeptTree<Dept>> findDepts(Dept dept) {
+    public List<DeptTree<Dept>> findDept(Dept dept) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
         if (StringUtils.isNotBlank(dept.getDeptName())) {
@@ -44,13 +44,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
         queryWrapper.lambda().orderByAsc(Dept::getOrderNum);
 
-        List<Dept> depts = this.baseMapper.selectList(queryWrapper);
-        List<DeptTree<Dept>> trees =  this.convertDepts(depts);
+        List<Dept> deptList = this.baseMapper.selectList(queryWrapper);
+        List<DeptTree<Dept>> trees =  this.convertDept(deptList);
         return TreeUtil.buildDeptTree(trees);
     }
 
     @Override
-    public List<Dept> findDepts(Dept dept, QueryRequest request) {
+    public List<Dept> findDept(Dept dept, QueryRequest request) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
         if (StringUtils.isNotBlank(dept.getDeptName())) {
@@ -82,11 +82,11 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteDepts(String[] deptIds) {
+    public void deleteDept(String[] deptIds) {
         Arrays.stream(deptIds).forEach(deptId -> this.baseMapper.deleteDepts(deptId));
     }
 
-    private List<DeptTree<Dept>> convertDepts(List<Dept> depts) {
+    private List<DeptTree<Dept>> convertDept(List<Dept> depts) {
         List<DeptTree<Dept>> trees = new ArrayList<>();
 
         depts.forEach(dept -> {
