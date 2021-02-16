@@ -21,7 +21,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>
 
-    <swagger.ui>2.9.2</swagger.ui>
     <jsoup.version>1.12.1</jsoup.version>
     <jedis.version>2.9.0</jedis.version>
     <p6spy.version>3.8.1</p6spy.version>
@@ -35,6 +34,7 @@
     <shiro.spring.version>1.4.2</shiro.spring.version>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>
     <google.guava.version>27.0-jre</google.guava.version>
+    <springfox.swagger.version>3.0.0</springfox.swagger.version>
     <dynamic.datasource.version>3.0.0</dynamic.datasource.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <thymeleaf-extras-shiro.version>2.0.0</thymeleaf-extras-shiro.version>
@@ -208,13 +208,8 @@
 
     <dependency>
       <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>${swagger.ui}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${swagger.ui}</version>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>${springfox.swagger.version}</version>
     </dependency>
 
     <dependency>
