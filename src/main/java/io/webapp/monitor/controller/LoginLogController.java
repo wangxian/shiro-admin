@@ -1,13 +1,13 @@
 package io.webapp.monitor.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.wuwenze.poi.ExcelKit;
 import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminResponse;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.monitor.entity.LoginLog;
 import io.webapp.monitor.service.ILoginLogService;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -42,7 +42,7 @@ public class LoginLogController extends BaseController {
     @GetMapping("delete/{ids}")
     @RequiresPermissions("loginlog:delete")
     @ControllerEndpoint(exceptionMessage = "删除日志失败")
-    public AdminResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) {
+    public AdminResponse deleteLogs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] loginLogIds = ids.split(StringPool.COMMA);
         this.loginLogService.deleteLoginLogs(loginLogIds);
         return new AdminResponse().success();
