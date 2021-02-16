@@ -3,12 +3,14 @@ package io.webapp.common.listener;
 import com.google.common.base.Stopwatch;
 import io.webapp.common.annotation.Listener;
 import io.webapp.common.authentication.ShiroRealm;
+import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.event.UserAuthenticationUpdatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.event.EventListener;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.Set;
 
@@ -23,6 +25,7 @@ public class UserAuthenticationUpdatedEventListener {
     private final ShiroRealm realm;
 
     @EventListener
+    @Async(AdminConstant.ASYNC_POOL)
     public void onUserAuthenticationUpdated(@NonNull UserAuthenticationUpdatedEvent event) {
         Set<Long> userIds = event.getUserIds();
         if (CollectionUtils.isNotEmpty(userIds)) {

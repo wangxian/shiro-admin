@@ -2,6 +2,7 @@ package io.webapp.common.event;
 
 import io.webapp.common.annotation.Publisher;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,6 +15,7 @@ import java.util.Set;
 /**
  * {@link UserAuthenticationUpdatedEvent}事件发布器
  */
+@Slf4j
 @Getter
 @Publisher
 public class UserAuthenticationUpdatedEventPublisher implements ApplicationEventPublisherAware, ApplicationContextAware {
@@ -39,6 +41,7 @@ public class UserAuthenticationUpdatedEventPublisher implements ApplicationEvent
     public void publishEvent(Set<Long> userId) {
         UserAuthenticationUpdatedEvent event = new UserAuthenticationUpdatedEvent(applicationContext);
         event.setUserIds(userId);
+        log.info("收到广播 UserAuthenticationUpdatedEvent");
         applicationEventPublisher.publishEvent(event);
     }
 }
