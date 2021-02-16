@@ -1,11 +1,11 @@
 package io.webapp.common.aspect;
 
+import com.google.common.collect.ImmutableList;
 import io.webapp.common.annotation.Limit;
 import io.webapp.common.entity.LimitType;
 import io.webapp.common.exception.LimitAccessException;
 import io.webapp.common.utils.HttpContextUtil;
 import io.webapp.common.utils.IpUtil;
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -67,9 +67,8 @@ public class LimitAspect extends BaseAspectSupport {
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix() + "_", key, ip));
         String luaScript = buildLuaScript();
 
-        RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = redisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
-
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
+        Long count = redisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
         log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
 
         if (count != null && count.intValue() <= limitCount) {
