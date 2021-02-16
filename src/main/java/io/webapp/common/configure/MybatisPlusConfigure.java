@@ -3,6 +3,7 @@ package io.webapp.common.configure;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import io.webapp.common.interceptor.DataPermissionInterceptor;
 import io.webapp.common.interceptor.DesensitizationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +21,19 @@ import java.util.List;
 public class MybatisPlusConfigure {
     /**
      * 分页插件
+     * 注册数据权限
      */
     @Bean
-    @Order(0)
+    @Order(-1)
+    public DataPermissionInterceptor dataPermissionInterceptor() {
+        return new DataPermissionInterceptor();
+    }
+
+    /**
+     * 分页插件
+     */
+    @Bean
+    @Order(-2)
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         List<ISqlParser> sqlParserList = new ArrayList<>();
