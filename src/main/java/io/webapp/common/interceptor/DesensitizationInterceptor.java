@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author Laizp
+ * 脱敏拦截器
  */
 @Data
 @Intercepts({

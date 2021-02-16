@@ -40,17 +40,21 @@ public class ControllerEndpointAspect extends BaseAspectSupport {
         Object result;
         Method targetMethod = resolveMethod(point);
         ControllerEndpoint annotation = targetMethod.getAnnotation(ControllerEndpoint.class);
+
         String operation = annotation.operation();
         long start = System.currentTimeMillis();
+
         try {
             result = point.proceed();
             if (StringUtils.isNotBlank(operation)) {
                 RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
                 ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) attributes;
                 String ip = StringUtils.EMPTY;
+
                 if (servletRequestAttributes != null) {
                     ip = servletRequestAttributes.getRequest().getRemoteAddr();
                 }
+
                 // 设置操作用户
                 User user = (User) SecurityUtils.getSubject().getPrincipal();
                 logService.saveLog(user, point, targetMethod, ip, operation, start);
@@ -58,6 +62,7 @@ public class ControllerEndpointAspect extends BaseAspectSupport {
             return result;
         } catch (Throwable throwable) {
             log.error(throwable.getMessage(), throwable);
+
             String exceptionMessage = annotation.exceptionMessage();
             String message = throwable.getMessage();
             String error = AdminUtil.containChinese(message) ? exceptionMessage + "，" + message : exceptionMessage;
