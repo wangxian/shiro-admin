@@ -153,6 +153,8 @@
                           form.val("menu-form", {
                             "parentId": selected[0] ? selected[0].id : ''
                           });
+
+                          admin.alert.info("请在表单中填写相关信息");
                         }
                         if (name === 'delete') {
                           var checked = _menuTree.getChecked(false, true);
