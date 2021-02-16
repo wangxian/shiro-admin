@@ -1,0 +1,31 @@
+admin:
+  autoOpenBrowser: true
+  shiro:
+    session_timeout: 3600
+    cookie_timeout: 86400
+    anon_url: /test/**,/febs/**,/img/**,/layui/**,/json/**,/images/captcha,/regist,/actuator/**
+    login_url: /login
+    success_url: /index
+    logout_url: /logout
+    unauthorized_url: /unauthorized
+  maxBatchInsertNum: 300
+  code:
+    # 验证码有效时间，单位秒
+    time: 120
+    type: png
+    width: 115
+    height: 42
+    # 验证码位数
+    length: 4
+    # 验证码类型：1. 数字+字母；2. 纯数字；3. 纯字母
+    char_type: 2
+  swagger:
+    basePackage: io.webapp
+    title: ADMIN Shiro API
+    description: ADMIN Shiro API Document.
+    version: 2.0
+    author: ADMIN
+    url: https://xx-company.com
+    email: dev@xx-company.com
+    license: Apache 2.0
+    license_url: https://www.apache.org/licenses/LICENSE-2.0.html

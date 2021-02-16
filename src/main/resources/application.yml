@@ -19,6 +19,8 @@ spring:
 
   aop:
     proxy-target-class: true
+  config:
+    import: classpath:admin.yml
 
 mybatis-plus:
   # 实体类扫描路径
