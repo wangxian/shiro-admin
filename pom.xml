@@ -21,17 +21,16 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <jsoup.version>1.12.1</jsoup.version>
-    <jedis.version>2.9.0</jedis.version>
     <p6spy.version>3.8.1</p6spy.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <excelKit.version>2.0.72</excelKit.version>
     <ip2region.version>1.7.2</ip2region.version>
     <commons-io.version>2.6</commons-io.version>
     <freemarker.version>2.3.28</freemarker.version>
-    <shiro.redis.version>3.2.3</shiro.redis.version>
+    <shiro.redis.version>3.3.1</shiro.redis.version>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>
     <easy-captcha.version>1.6.2</easy-captcha.version>
-    <shiro.spring.version>1.4.2</shiro.spring.version>
+    <shiro.spring.version>1.6.0</shiro.spring.version>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>
     <google.guava.version>27.0-jre</google.guava.version>
     <springfox.swagger.version>3.0.0</springfox.swagger.version>
@@ -134,18 +133,6 @@
       <groupId>org.crazycake</groupId>
       <artifactId>shiro-redis</artifactId>
       <version>${shiro.redis.version}</version>
-      <!-- 排除最新3.1.0版本，引用2.9.0版本,https://github.com/alexxiyang/shiro-redis/issues/113 -->
-      <exclusions>
-        <exclusion>
-          <groupId>redis.clients</groupId>
-          <artifactId>jedis</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>${jedis.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.theborakompanioni</groupId>
