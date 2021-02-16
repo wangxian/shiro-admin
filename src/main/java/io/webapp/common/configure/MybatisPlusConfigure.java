@@ -21,16 +21,6 @@ import java.util.List;
 public class MybatisPlusConfigure {
     /**
      * 分页插件
-     * 注册数据权限
-     */
-    @Bean
-    @Order(-1)
-    public DataPermissionInterceptor dataPermissionInterceptor() {
-        return new DataPermissionInterceptor();
-    }
-
-    /**
-     * 分页插件
      */
     @Bean
     @Order(-2)
@@ -42,6 +32,15 @@ public class MybatisPlusConfigure {
         sqlParserList.add(new BlockAttackSqlParser());
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
+    }
+
+    /**
+     * 注册数据权限
+     */
+    @Bean
+    @Order(-1)
+    public DataPermissionInterceptor dataPermissionInterceptor() {
+        return new DataPermissionInterceptor();
     }
 
     /**

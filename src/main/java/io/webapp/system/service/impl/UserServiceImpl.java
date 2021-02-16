@@ -14,13 +14,11 @@ import io.webapp.common.exception.AdminException;
 import io.webapp.common.utils.AdminUtil;
 import io.webapp.common.utils.Md5Util;
 import io.webapp.common.utils.SortUtil;
-import io.webapp.system.entity.Menu;
-import io.webapp.system.entity.Role;
-import io.webapp.system.entity.User;
-import io.webapp.system.entity.UserRole;
+import io.webapp.system.entity.*;
 import io.webapp.system.mapper.UserMapper;
 import io.webapp.system.service.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -107,6 +105,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         // 删除关联角色
         this.userRoleService.deleteUserRolesByUserId(list);
+
+        // 删除关联数据权限
+        userDataPermissionService.deleteByUserIds(userIds);
     }
 
     @Override
@@ -118,11 +119,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUpdatedAt(new Date());
         updateById(user);
 
-        // 更新关联角色
-        this.userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
-        String[] roles = user.getRoleId().split(StringPool.COMMA);
+        String[] userId = {String.valueOf(user.getUserId())};
+        userRoleService.deleteUserRolesByUserId(Arrays.asList(userId));
+        String[] roles = StringUtils.splitByWholeSeparatorPreserveAllTokens(user.getRoleId(), ",");
         setUserRoles(user, roles);
 
+        userDataPermissionService.deleteByUserIds(userId);
+        String[] deptIds = StringUtils.splitByWholeSeparatorPreserveAllTokens(user.getDeptIds(), ",");
+        if (ArrayUtils.isNotEmpty(deptIds)) {
+            setUserDataPermissions(user, deptIds);
+        }
         publisher.publishEvent(Sets.newHashSet(user.getUserId()));
     }
 
@@ -212,11 +218,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setStringPermissions(permissionSet);
     }
 
-    private boolean isCurrentUser(Long id) {
-        User currentUser = AdminUtil.getCurrentUser();
-        return currentUser.getUserId().equals(id);
-    }
-
     private void setUserRoles(User user, String[] roles) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(roles).forEach(roleId -> {
@@ -227,5 +228,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         });
 
         userRoleService.saveBatch(userRoles);
+    }
+
+    private void setUserDataPermissions(User user, String[] deptIds) {
+        List<UserDataPermission> userDataPermissions = new ArrayList<>();
+
+        Arrays.stream(deptIds).forEach(deptId -> {
+            UserDataPermission permission = new UserDataPermission();
+            permission.setDeptId(Long.valueOf(deptId));
+            permission.setUserId(user.getUserId());
+            userDataPermissions.add(permission);
+        });
+
+        userDataPermissionService.saveBatch(userDataPermissions);
+    }
+
+    private boolean isCurrentUser(Long id) {
+        User currentUser = AdminUtil.getCurrentUser();
+        return currentUser.getUserId().equals(id);
     }
 }

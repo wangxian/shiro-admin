@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author MrBird
- */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DataPermissionTestServiceImpl extends ServiceImpl<DataPermissionTestMapper, DataPermissionTest> implements IDataPermissionTestService {
@@ -24,6 +21,7 @@ public class DataPermissionTestServiceImpl extends ServiceImpl<DataPermissionTes
         LambdaQueryWrapper<DataPermissionTest> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByAsc(DataPermissionTest::getCreateTime);
         Page<DataPermissionTest> page = new Page<>(request.getPageNum(), request.getPageSize());
+
         return this.page(page, queryWrapper);
     }
 }

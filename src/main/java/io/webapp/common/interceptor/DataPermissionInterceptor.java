@@ -25,9 +25,6 @@ import java.io.StringReader;
 import java.sql.Connection;
 import java.util.Properties;
 
-/**
- * @author MrBird
- */
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class DataPermissionInterceptor extends AbstractSqlParserHandler implements Interceptor {
@@ -36,22 +33,28 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
+
         this.sqlParser(metaObject);
+
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
 
         BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
+
         // 数据权限只针对查询语句
         if (SqlCommandType.SELECT == mappedStatement.getSqlCommandType()) {
             DataPermission dataPermission = getDataPermission(mappedStatement);
             if (shouldFilter(mappedStatement, dataPermission)) {
                 String id = mappedStatement.getId();
                 log.info("\n 数据权限过滤 Method -> {}", id);
+
                 String originSql = boundSql.getSql();
                 String dataPermissionSql = dataPermissionSql(originSql, dataPermission);
                 metaObject.setValue("delegate.boundSql.sql", dataPermissionSql);
+
                 log.info("\n 原始SQL -> {} \n 数据权限过滤SQL -> {}", originSql, dataPermissionSql);
             }
         }
+
         return invocation.proceed();
     }
 
@@ -60,6 +63,7 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
         if (target instanceof StatementHandler) {
             return Plugin.wrap(target, this);
         }
+
         return target;
     }
 
@@ -72,6 +76,7 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
             if (StringUtils.isBlank(dataPermission.field())) {
                 return originSql;
             }
+
             User currentUser = AdminUtil.getCurrentUser();
             if (currentUser == null) {
                 return originSql;
@@ -90,6 +95,7 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
             } else {
                 plainSelect.setWhere(new AndExpression(plainSelect.getWhere(), CCJSqlParserUtil.parseCondExpression(dataPermissionSql)));
             }
+
             return select.toString();
         } catch (Exception e) {
             log.warn("get data permission sql fail: {}", e.getMessage());
@@ -100,14 +106,17 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
     private DataPermission getDataPermission(MappedStatement mappedStatement) {
         String mappedStatementId = mappedStatement.getId();
         DataPermission dataPermission = null;
+
         try {
             String className = mappedStatementId.substring(0, mappedStatementId.lastIndexOf("."));
             final Class<?> clazz = Class.forName(className);
+
             if (clazz.isAnnotationPresent(DataPermission.class)) {
                 dataPermission = clazz.getAnnotation(DataPermission.class);
             }
         } catch (Exception ignore) {
         }
+
         return dataPermission;
     }
 
@@ -115,16 +124,20 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
         if (dataPermission != null) {
             String methodName = StringUtils.substringAfterLast(mappedStatement.getId(), ".");
             String methodPrefix = dataPermission.methodPrefix();
+
             if (StringUtils.isNotBlank(methodPrefix) && StringUtils.startsWith(methodName, methodPrefix)) {
                 return Boolean.TRUE;
             }
+
             String[] methods = dataPermission.methods();
+
             for (String method : methods) {
                 if (StringUtils.equals(method, methodName)) {
                     return Boolean.TRUE;
                 }
             }
         }
+
         return Boolean.FALSE;
     }
 }

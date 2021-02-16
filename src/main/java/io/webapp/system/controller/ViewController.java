@@ -5,6 +5,7 @@ import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.utils.AdminUtil;
 import io.webapp.common.utils.DateUtil;
 import io.webapp.system.entity.User;
+import io.webapp.system.service.IUserDataPermissionService;
 import io.webapp.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -27,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ViewController extends BaseController {
 
     private final IUserService userService;
+
+    private final IUserDataPermissionService userDataPermissionService;
 
     @GetMapping("login")
     @ResponseBody
@@ -157,6 +160,9 @@ public class ViewController extends BaseController {
     private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
         model.addAttribute("user", user);
+
+        String deptIds = userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
 
         if (transform) {
             String sex = user.getSex();
