@@ -5,6 +5,7 @@ import io.webapp.common.properties.AdminProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
@@ -73,8 +74,12 @@ public class ShiroConfig {
         return redisManager;
     }
 
-    private RedisCacheManager cacheManager() {
+    @Bean
+    public RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
+        // 权限缓存超时时间，和session超时时间一致
+        redisCacheManager.setExpire((int) adminProperties.getShiro().getSessionTimeout());
+
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
     }
@@ -114,7 +119,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm) {
+    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 
         // 配置 SecurityManager，并注入 shiroRealm
@@ -124,7 +129,7 @@ public class ShiroConfig {
         securityManager.setSessionManager(sessionManager());
 
         // 配置 缓存管理类 cacheManager
-        securityManager.setCacheManager(cacheManager());
+        securityManager.setCacheManager(cacheManager);
 
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
@@ -157,7 +162,7 @@ public class ShiroConfig {
         cookieRememberMeManager.setCookie(rememberMeCookie());
 
         // rememberMe cookie 加密的密钥
-        String encryptKey =  RandomStringUtils.randomAlphanumeric(15);
+        String encryptKey = RandomStringUtils.randomAlphanumeric(15);
         byte[] encryptKeyBytes = encryptKey.getBytes(StandardCharsets.UTF_8);
 
         String rememberKey = Base64Utils.encodeToString(Arrays.copyOf(encryptKeyBytes, 16));

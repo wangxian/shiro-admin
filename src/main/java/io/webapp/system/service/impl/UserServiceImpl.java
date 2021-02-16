@@ -6,28 +6,29 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Sets;
 import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
+import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
 import io.webapp.common.exception.AdminException;
 import io.webapp.common.utils.AdminUtil;
 import io.webapp.common.utils.Md5Util;
 import io.webapp.common.utils.SortUtil;
+import io.webapp.system.entity.Menu;
+import io.webapp.system.entity.Role;
 import io.webapp.system.entity.User;
 import io.webapp.system.entity.UserRole;
 import io.webapp.system.mapper.UserMapper;
-import io.webapp.system.service.IUserRoleService;
-import io.webapp.system.service.IUserService;
+import io.webapp.system.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author ADMIN
@@ -38,7 +39,11 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     private final IUserRoleService userRoleService;
-    private final ShiroRealm shiroRealm;
+
+    private final IMenuService menuService;
+    private final IRoleService roleService;
+    private final UserAuthenticationUpdatedEventPublisher publisher;
+    private final IUserDataPermissionService userDataPermissionService;
 
     @Override
     public User findByName(String username) {
@@ -108,8 +113,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUser(User user) {
-        String username = user.getUsername();
-
         // 更新用户
         user.setPassword(null);
         user.setUsername(null);
@@ -121,10 +124,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String[] roles = user.getRoleId().split(StringPool.COMMA);
         setUserRoles(user, roles);
 
-        User currentUser = AdminUtil.getCurrentUser();
-        if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
-            shiroRealm.clearCache();
-        }
+        publisher.publishEvent(Sets.newHashSet(user.getUserId()));
     }
 
     @Override
@@ -192,11 +192,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUsername(null);
         user.setRoleId(null);
         user.setPassword(null);
-        if (isCurrentUser(user.getId())) {
+
+        if (isCurrentUser(user.getUserId())) {
             updateById(user);
         } else {
             throw new AdminException("您无权修改别人的账号信息！");
         }
+    }
+
+    @Override
+    public void doGetUserAuthorizationInfo(User user) {
+        // 获取用户角色集
+        List<Role> roleList = this.roleService.findUserRole(user.getUsername());
+        Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
+        user.setRoles(roleSet);
+
+        // 获取用户权限集
+        List<Menu> permissionList = this.menuService.findUserPermissions(user.getUsername());
+        Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
+        user.setStringPermissions(permissionSet);
+
+        String deptIds = this.userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
     }
 
     private boolean isCurrentUser(Long id) {

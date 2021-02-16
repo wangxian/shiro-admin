@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.MenuTree;
+import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
 import io.webapp.common.utils.TreeUtil;
 import io.webapp.system.entity.Menu;
 import io.webapp.system.mapper.MenuMapper;
@@ -18,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ADMIN
@@ -31,8 +30,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-    private final IRoleMenuService roleMenuService;
     private final ShiroRealm shiroRealm;
+    private final IRoleMenuService roleMenuService;
+    private final UserAuthenticationUpdatedEventPublisher publisher;
 
     @Override
     public List<Menu> findUserPermissions(String username) {
@@ -88,16 +88,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         this.setMenu(menu);
         this.baseMapper.updateById(menu);
 
-        shiroRealm.clearCache();
+        Set<Long> userIds = roleMenuService.findUserIdByMenuIds(Lists.newArrayList(String.valueOf(menu.getMenuId())));
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenus(String menuIds) {
-        String[] menuIdsArray = menuIds.split(StringPool.COMMA);
-        this.delete(Arrays.asList(menuIdsArray));
+        List<String> menuIdList = Arrays.asList(menuIds.split(StringPool.COMMA));
+        this.delete(menuIdList);
 
-        shiroRealm.clearCache();
+        Set<Long> userIds = roleMenuService.findUserIdByMenuIds(menuIdList);
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     private List<MenuTree<Menu>> convertMenus(List<Menu> menus) {

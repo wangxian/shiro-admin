@@ -1,5 +1,6 @@
 package io.webapp.common.authentication;
 
+import io.webapp.monitor.service.ISessionService;
 import io.webapp.system.entity.Menu;
 import io.webapp.system.entity.Role;
 import io.webapp.system.entity.User;
@@ -7,17 +8,23 @@ import io.webapp.system.service.IMenuService;
 import io.webapp.system.service.IRoleService;
 import io.webapp.system.service.IUserDataPermissionService;
 import io.webapp.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,36 +34,28 @@ import java.util.stream.Collectors;
  *
  * @author ADMIN
  */
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
     private IUserService userService;
-    private IRoleService roleService;
-    private IMenuService menuService;
-    private IUserDataPermissionService userDataPermissionService;
+    private final CacheManager cacheManager;
+    private final ISessionService sessionService;
+    private final ShiroLogoutService shiroLogoutService;
 
-    @Lazy
-    @Autowired
-    public void setMenuService(IMenuService menuService) {
-        this.menuService = menuService;
+    @PostConstruct
+    private void initConfig() {
+        setAuthenticationCachingEnabled(true);
+        setAuthorizationCachingEnabled(true);
+        setCachingEnabled(true);
+        setCacheManager(cacheManager);
     }
 
     @Lazy
     @Autowired
     public void setUserService(IUserService userService) {
         this.userService = userService;
-    }
-
-    @Lazy
-    @Autowired
-    public void setRoleService(IRoleService roleService) {
-        this.roleService = roleService;
-    }
-
-    @Lazy
-    @Autowired
-    public void setUserDataPermissionService(IUserDataPermissionService userDataPermissionService) {
-        this.userDataPermissionService = userDataPermissionService;
     }
 
     /**
@@ -67,20 +66,11 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        String username = user.getUsername();
-
+        User user = (User) principal.getPrimaryPrincipal();
+        userService.doGetUserAuthorizationInfo(user);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
-        // 获取用户角色集
-        List<Role> roleList = this.roleService.findUserRole(username);
-        Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
-        simpleAuthorizationInfo.setRoles(roleSet);
-
-        // 获取用户权限集
-        List<Menu> permissionList = this.menuService.findUserPermissions(username);
-        Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
-        simpleAuthorizationInfo.setStringPermissions(permissionSet);
+        simpleAuthorizationInfo.setRoles(user.getRoles());
+        simpleAuthorizationInfo.setStringPermissions(user.getStringPermissions());
         return simpleAuthorizationInfo;
     }
 
@@ -99,26 +89,30 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 通过用户名到数据库查询用户信息
         User user = this.userService.findByName(username);
-        // System.out.println(user);
 
         if (user == null || !StringUtils.equals(password, user.getPassword())) {
-            throw new IncorrectCredentialsException("用户名或密码错误");
+            throw new IncorrectCredentialsException("用户名或密码错误！");
         }
 
         if (User.STATUS_LOCK.equals(user.getStatus())) {
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
+            throw new LockedAccountException("账号已被锁定,请联系管理员！");
         }
 
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 
-    /**
-     * 清除当前用户权限缓存
-     * 使用方法：在需要清除用户权限的地方注入 ShiroRealm,
-     * 然后调用其 clearCache方法。
-     */
-    public void clearCache() {
-        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
-        super.clearCache(principals);
+    @Override
+    public void onLogout(PrincipalCollection principals) {
+        super.onLogout(principals);
+        shiroLogoutService.cleanCacheFragment(principals);
+    }
+
+    public void clearCache(Long userId) {
+        List<SimplePrincipalCollection> principals = sessionService.getPrincipals(userId);
+        if (CollectionUtils.isNotEmpty(principals)) {
+            for (SimplePrincipalCollection principal : principals) {
+                super.clearCache(principal);
+            }
+        }
     }
 }

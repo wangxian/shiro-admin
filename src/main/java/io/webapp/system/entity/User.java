@@ -12,12 +12,14 @@ import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import io.webapp.common.entity.DesensitizationType;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author ADMIN
@@ -25,7 +27,7 @@ import java.util.Date;
 @Data
 @TableName("admin_user")
 @Excel("用户信息表")
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
 
     private static final long serialVersionUID = -4352868070794165001L;
 
@@ -105,7 +107,7 @@ public class User implements Serializable {
     @TableField("mobile")
     @IsMobile(message = "{mobile}")
     @ExcelField(value = "联系电话")
-    @Desensitization(type = DesensitizationType.PHONE)
+    // @Desensitization(type = DesensitizationType.PHONE)
     private String mobile;
 
     /**
@@ -199,7 +201,18 @@ public class User implements Serializable {
     @TableField(exist = false)
     private String deptIds;
 
-    public Long getId() {
-        return userId;
+    @TableField(exist = false)
+    private Set<String> stringPermissions;
+
+    @TableField(exist = false)
+    private Set<String> roles;
+
+    public String getId() {
+        return StringUtils.lowerCase(username);
+    }
+
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
     }
 }

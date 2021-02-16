@@ -1,8 +1,10 @@
 package io.webapp.system.service.impl;
 
+import com.google.common.collect.Lists;
 import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
+import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
 import io.webapp.common.utils.SortUtil;
 import io.webapp.system.entity.Role;
 import io.webapp.system.entity.RoleMenu;
@@ -16,27 +18,25 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ADMIN
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 @RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
     private final IRoleMenuService roleMenuService;
     private final IUserRoleService userRoleService;
-    private final ShiroRealm shiroRealm;
+    private final UserAuthenticationUpdatedEventPublisher publisher;
 
     @Override
     public List<Role> findUserRole(String username) {
@@ -81,13 +81,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         role.setUpdatedAt(new Date());
         this.updateById(role);
 
-        List<String> roleIdList = new ArrayList<>();
-        roleIdList.add(String.valueOf(role.getRoleId()));
+        List<String> roleIdList = Lists.newArrayList(String.valueOf(role.getRoleId()));
 
         this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
 
-        shiroRealm.clearCache();
+        Set<Long> userIds = this.userRoleService.findUserIdByRoleId(role.getRoleId());
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     @Override
@@ -98,12 +100,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
         this.roleMenuService.deleteRoleMenusByRoleId(list);
         this.userRoleService.deleteUserRolesByRoleId(list);
+
+        Set<Long> userIds = this.userRoleService.findUserIdByRoleIds(list);
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     private void saveRoleMenus(Role role) {
         if (StringUtils.isNotBlank(role.getMenuIds())) {
             String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
-            List<RoleMenu> roleMenus = new ArrayList<>();
+            List<RoleMenu> roleMenus = Lists.newArrayList();
 
             Arrays.stream(menuIds).forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();

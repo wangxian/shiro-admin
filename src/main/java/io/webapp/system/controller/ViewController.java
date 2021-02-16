@@ -1,6 +1,5 @@
 package io.webapp.system.controller;
 
-import io.webapp.common.authentication.ShiroHelper;
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.utils.AdminUtil;
@@ -8,7 +7,6 @@ import io.webapp.common.utils.DateUtil;
 import io.webapp.system.entity.User;
 import io.webapp.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.stereotype.Controller;
@@ -29,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ViewController extends BaseController {
 
     private final IUserService userService;
-    private final ShiroHelper shiroHelper;
 
     @GetMapping("login")
     @ResponseBody
@@ -57,15 +54,13 @@ public class ViewController extends BaseController {
 
     @GetMapping("index")
     public String index(Model model) {
-        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentUserAuthorizationInfo();
+        User principal = getCurrentUser();
+        userService.doGetUserAuthorizationInfo(principal);
 
-        User user = super.getCurrentUser();
-        User currentUserDetail = userService.findByName(user.getUsername());
-        currentUserDetail.setPassword("It's a secret");
-
-        model.addAttribute("user", currentUserDetail);
-        model.addAttribute("permissions", authorizationInfo.getStringPermissions());
-        model.addAttribute("roles", authorizationInfo.getRoles());
+        principal.setPassword("It's a secret");
+        model.addAttribute("user", principal);
+        model.addAttribute("permissions", principal.getStringPermissions());
+        model.addAttribute("roles", principal.getRoles());
 
         return "index";
     }

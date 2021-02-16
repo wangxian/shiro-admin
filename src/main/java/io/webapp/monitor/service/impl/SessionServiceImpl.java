@@ -1,5 +1,6 @@
 package io.webapp.monitor.service.impl;
 
+import com.google.common.collect.Lists;
 import io.webapp.common.utils.AddressUtil;
 import io.webapp.common.utils.DateUtil;
 import io.webapp.monitor.entity.ActiveUser;
@@ -12,11 +13,15 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static io.webapp.monitor.entity.ActiveUser.OFFLINE;
+import static io.webapp.monitor.entity.ActiveUser.ONLINE;
 
 /**
  * @author ADMIN
@@ -55,7 +60,7 @@ public class SessionServiceImpl implements ISessionService {
             activeUser.setLastAccessTime(DateUtil.getDateFormat(session.getLastAccessTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
 
             long timeout = session.getTimeout();
-            activeUser.setStatus(timeout == 0L ? "0" : "1");
+            activeUser.setStatus(timeout == 0L ? OFFLINE : ONLINE);
             String address = AddressUtil.getCityInfo(activeUser.getHost());
             activeUser.setLocation(address);
             activeUser.setTimeout(timeout);
@@ -77,5 +82,27 @@ public class SessionServiceImpl implements ISessionService {
         session.setTimeout(0);
         session.stop();
         sessionDAO.delete(session);
+    }
+
+    @Override
+    public List<SimplePrincipalCollection> getPrincipals(@NonNull Long userId) {
+        List<SimplePrincipalCollection> collections = Lists.newArrayList();
+        Collection<Session> sessions = sessionDAO.getActiveSessions();
+
+        for (Session session : sessions) {
+            if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) != null) {
+                SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) session
+                        .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+
+                if (simplePrincipalCollection != null) {
+                    User user = (User) simplePrincipalCollection.getPrimaryPrincipal();
+                    if (userId.equals(user.getUserId())) {
+                        collections.add(simplePrincipalCollection);
+                    }
+                }
+            }
+        }
+
+        return collections;
     }
 }

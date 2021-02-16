@@ -4,6 +4,7 @@ import io.webapp.system.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author ADMIN
@@ -24,4 +25,11 @@ public interface IRoleMenuService extends IService<RoleMenu> {
      */
     void deleteRoleMenusByMenuId(List<String> menuIds);
 
+    /**
+     * 通过菜单ID集合查找关联的用户ID集合
+     *
+     * @param menuIds 菜单ID集合
+     * @return 用户ID集合
+     */
+    Set<Long> findUserIdByMenuIds(List<String> menuIds);
 }
