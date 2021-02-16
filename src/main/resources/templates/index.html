@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+>
 <head>
-    <meta charset="utf-8">
-    <title>ADMIN 权限系统</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" th:href="@{layui/css/layui.css}" media="all">
-    <link rel="stylesheet" th:href="@{admin/css/admin.css}" media="all">
-    <link rel="stylesheet" th:href="@{admin/css/eleTree.css}" media="all">
-    <link rel="stylesheet" th:href="@{admin/css/apexcharts.min.css}" media="all">
-    <link rel="stylesheet" th:href="@{admin/css/formSelects-v4.css}" media="all">
+  <meta charset="utf-8">
+  <title>ADMIN 权限系统</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" th:href="@{layui/css/layui.css}" media="all">
+  <link rel="stylesheet" th:href="@{admin/css/admin.css}" media="all">
+  <link rel="stylesheet" th:href="@{admin/css/eleTree.css}" media="all">
+  <link rel="stylesheet" th:href="@{admin/css/apexcharts.min.css}" media="all">
+  <link rel="stylesheet" th:href="@{admin/css/formSelects-v4.css}" media="all">
 
-    <link rel="icon" th:href="@{admin/images/favicon.ico}" type="image/x-icon"/>
+  <link rel="icon" th:href="@{admin/images/favicon.ico}" type="image/x-icon"/>
 </head>
 <body>
 <div id="admin"></div>
 <script th:src="@{layui/layui.js}"></script>
 <script th:inline="javascript">
-    var ctx = [[@{/}]];
-    var currentUser = [[${user}]];
-    currentUser.roleSet = [[${roles}]];
-    currentUser.permissionSet = [[${permissions}]];
+  var ctx = [[@{/}]];
+  var currentUser = [[${user}]];
+  currentUser.roleSet = [[${roles}]];
+  currentUser.permissionSet = [[${permissions}]];
 
-    layui.config({
-        base: './admin/',
-        debug: true
-    }).extend({
-        formSelects: 'lay/extends/formSelects-v4.min',
-        treeSelect: 'lay/extends/treeSelect',
-        apexcharts: 'lay/extends/apexcharts.min',
-        eleTree: 'lay/extends/eleTree'
-    }).use(['index']);
+  layui.config({
+    base: './admin/',
+    debug: true
+  }).extend({
+    formSelects: 'lay/extends/formSelects-v4.min',
+    treeSelect: 'lay/extends/treeSelect',
+    apexcharts: 'lay/extends/apexcharts.min',
+    eleTree: 'lay/extends/eleTree'
+  }).use(['index']);
 </script>
 </body>
 </html>

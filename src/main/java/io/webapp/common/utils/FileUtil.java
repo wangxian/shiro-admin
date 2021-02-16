@@ -125,7 +125,6 @@ public class FileUtil {
 
     /**
      * 校验文件类型是否是允许下载的类型
-     * （出于安全考虑：https://github.com/wuyouzhuguli/FEBS-Shiro/issues/40）
      *
      * @param fileType fileType
      * @return Boolean

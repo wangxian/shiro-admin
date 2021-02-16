@@ -41,7 +41,7 @@ public class AdminConfigure {
         executor.setQueueCapacity(200);
         executor.setKeepAliveSeconds(30);
 
-        executor.setThreadNamePrefix("Admin-Async-Thread");
+        executor.setThreadNamePrefix(AdminConstant.ASYNC_THREAD_NAME_PREFIX);
         executor.setWaitForTasksToCompleteOnShutdown(true);
 
         executor.setAwaitTerminationSeconds(60);
@@ -65,7 +65,7 @@ public class AdminConfigure {
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
 
-        Map<String, String> initParameters = new HashMap<>(2);
+        Map<String, String> initParameters = new HashMap<>(2, 1);
         initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
         initParameters.put("isIncludeRichText", "true");
 

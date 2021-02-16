@@ -1,6 +1,7 @@
 package io.webapp.job.configure;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import io.webapp.common.entity.AdminConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -28,7 +29,7 @@ public class ScheduleConfigure {
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(20);
         executor.setKeepAliveSeconds(30);
-        executor.setThreadNamePrefix("Febs-Job-Thread");
+        executor.setThreadNamePrefix(AdminConstant.QUARTZ_THREAD_NAME_PREFIX);
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.setAwaitTerminationSeconds(60);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());

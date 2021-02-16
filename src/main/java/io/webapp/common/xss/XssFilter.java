@@ -1,5 +1,6 @@
 package io.webapp.common.xss;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,20 +20,18 @@ import java.util.regex.Pattern;
  *
  * @author ADMIN
  */
+@Slf4j
 public class XssFilter implements Filter {
-
-    private static Logger logger = LoggerFactory.getLogger(XssFilter.class);
-
     /**
      * 是否过滤富文本内容
      */
     private boolean flag = false;
 
-    private List<String> excludes = new ArrayList<>();
+    private final List<String> excludes = new ArrayList<>();
 
     @Override
     public void init(FilterConfig filterConfig) {
-        logger.info("------------ xss filter init ------------");
+        log.info("------------ xss filter init ------------");
         String isIncludeRichText = filterConfig.getInitParameter("isIncludeRichText");
         if (StringUtils.isNotBlank(isIncludeRichText)) {
             flag = BooleanUtils.toBoolean(isIncludeRichText);
@@ -46,15 +45,14 @@ public class XssFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         if (handleExcludeUrl(req)) {
             chain.doFilter(request, response);
             return;
         }
-        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request, flag);
 
+        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request, flag);
         chain.doFilter(xssRequest, response);
     }
 
@@ -64,7 +62,7 @@ public class XssFilter implements Filter {
     }
 
     private boolean handleExcludeUrl(HttpServletRequest request) {
-        if (excludes == null || excludes.isEmpty()) {
+        if (excludes.isEmpty()) {
             return false;
         }
 

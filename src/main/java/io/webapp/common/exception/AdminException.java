@@ -1,7 +1,7 @@
 package io.webapp.common.exception;
 
 /**
- * FEBS系统内部异常
+ * ADMIN系统内部异常
  *
  * @author ADMIN
  */

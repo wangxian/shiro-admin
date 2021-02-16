@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import io.webapp.common.interceptor.DesensitizationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author ADMIN
  */
 @Configuration
+@MapperScan("io.webapp.*.mapper")
 public class MybatisPlusConfigure {
     /**
      * 分页插件
