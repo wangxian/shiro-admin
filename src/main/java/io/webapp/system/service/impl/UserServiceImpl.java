@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Sets;
-import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
@@ -211,9 +210,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<Menu> permissionList = this.menuService.findUserPermissions(user.getUsername());
         Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
         user.setStringPermissions(permissionSet);
-
-        String deptIds = this.userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
-        user.setDeptIds(deptIds);
     }
 
     private boolean isCurrentUser(Long id) {

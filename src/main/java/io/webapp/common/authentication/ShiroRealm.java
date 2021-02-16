@@ -2,6 +2,7 @@ package io.webapp.common.authentication;
 
 import io.webapp.monitor.service.ISessionService;
 import io.webapp.system.entity.User;
+import io.webapp.system.service.IUserDataPermissionService;
 import io.webapp.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class ShiroRealm extends AuthorizingRealm {
     private final CacheManager cacheManager;
     private final ISessionService sessionService;
     private final ShiroLogoutService shiroLogoutService;
+    private final IUserDataPermissionService userDataPermissionService;
 
     @PostConstruct
     private void initConfig() {
@@ -89,6 +91,9 @@ public class ShiroRealm extends AuthorizingRealm {
         if (User.STATUS_LOCK.equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
         }
+
+        String deptIds = this.userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
 
         return new SimpleAuthenticationInfo(user, password, getName());
     }
