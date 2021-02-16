@@ -133,6 +133,18 @@
       <groupId>org.crazycake</groupId>
       <artifactId>shiro-redis</artifactId>
       <version>${shiro.redis.version}</version>
+
+      <exclusions>
+        <exclusion>
+          <groupId>com.ibm.icu</groupId>
+          <artifactId>icu4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.sf.saxon</groupId>
+          <artifactId>Saxon-HE</artifactId>
+        </exclusion>
+      </exclusions>
+
     </dependency>
     <dependency>
       <groupId>com.github.theborakompanioni</groupId>

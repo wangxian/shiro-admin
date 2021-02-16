@@ -54,7 +54,7 @@ public class ViewController extends BaseController {
 
     @GetMapping("index")
     public String index(Model model) {
-        User principal = getCurrentUser();
+        User principal = userService.findByName(getCurrentUser().getUsername());
         userService.doGetUserAuthorizationInfo(principal);
 
         principal.setPassword("It's a secret");
