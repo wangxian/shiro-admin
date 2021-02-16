@@ -12,9 +12,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "admin")
 public class AdminProperties {
     private ShiroProperties shiro = new ShiroProperties();
+
+    private boolean autoOpenBrowser = true;
+
     private SwaggerProperties swagger = new SwaggerProperties();
 
-    private ValidateCodeProperties code = new ValidateCodeProperties();
-
     private int maxBatchInsertNum = 1000;
+
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 }

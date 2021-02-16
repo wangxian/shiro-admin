@@ -29,7 +29,7 @@
               <div class="normal-login-form">
                 <div class="layui-form-item">
                   <label class="layui-icon label-icon layui-icon-username"></label>
-                  <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input" />
+                  <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input"/>
                 </div>
                 <div class="layui-form-item password-block">
                   <label class="layui-icon label-icon layui-icon-password"></label>
@@ -74,7 +74,7 @@
               <div class="normal-login-form">
                 <div class="layui-form-item">
                   <label class="layui-icon label-icon layui-icon-username"></label>
-                  <input type="text" name="username" minlength="2" maxlength="10" lay-verify="range" placeholder="用户名" autocomplete="off" class="layui-input" />
+                  <input type="text" name="username" minlength="2" maxlength="10" lay-verify="range" placeholder="用户名" autocomplete="off" class="layui-input"/>
                 </div>
                 <div class="layui-form-item password-block">
                   <label class="layui-icon label-icon layui-icon-password"></label>
@@ -106,101 +106,100 @@
   </div>
 </div>
 <script th:src="@{layui/layui.js}"></script>
-<script th:inline="javascript">
-  var ctx = [[@{/}]];
+<script th:inline="javascript">var ctx = [[@{/}]];</script>
+<script>
+  layui.extend({validate: './admin/lay/modules/validate'}).use(['form', 'layer', 'validate'], function (form, layer) {
+    var $            = layui.jquery,
+        validate     = layui.validate,
+        $view        = $('#admin-login'),
+        type         = 'login',
+        $loginDiv    = $view.find('#login-div'),
+        $registerDiv = $view.find('#register-div');
 
-                layui.extend({validate: './admin/lay/modules/validate'}).use(['form', 'layer', 'validate'], function (form, layer) {
-                  var $            = layui.jquery,
-                      validate     = layui.validate,
-                      $view        = $('#admin-login'),
-                      type         = 'login',
-                      $loginDiv    = $view.find('#login-div'),
-                      $registerDiv = $view.find('#register-div');
+    form.verify(validate);
+    form.render();
+    initCode();
 
-                  form.verify(validate);
-                  form.render();
-                  initCode();
+    //提交登录表单
+    form.on('submit(login-submit)', function (data) {
+      var loading = $(this).find('.layui-icon');
+      if (loading.is(":visible")) return;
+      loading.show();
+      $.post(ctx + 'login', data.field, function (r) {
+        if (r.code === 200) {
+          location.href = ctx + r.data.substr(1);
+        } else {
+          layer.msg(r.message);
+          loading.hide();
+          initCode();
+        }
+      });
+      return false;
+    });
 
-                  //提交登录表单
-                  form.on('submit(login-submit)', function (data) {
-                    var loading = $(this).find('.layui-icon');
-                    if (loading.is(":visible")) return;
-                    loading.show();
-                    $.post(ctx + 'login', data.field, function (r) {
-                      if (r.code === 200) {
-                        location.href = ctx + r.data.substr(1);
-                      } else {
-                        layer.msg(r.message);
-                        loading.hide();
-                        initCode();
-                      }
-                    });
-                    return false;
-                  });
+    //提交注册表单
+    form.on('submit(register-submit)', function (data) {
+      if (data.field.password !== data.field.passwordB) {
+        layer.msg('两次密码输入不一致！');
+        return;
+      }
+      var loading = $(this).find('.layui-icon');
+      if (loading.is(":visible")) return;
+      loading.show();
+      $.post(ctx + 'register', data.field, function (r) {
+        if (r.code === 200) {
+          layer.msg('注册成功，请登录');
+          loading.hide();
+          $view.find('#login-href').trigger('click');
+        } else {
+          layer.msg(r.message);
+          loading.hide();
+        }
+      });
+      return false;
+    });
 
-                  //提交注册表单
-                  form.on('submit(register-submit)', function (data) {
-                    if (data.field.password !== data.field.passwordB) {
-                      layer.msg('两次密码输入不一致！');
-                      return;
-                    }
-                    var loading = $(this).find('.layui-icon');
-                    if (loading.is(":visible")) return;
-                    loading.show();
-                    $.post(ctx + 'register', data.field, function (r) {
-                      if (r.code === 200) {
-                        layer.msg('注册成功，请登录');
-                        loading.hide();
-                        $view.find('#login-href').trigger('click');
-                      } else {
-                        layer.msg(r.message);
-                        loading.hide();
-                      }
-                    });
-                    return false;
-                  });
+    function initCode() {
+      $view.find('#codeimg').attr("src", ctx + "images/captcha?data=" + new Date().getTime());
+    }
 
-                  function initCode() {
-                    $view.find('#codeimg').attr("src", ctx + "images/captcha?data=" + new Date().getTime());
-                  }
+    $view.find('#codeimg').on('click', function () {
+      initCode();
+    });
 
-                  $view.find('#codeimg').on('click', function () {
-                    initCode();
-                  });
+    $view.find('#register-href').on('click', function () {
+      resetForm();
+      type = 'register';
+      $loginDiv.hide();
+      $registerDiv.show();
+    });
 
-                  $view.find('#register-href').on('click', function () {
-                    resetForm();
-                    type = 'register';
-                    $loginDiv.hide();
-                    $registerDiv.show();
-                  });
+    $view.find('#login-href').on('click', function () {
+      resetForm();
+      type = 'login';
+      $loginDiv.show();
+      $registerDiv.hide();
+    });
 
-                  $view.find('#login-href').on('click', function () {
-                    resetForm();
-                    type = 'login';
-                    $loginDiv.show();
-                    $registerDiv.hide();
-                  });
+    function resetForm() {
+      $registerDiv.find('input[name="username"]').val('')
+          .end().find('input[name="password"]').val('')
+          .end().find('input[name="passwordB"]').val('');
 
-                  function resetForm() {
-                    $registerDiv.find('input[name="username"]').val('')
-                        .end().find('input[name="password"]').val('')
-                        .end().find('input[name="passwordB"]').val('');
+      $loginDiv.find('input[name="username"]').val('')
+          .end().find('input[name="password"]').val('')
+          .end().find('input[name="verifyCode"]').val('');
+    }
 
-                    $loginDiv.find('input[name="username"]').val('')
-                        .end().find('input[name="password"]').val('')
-                        .end().find('input[name="verifyCode"]').val('');
-                  }
-
-                  $(document).on('keydown', function (e) {
-                    if (e.keyCode === 13) {
-                      if (type === 'login')
-                        $view.find('#login').trigger("click");
-                      if (type === 'register')
-                        $view.find('#register').trigger("click");
-                    }
-                  });
-                });
+    $(document).on('keydown', function (e) {
+      if (e.keyCode === 13) {
+        if (type === 'login')
+          $view.find('#login').trigger("click");
+        if (type === 'register')
+          $view.find('#register').trigger("click");
+      }
+    });
+  });
 </script>
 </body>
 </html>

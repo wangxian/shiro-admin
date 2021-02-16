@@ -19,7 +19,6 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <mybatis.plus.version>3.3.1</mybatis.plus.version>
 
     <jsoup.version>1.12.1</jsoup.version>
     <jedis.version>2.9.0</jedis.version>
@@ -30,6 +29,7 @@
     <commons-io.version>2.6</commons-io.version>
     <freemarker.version>2.3.28</freemarker.version>
     <shiro.redis.version>3.2.3</shiro.redis.version>
+    <mybatis.plus.version>3.3.1</mybatis.plus.version>
     <easy-captcha.version>1.6.2</easy-captcha.version>
     <shiro.spring.version>1.4.2</shiro.spring.version>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>

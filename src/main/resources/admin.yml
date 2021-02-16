@@ -3,7 +3,7 @@ admin:
   shiro:
     session_timeout: 3600
     cookie_timeout: 86400
-    anon_url: /test/**,/febs/**,/img/**,/layui/**,/json/**,/images/captcha,/register,/actuator/**
+    anon_url: /test/**,/febs/**,/img/**,/layui/**,/admin/**,/json/**,/images/captcha,/register,/actuator/**
     login_url: /login
     success_url: /index
     logout_url: /logout
