@@ -122,6 +122,7 @@ public class DataPermissionInterceptor extends AbstractSqlParserHandler implemen
 
     private Boolean shouldFilter(MappedStatement mappedStatement, DataPermission dataPermission) {
         if (dataPermission != null) {
+            // mappedStatement.getId() 大概是这样的：io.webapp.others.mapper.DataPermissionTestMapper.selectPage
             String methodName = StringUtils.substringAfterLast(mappedStatement.getId(), ".");
             String methodPrefix = dataPermission.methodPrefix();
 
