@@ -93,11 +93,13 @@ public class ViewController {
     }
 
     @GetMapping("eximport/result")
+    @RequiresPermissions("others:eximport:view")
     public String eximportResult() {
         return AdminUtil.view("others/eximport/eximportResult");
     }
 
     @GetMapping("datapermission")
+    @RequiresPermissions("others:datapermission")
     public String dataPermissionTest() {
         return AdminUtil.view("others/datapermission/test");
     }

@@ -1,33 +1,33 @@
 layui.extend({
-               conf: 'config',
-               api : 'lay/modules/api',
-               view: 'lay/modules/view'
-             }).define(['conf', 'view', 'api', 'jquery', 'table'], function (exports) {
-  POPUP_DATA     = {};
-  var conf       = layui.conf;
+  conf: 'config',
+  api: 'lay/modules/api',
+  view: 'lay/modules/view'
+}).define(['conf', 'view', 'api', 'jquery', 'table'], function (exports) {
+  POPUP_DATA = {};
+  var conf = layui.conf;
   var layuiTable = layui.table;
-  var view       = layui.view;
-  var element    = layui.element;
-  var $          = layui.jquery;
-  var $bread     = $('#admin-layout .admin-breadcrumb');
+  var view = layui.view;
+  var element = layui.element;
+  var $ = layui.jquery;
+  var $bread = $('#admin-layout .admin-breadcrumb');
 
   layui.extend(conf.extend);
-  var self        = {};
+  var self = {};
   var windowWidth = $(window).width();
 
-  conf.viewTabs            = currentUser.isTab === '1';
-  self.defaultView         = layui.router('#' + conf.entry);
-  self.route               = layui.router();
-  self.view                = view;
-  self.api                 = layui.api;
+  conf.viewTabs = currentUser.isTab === '1';
+  self.defaultView = layui.router('#' + conf.entry);
+  self.route = layui.router();
+  self.view = view;
+  self.api = layui.api;
   self.closeOnceHashChange = false;
-  self.ie8                 = view.ie8;
-  self.get                 = view.request;
-  self.appBody             = null;
-  self.shrinkCls           = 'admin-sidebar-shrink';
-  self.isInit              = false;
-  self.routeLeaveFunc      = null;
-  self.routeLeave          = function (callback) {
+  self.ie8 = view.ie8;
+  self.get = view.request;
+  self.appBody = null;
+  self.shrinkCls = 'admin-sidebar-shrink';
+  self.isInit = false;
+  self.routeLeaveFunc = null;
+  self.routeLeave = function (callback) {
     this.routeLeaveFunc = callback
   };
 
@@ -79,7 +79,7 @@ layui.extend({
   self.initView = function (route) {
     if (!self.route.href || self.route.href === '/') {
       self.route = layui.router('#' + conf.entry);
-      route      = self.route
+      route = self.route
     }
     route.fileurl = '/' + route.path.join('/');
 
@@ -114,10 +114,8 @@ layui.extend({
 
   // 根据当前加载的 URL高亮左侧导航
   self.sidebarFocus = function (url) {
-    url      = url || self.route.href;
-    var elem = $('#app-sidebar')
-        .find('[lay-href="' + url + '"]')
-        .eq(0);
+    url = url || self.route.href;
+    var elem = $('#app-sidebar').find('[lay-href="' + url + '"]').eq(0);
     //  $bread.empty();
     if (elem.length > 0) {
       //  生成面包屑
@@ -129,8 +127,7 @@ layui.extend({
       //  breadHtml += '<a>' + elem[0].innerText+ ' </a>';
       //  $bread.append(breadHtml);
 
-      elem.parents('.layui-nav-item').addClass('layui-nav-itemed')
-          .siblings().removeClass('layui-nav-itemed');
+      elem.parents('.layui-nav-item').addClass('layui-nav-itemed').siblings().removeClass('layui-nav-itemed');
       elem.click();
     }
   };
@@ -183,19 +180,19 @@ layui.extend({
     )
   };
   self.popup = function (params) {
-    var url           = params.url || '';
-    var success       = params.success || function () {
+    var url = params.url || '';
+    var success = params.success || function () {
     };
-    params.skin       = 'layui-layer-admin-page';
-    POPUP_DATA        = params.data || {};
+    params.skin = 'layui-layer-admin-page';
+    POPUP_DATA = params.data || {};
     var defaultParams = {
-      type      : 1,
-      area      : $(window).width() <= 750 ? ['90%', '90%'] : ['60%', '90%'],
+      type: 1,
+      area: $(window).width() <= 750 ? ['90%', '90%'] : ['60%', '90%'],
       shadeClose: true
     };
 
     if (self.isUrl(url)) {
-      params.type    = 2;
+      params.type = 2;
       params.content = url;
       layer.open($.extend(defaultParams, params));
       return
@@ -224,7 +221,7 @@ layui.extend({
   };
 
   // 当小于这个尺寸的时候会进行手机端的适配
-  var mobileWidth     = 991;
+  var mobileWidth = 991;
   var isMobileAdapter = false;
 
   function mobileAdapter() {
@@ -273,7 +270,7 @@ layui.extend({
   });
 
   $(document).on('click', '[lay-href]', function (e) {
-    var href   = $(this).attr('lay-href');
+    var href = $(this).attr('lay-href');
     var target = $(this).attr('target');
 
     if (href === '') {
@@ -300,6 +297,7 @@ layui.extend({
 
     return false
   });
+
   $(document).on('click', '[lay-popup]', function (e) {
     var params = $(this).attr('lay-popup');
     self.popup(
@@ -309,9 +307,10 @@ layui.extend({
     );
     return false
   });
+
   $(document).on('mouseenter', '[lay-tips]', function (e) {
     var title = $(this).attr('lay-tips');
-    var dire  = $(this).attr('lay-dire') || 3;
+    var dire = $(this).attr('lay-dire') || 3;
     if (title) {
       layer.tips(title, $(this), {
         tips: [dire, '#263147']
@@ -331,9 +330,7 @@ layui.extend({
 
   $(document).on('click', shrinkSidebarBtn, function (e) {
     if (isMobileAdapter === true) return;
-    var chileLength = $(this)
-        .parent()
-        .find('.layui-nav-child').length;
+    var chileLength = $(this).parent().find('.layui-nav-child').length;
     if (chileLength > 0) {
       self.flexible(true);
       layer.closeAll('tips')
@@ -382,10 +379,10 @@ layui.extend({
   self.modal = {};
 
   self.modal.base = function (msg, params) {
-    params               = params || {};
+    params = params || {};
     params.titleIcoColor = params.titleIcoColor || '#5a8bff';
-    params.titleIco      = params.titleIco || 'exclaimination';
-    params.title         = params.title || [
+    params.titleIco = params.titleIco || 'exclaimination';
+    params.title = params.title || [
       '<i class="layui-icon layui-icon-' +
       params.titleIco +
       '" style="font-size:12px;background:' +
@@ -397,9 +394,9 @@ layui.extend({
 
     params = $.extend(
         {
-          skin      : 'layui-layer-admin-modal admin-alert',
-          area      : [windowWidth <= 750 ? '60%' : '400px'],
-          closeBtn  : 0,
+          skin: 'layui-layer-admin-modal admin-alert',
+          area: [windowWidth <= 750 ? '60%' : '400px'],
+          closeBtn: 0,
           shadeClose: false
         },
         params
@@ -413,10 +410,10 @@ layui.extend({
   self.alert = {};
 
   function alertParams(msg, params) {
-    params.time   = 3000;
-    params.shade  = 0;
-    params.btn    = null;
-    params.title  = [
+    params.time = 3000;
+    params.shade = 0;
+    params.btn = null;
+    params.title = [
       '<i class="layui-icon layui-icon-' +
       params.titleIco +
       '" style="font-size:12px;background:' +
@@ -426,36 +423,36 @@ layui.extend({
       'background:#fff;border:none;font-weight:500;font-size:14px;color:#08132b;margin-bottom:-50px;padding:16px;height:45px;line-height:14px;padding-bottom:0;'
     ];
     params.offset = '40px';
-    params.area   = [windowWidth <= 750 ? '80%' : '400px'];
+    params.area = [windowWidth <= 750 ? '80%' : '400px'];
   }
 
   self.alert.success = function (msg, params) {
-    params               = params || {};
-    params.titleIco      = 'ok';
+    params = params || {};
+    params.titleIco = 'ok';
     params.titleIcoColor = '#30d180';
     alertParams(msg, params);
     self.modal.base('', params);
   };
 
   self.alert.warn = function (msg, params) {
-    params               = params || {};
-    params.titleIco      = 'exclaimination';
+    params = params || {};
+    params.titleIco = 'exclaimination';
     params.titleIcoColor = '#ffc107';
     alertParams(msg, params);
     self.modal.base('', params);
   };
 
   self.alert.error = function (msg, params) {
-    params               = params || {};
-    params.titleIco      = 'close';
+    params = params || {};
+    params.titleIco = 'close';
     params.titleIcoColor = '#ff5652';
     alertParams(msg, params);
     self.modal.base('', params);
   };
 
   self.alert.info = function (msg, params) {
-    params               = params || {};
-    params.titleIco      = 'infomation';
+    params = params || {};
+    params.titleIco = 'infomation';
     params.titleIcoColor = '#2db7f5';
     alertParams(msg, params);
     self.modal.base('', params);
@@ -464,106 +461,116 @@ layui.extend({
   //  ----------------- 模态框类 --------------------- //
 
   self.modal.confirm = function (title, msg, yes, no, params) {
-    params               = params || {};
-    params.titleIco      = 'exclaimination';
+    params = params || {};
+    params.titleIco = 'exclaimination';
     params.titleIcoColor = '#ffc107';
-    params.titleValue    = title;
-    params.shadeClose    = false;
+    params.titleValue = title;
+    params.shadeClose = false;
 
-    params = $.extend({ btn   : ['确定', '取消'], yes : function (index, layero) {
+    params = $.extend({
+      btn: ['确定', '取消'], yes: function (index, layero) {
         yes && (yes)();
         layer.close(index);
       }, btn2: function (index, layero) {
         no && (no)();
-      }}, params);
+      }
+    }, params);
 
     self.modal.base(msg, params);
   };
 
   self.modal.info = function (title, msg, yes, params) {
-    params               = params || {};
-    params.titleIco      = 'infomation';
+    params = params || {};
+    params.titleIco = 'infomation';
     params.titleIcoColor = '#2db7f5';
-    params.titleValue    = title;
-    params.shadeClose    = false;
+    params.titleValue = title;
+    params.shadeClose = false;
 
-    params = $.extend({btn  : ['确定'], yes: function (index, layero) {
+    params = $.extend({
+      btn: ['确定'], yes: function (index, layero) {
         yes && (yes)();
         layer.close(index);
-      }}, params);
+      }
+    }, params);
 
     self.modal.base(msg, params);
   };
 
   self.modal.warn = function (title, msg, yes, params) {
-    params               = params || {};
-    params.titleIco      = 'exclaimination';
+    params = params || {};
+    params.titleIco = 'exclaimination';
     params.titleIcoColor = '#ffc107';
-    params.titleValue    = title;
-    params.shadeClose    = false;
+    params.titleValue = title;
+    params.shadeClose = false;
 
-    params = $.extend({btn  : ['确定'], yes: function (index, layero) {
+    params = $.extend({
+      btn: ['确定'], yes: function (index, layero) {
         yes && (yes)();
         layer.close(index);
-      }}, params);
+      }
+    }, params);
     self.modal.base(msg, params);
   };
 
   self.modal.success = function (title, msg, yes, params) {
-    params               = params || {};
-    params.titleIco      = 'ok';
+    params = params || {};
+    params.titleIco = 'ok';
     params.titleIcoColor = '#30d180';
-    params.titleValue    = title;
-    params.shadeClose    = false;
+    params.titleValue = title;
+    params.shadeClose = false;
 
-    params = $.extend({btn  : ['确定'], yes: function (index, layero) {
+    params = $.extend({
+      btn: ['确定'], yes: function (index, layero) {
         yes && (yes)();
         layer.close(index);
-      }}, params);
+      }
+    }, params);
 
     self.modal.base(msg, params);
   };
 
   self.modal.error = function (title, msg, yes, params) {
-    params               = params || {};
-    params.titleIco      = 'close';
+    params = params || {};
+    params.titleIco = 'close';
     params.titleIcoColor = '#ff5652';
-    params.titleValue    = title;
-    params.shadeClose    = false;
+    params.titleValue = title;
+    params.shadeClose = false;
 
-    params = $.extend({btn  : ['确定'], yes: function (index, layero) {
+    params = $.extend({
+      btn: ['确定'], yes: function (index, layero) {
         yes && (yes)();
         layer.close(index);
-      }}, params);
+      }
+    }, params);
 
     self.modal.base(msg, params);
   };
 
   self.modal.open = function (title, url, params) {
     params = $.extend({
-                        url       : url,
-                        maxmin    : true,
-                        shadeClose: false,
-                        title     : [
-                          (title || '请填写头部信息'),
-                          'font-size:16px;color:#08132b;line-height:46px;padding-bottom:0;border-bottom:1px solid #fcfcfc;background-color:#fcfcfc'
-                        ]
-                      }, params);
+      url: url,
+      maxmin: true,
+      shadeClose: false,
+      title: [
+        (title || '请填写头部信息'),
+        'font-size:16px;color:#08132b;line-height:46px;padding-bottom:0;border-bottom:1px solid #fcfcfc;background-color:#fcfcfc'
+      ]
+    }, params);
 
     self.popup(params);
   };
 
   self.modal.view = function (title, url, params) {
     params = $.extend({
-                        url       : url,
-                        maxmin    : false,
-                        shadeClose: false,
-                        title     : [
-                          title,
-                          'font-size:15px;color:#08132b;line-height:46px;height:48px;padding-bottom:0;background-color:#fff;border-bottom:none'
-                        ],
-                        area      : $(window).width() <= 750 ? ['80%', '80%'] : ['50%', '60%']
-                      }, params);
+      url: url,
+      maxmin: false,
+      shadeClose: false,
+      title: [
+        title,
+        'font-size:15px;color:#08132b;line-height:46px;height:48px;padding-bottom:0;background-color:#fff;border-bottom:none'
+      ],
+      area: $(window).width() <= 750 ? ['80%', '80%'] : ['50%', '60%']
+    }, params);
     self.popup(params);
   };
 
@@ -573,30 +580,34 @@ layui.extend({
   self.table.init = function (params) {
     var defaultSetting = {
       cellMinWidth: 80,
-      page        : true,
-      skin        : 'line',
-      limit       : 10,
-      limits      : [5, 10, 20, 30, 40, 100],
-      autoSort    : false,
-      request     : {
-        pageName : 'pageNum',
+      page: true,
+      skin: 'line',
+      limit: 10,
+      limits: [5, 10, 20, 30, 40, 100],
+      autoSort: false,
+      request: {
+        pageName: 'pageNum',
         limitName: 'pageSize'
       },
-      parseData   : function (res) {
+      parseData: function (res) {
         if (res.code !== 200) {
+          if (res.code === 403) {
+            self.alert.error('抱歉，您无权限访问该资源~');
+          }
+
           console.error(res)
         }
 
         return {
-          "code" : res.code === 200 ? 0 : res.code,
+          "code": res.code === 200 ? 0 : res.code,
           "count": res.data.total,
-          "data" : res.data.rows
+          "data": res.data.rows
         }
       },
       done: function () {
         var noneDiv = $(".layui-table-body").find(".layui-none").first();
         if (noneDiv.length === 1) {
-          let table      = $(".layui-table").first();
+          let table = $(".layui-table").first();
           let tableWidth = table.width();
           if (tableWidth !== 0) {
             noneDiv.width(table.width());
@@ -639,12 +650,12 @@ layui.extend({
     xhr.open('GET', url, true);
     xhr.responseType = "blob";
 
-    xhr.onload       = function () {
+    xhr.onload = function () {
       if (this.status === 200) {
         self.view.loadBar.finish();
         let fileType = this.response.type;
-        let blob     = this.response;
-        let reader   = new FileReader();
+        let blob = this.response;
+        let reader = new FileReader();
         reader.readAsDataURL(blob);
 
         reader.onload = function (e) {
@@ -718,7 +729,7 @@ layui.extend({
   function parseParams(param, key, encode) {
     if (param == null) return '';
     var arr = [];
-    var t   = typeof (param);
+    var t = typeof (param);
     if (t === 'string' || t === 'number' || t === 'boolean') {
       arr.push(key + '=' + ((encode == null || encode) ? encodeURIComponent(param) : param));
     } else {
@@ -733,7 +744,7 @@ layui.extend({
   //  解析 BASE64文件内容 for IE，Edge
   function createFile(urlData, fileType) {
     var bytes = window.atob(urlData),
-        n     = bytes.length,
+        n = bytes.length,
         u8arr = new Uint8Array(n);
     while (n--) {
       u8arr[n] = bytes.charCodeAt(n);
