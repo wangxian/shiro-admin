@@ -66,7 +66,7 @@ public class AdminActuatorController {
             }
         });
 
-        Map<String, Object> data = new HashMap<>(2, 1);
+        Map<String, Object> data = new HashMap<>(3);
         data.put("rows", adminHttpTraces);
         data.put("total", adminHttpTraces.size());
 
