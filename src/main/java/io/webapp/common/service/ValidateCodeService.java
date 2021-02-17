@@ -1,13 +1,13 @@
 package io.webapp.common.service;
 
+import com.wf.captcha.GifCaptcha;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.ImageType;
 import io.webapp.common.exception.AdminException;
 import io.webapp.common.properties.AdminProperties;
 import io.webapp.common.properties.ValidateCodeProperties;
-import com.wf.captcha.GifCaptcha;
-import com.wf.captcha.SpecCaptcha;
-import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,6 @@ public class ValidateCodeService {
     private final RedisService redisService;
     private final AdminProperties properties;
 
-
     public void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String key = session.getId();
@@ -39,13 +38,12 @@ public class ValidateCodeService {
         setHeader(response, code.getType());
 
         Captcha captcha = createCaptcha(code);
-        redisService.set(AdminConstant.CODE_PREFIX  + key, StringUtils.lowerCase(captcha.text()), code.getTime());
+        redisService.set(AdminConstant.CAPTCHA_CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
         captcha.out(response.getOutputStream());
     }
 
-
     public void check(String key, String value) throws AdminException {
-        Object codeInRedis = redisService.get(AdminConstant.CODE_PREFIX + key);
+        Object codeInRedis = redisService.get(AdminConstant.CAPTCHA_CODE_PREFIX + key);
         if (StringUtils.isBlank(value)) {
             throw new AdminException("请输入验证码");
         }

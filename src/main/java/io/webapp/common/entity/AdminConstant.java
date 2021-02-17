@@ -29,7 +29,7 @@ public interface AdminConstant {
     /**
      * 验证码 Session Key
      */
-    String CODE_PREFIX = "admin_captcha_";
+    String CAPTCHA_CODE_PREFIX = "admin_captcha_";
 
     /**
      * 允许下载的文件类型，根据需求自己添加（小写）
