@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 21/03/2020 11:31:45
+ Date: 17/02/2021 20:42:35
 */
 
 SET NAMES utf8mb4;
@@ -136,7 +136,14 @@ CREATE TABLE `admin_job_log` (
   `times` decimal(11,0) DEFAULT NULL COMMENT '耗时(单位：毫秒)',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='调度日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='调度日志表';
+
+-- ----------------------------
+-- Records of admin_job_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin_job_log` VALUES (1, 11, 'testTask', 'test2', NULL, '1', 'java.lang.NoSuchMethodException: io.webapp.job.task.TestTask.test2()', 2, '2021-02-17 20:39:37');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_log
@@ -153,7 +160,24 @@ CREATE TABLE `admin_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `location` varchar(50) DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
+
+-- ----------------------------
+-- Records of admin_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin_log` VALUES (1, 'admin', '修改用户', 28, 'io.webapp.system.controller.UserController.updateUser()', ' user: \"User(userId=3, username=null, password=null, deptId=4, email=Reina@hotmail.com, mobile=17711111111, status=0, createdAt=null, updatedAt=Sun May 17 17:32:55 CST 2020, lastLoginTime=null, sex=1, avatar=null, theme=null, isTab=null, description=由于公款私用，已被封禁。, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=2, roleName=null)\"', '127.0.0.1', '2020-05-17 17:32:55', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (2, 'admin', '修改用户', 58, 'io.webapp.system.controller.UserController.updateUser()', ' user: \"User(userId=3, username=null, password=null, deptId=4, email=myemail.abc-xx110@hotmail.com, mobile=18611619885, status=0, createdAt=null, updatedAt=Mon Feb 15 23:09:00 CST 2021, lastLoginTime=null, sex=1, avatar=null, theme=null, isTab=null, description=由于公款私用，已被封禁。, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=2, roleName=null)\"', '127.0.0.1', '2021-02-15 23:09:01', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (3, 'admin', '修改用户', 11, 'io.webapp.system.controller.UserController.updateUser()', ' user: \"User(userId=3, username=null, password=null, deptId=4, email=myemailabcxx110@hotmail.com, mobile=18611619885, status=0, createdAt=null, updatedAt=Mon Feb 15 23:09:45 CST 2021, lastLoginTime=null, sex=1, avatar=null, theme=null, isTab=null, description=由于公款私用，已被封禁。, deptName=null, createTimeFrom=null, createTimeTo=null, roleId=78, roleName=null)\"', '127.0.0.1', '2021-02-15 23:09:46', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (4, 'admin', '修改角色', 58, 'io.webapp.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=79, roleName=跑批人员, remark=负责任务调度跑批模块, createdAt=null, updatedAt=Wed Feb 17 00:24:38 CST 2021, menuIds=2,101,102,103,104,105,106,107,108,173,109,110,174)\"', '127.0.0.1', '2021-02-17 00:24:38', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (5, 'admin', '新增菜单/按钮', 21, 'io.webapp.system.controller.MenuController.addMenu()', ' menu: \"Menu(menuId=176, parentId=115, menuName=数据权限, url=/others/datapermission, perms=others:datapermission, icon=layui-icon-bank, type=0, orderNum=3, createdAt=Wed Feb 17 01:40:46 CST 2021, updatedAt=null)\"', '127.0.0.1', '2021-02-17 01:40:46', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (6, 'admin', '修改菜单/按钮', 30, 'io.webapp.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=176, parentId=115, menuName=数据权限, url=/others/datapermission, perms=others:datapermission, icon=layui-icon-bank, type=0, orderNum=5, createdAt=null, updatedAt=Wed Feb 17 01:42:38 CST 2021)\"', '127.0.0.1', '2021-02-17 01:42:39', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (7, 'admin', '修改角色', 55, 'io.webapp.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=系统管理员, remark=系统管理员，拥有所有操作权限 ^_^, createdAt=null, updatedAt=Wed Feb 17 01:42:59 CST 2021, menuIds=1,3,11,12,13,160,161,4,14,15,16,162,5,17,18,19,163,6,20,21,22,164,2,8,23,10,24,170,136,171,172,127,128,129,130,131,101,102,103,104,105,106,107,108,173,109,110,174,137,138,165,139,166,175,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125,167,168,169,176)\"', '127.0.0.1', '2021-02-17 01:42:59', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (8, 'admin', '修改用户', 41, 'io.webapp.system.controller.UserController.updateUser()', NULL, '127.0.0.1', '2021-02-17 02:51:22', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (9, 'admin', '修改用户', 20, 'io.webapp.system.controller.UserController.updateUser()', NULL, '127.0.0.1', '2021-02-17 02:53:38', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (10, 'admin', '修改用户', 19, 'io.webapp.system.controller.UserController.updateUser()', NULL, '127.0.0.1', '2021-02-17 02:54:26', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `admin_log` VALUES (11, 'admin', '执行定时任务', 8, 'io.webapp.job.controller.JobController.runJob()', NULL, '127.0.0.1', '2021-02-17 20:39:37', '内网IP|0|0|内网IP|内网IP');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_login_log
@@ -168,7 +192,29 @@ CREATE TABLE `admin_login_log` (
   `system` varchar(50) DEFAULT NULL COMMENT '操作系统',
   `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录日志表';
+
+-- ----------------------------
+-- Records of admin_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin_login_log` VALUES (1, 'admin', '2020-05-17 17:31:40', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 76');
+INSERT INTO `admin_login_log` VALUES (2, 'admin', '2021-02-15 22:31:34', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (3, 'admin', '2021-02-15 22:32:38', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (4, 'admin', '2021-02-16 00:48:20', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (5, 'admin', '2021-02-16 01:02:21', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (6, 'admin', '2021-02-16 01:13:21', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (7, 'admin', '2021-02-16 01:20:13', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (8, 'admin', '2021-02-16 17:59:44', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (9, 'admin', '2021-02-16 20:18:53', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (10, 'admin', '2021-02-16 23:05:01', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (11, 'admin', '2021-02-16 23:07:15', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10_15_7', 'Chrome 88');
+INSERT INTO `admin_login_log` VALUES (12, 'admin', '2021-02-16 23:28:06', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (13, 'admin', '2021-02-17 02:47:50', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (14, 'admin', '2021-02-17 02:55:09', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (15, 'admin', '2021-02-17 18:11:36', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+INSERT INTO `admin_login_log` VALUES (16, 'admin', '2021-02-17 20:38:26', '内网IP|0|0|内网IP|内网IP', '127.0.0.1', 'Mac OS X 10.15; ', 'Firefox 85');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -186,7 +232,7 @@ CREATE TABLE `admin_menu` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of admin_menu
@@ -265,6 +311,7 @@ INSERT INTO `admin_menu` VALUES (172, 136, '导出Excel', NULL, 'loginlog:export
 INSERT INTO `admin_menu` VALUES (173, 102, '导出Excel', NULL, 'job:export', NULL, '1', NULL, '2019-06-13 14:37:25', NULL);
 INSERT INTO `admin_menu` VALUES (174, 109, '导出Excel', NULL, 'job:log:export', NULL, '1', NULL, '2019-06-13 14:37:46', '2019-06-13 14:38:02');
 INSERT INTO `admin_menu` VALUES (175, 137, 'Swagger文档', '/generator/swagger', 'generator:swagger', 'layui-icon-bulb-fill', '0', 3, '2019-08-29 18:10:10', '2019-08-29 18:22:25');
+INSERT INTO `admin_menu` VALUES (176, 115, '数据权限', '/others/datapermission', 'others:datapermission', 'layui-icon-bank', '0', 5, '2021-02-17 01:40:46', '2021-02-17 01:42:39');
 COMMIT;
 
 -- ----------------------------
@@ -284,10 +331,10 @@ CREATE TABLE `admin_role` (
 -- Records of admin_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2019-08-29 18:26:26');
+INSERT INTO `admin_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2021-02-17 01:42:59');
 INSERT INTO `admin_role` VALUES (2, '注册账户', '注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限', '2019-06-14 16:00:15', '2019-06-14 20:47:47');
 INSERT INTO `admin_role` VALUES (78, '系统监控员', '负责整个系统监控模块', '2019-06-14 20:50:07', NULL);
-INSERT INTO `admin_role` VALUES (79, '跑批人员', '负责任务调度跑批模块', '2019-06-14 20:51:02', NULL);
+INSERT INTO `admin_role` VALUES (79, '跑批人员', '负责任务调度跑批模块', '2019-06-14 20:51:02', '2021-02-17 00:24:38');
 INSERT INTO `admin_role` VALUES (80, '开发人员', '拥有代码生成模块的权限', '2019-06-14 20:51:26', '2019-08-29 18:26:08');
 COMMIT;
 
@@ -368,6 +415,13 @@ INSERT INTO `admin_role_menu` VALUES (78, 128);
 INSERT INTO `admin_role_menu` VALUES (78, 129);
 INSERT INTO `admin_role_menu` VALUES (78, 130);
 INSERT INTO `admin_role_menu` VALUES (78, 131);
+INSERT INTO `admin_role_menu` VALUES (80, 137);
+INSERT INTO `admin_role_menu` VALUES (80, 138);
+INSERT INTO `admin_role_menu` VALUES (80, 165);
+INSERT INTO `admin_role_menu` VALUES (80, 139);
+INSERT INTO `admin_role_menu` VALUES (80, 166);
+INSERT INTO `admin_role_menu` VALUES (80, 175);
+INSERT INTO `admin_role_menu` VALUES (79, 2);
 INSERT INTO `admin_role_menu` VALUES (79, 101);
 INSERT INTO `admin_role_menu` VALUES (79, 102);
 INSERT INTO `admin_role_menu` VALUES (79, 103);
@@ -380,12 +434,6 @@ INSERT INTO `admin_role_menu` VALUES (79, 173);
 INSERT INTO `admin_role_menu` VALUES (79, 109);
 INSERT INTO `admin_role_menu` VALUES (79, 110);
 INSERT INTO `admin_role_menu` VALUES (79, 174);
-INSERT INTO `admin_role_menu` VALUES (80, 137);
-INSERT INTO `admin_role_menu` VALUES (80, 138);
-INSERT INTO `admin_role_menu` VALUES (80, 165);
-INSERT INTO `admin_role_menu` VALUES (80, 139);
-INSERT INTO `admin_role_menu` VALUES (80, 166);
-INSERT INTO `admin_role_menu` VALUES (80, 175);
 INSERT INTO `admin_role_menu` VALUES (1, 1);
 INSERT INTO `admin_role_menu` VALUES (1, 3);
 INSERT INTO `admin_role_menu` VALUES (1, 11);
@@ -459,6 +507,7 @@ INSERT INTO `admin_role_menu` VALUES (1, 125);
 INSERT INTO `admin_role_menu` VALUES (1, 167);
 INSERT INTO `admin_role_menu` VALUES (1, 168);
 INSERT INTO `admin_role_menu` VALUES (1, 169);
+INSERT INTO `admin_role_menu` VALUES (1, 176);
 COMMIT;
 
 -- ----------------------------
@@ -488,8 +537,8 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2020-03-21 02:34:14', '2020-03-21 03:57:23', '0', '1', 'white', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
-INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2020-03-21 02:35:50', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
+INSERT INTO `admin_user` VALUES (1, 'admin', '5993868af946054ce518e4e9ab7ef939', 1, 'admin@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2021-02-17 02:54:26', '2021-02-17 20:38:38', '0', '1', 'white', '87d8194bc9834e9f8f0228e9e530beb1.jpeg', '我是帅比作者。');
+INSERT INTO `admin_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'myemailabcxx110@hotmail.com', '18611619885', '0', '2019-06-14 21:07:38', '2021-02-15 23:09:46', '2019-06-14 21:08:26', '1', '1', 'black', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '由于公款私用，已被封禁。');
 COMMIT;
 
 -- ----------------------------
@@ -505,8 +554,60 @@ CREATE TABLE `admin_user_role` (
 -- Records of admin_user_role
 -- ----------------------------
 BEGIN;
+INSERT INTO `admin_user_role` VALUES (3, 78);
 INSERT INTO `admin_user_role` VALUES (1, 1);
-INSERT INTO `admin_user_role` VALUES (3, 79);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for t_data_permission_test
+-- ----------------------------
+DROP TABLE IF EXISTS `t_data_permission_test`;
+CREATE TABLE `t_data_permission_test` (
+  `FIELD1` varchar(20) NOT NULL,
+  `FIELD2` varchar(20) NOT NULL,
+  `FIELD3` varchar(20) NOT NULL,
+  `FIELD4` varchar(20) NOT NULL,
+  `DEPT_ID` int(11) NOT NULL,
+  `CREATE_TIME` datetime NOT NULL,
+  `ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户权限测试';
+
+-- ----------------------------
+-- Records of t_data_permission_test
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_data_permission_test` VALUES ('小米', '小米10Pro', '4999', '珍珠白', 1, '2020-04-14 15:00:38', 1);
+INSERT INTO `t_data_permission_test` VALUES ('腾讯', '黑鲨游戏手机3', '3799', '铠甲灰', 2, '2020-04-14 15:01:36', 2);
+INSERT INTO `t_data_permission_test` VALUES ('华为', '华为P30', '3299', '天空之境', 1, '2020-04-14 15:03:11', 3);
+INSERT INTO `t_data_permission_test` VALUES ('华为', '华为P40Pro', '6488', '亮黑色', 3, '2020-04-14 15:04:31', 4);
+INSERT INTO `t_data_permission_test` VALUES ('vivo', 'Vivo iQOO 3', '3998', '拉力橙', 4, '2020-04-14 15:05:55', 5);
+INSERT INTO `t_data_permission_test` VALUES ('一加', '一加7T', '3199', '冰际蓝', 5, '2020-04-14 15:06:53', 6);
+INSERT INTO `t_data_permission_test` VALUES ('三星', '三星Galaxy S10', '4098', '浩玉白', 6, '2020-04-14 15:08:25', 7);
+INSERT INTO `t_data_permission_test` VALUES ('苹果', 'iPhone 11 pro max', '9198', '暗夜绿', 4, '2020-04-14 15:09:20', 8);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for t_user_data_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_data_permission`;
+CREATE TABLE `t_user_data_permission` (
+  `user_id` bigint(20) NOT NULL,
+  `dept_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`user_id`,`dept_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户数据权限关联表';
+
+-- ----------------------------
+-- Records of t_user_data_permission
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user_data_permission` VALUES (1, 1);
+INSERT INTO `t_user_data_permission` VALUES (1, 2);
+INSERT INTO `t_user_data_permission` VALUES (1, 3);
+INSERT INTO `t_user_data_permission` VALUES (2, 1);
+INSERT INTO `t_user_data_permission` VALUES (2, 2);
+INSERT INTO `t_user_data_permission` VALUES (3, 4);
+INSERT INTO `t_user_data_permission` VALUES (4, 5);
 COMMIT;
 
 -- ----------------------------
@@ -514,7 +615,7 @@ COMMIT;
 -- ----------------------------
 DROP FUNCTION IF EXISTS `findDeptChildren`;
 delimiter ;;
-CREATE FUNCTION `admin_base`.`findDeptChildren`(rootId INT)
+CREATE FUNCTION `findDeptChildren`(rootId INT)
  RETURNS varchar(4000) CHARSET utf8
 BEGIN
     DECLARE sTemp VARCHAR(4000);
@@ -536,7 +637,7 @@ delimiter ;
 -- ----------------------------
 DROP FUNCTION IF EXISTS `findMenuChildren`;
 delimiter ;;
-CREATE FUNCTION `admin_base`.`findMenuChildren`(rootId INT)
+CREATE FUNCTION `findMenuChildren`(rootId INT)
  RETURNS varchar(4000) CHARSET utf8
 BEGIN
     DECLARE sTemp VARCHAR(4000);
