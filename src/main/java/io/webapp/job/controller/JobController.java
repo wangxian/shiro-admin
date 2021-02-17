@@ -1,13 +1,13 @@
 package io.webapp.job.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.wuwenze.poi.ExcelKit;
 import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminResponse;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.job.entity.Job;
 import io.webapp.job.service.IJobService;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ADMIN
@@ -36,8 +35,7 @@ public class JobController extends BaseController {
     @GetMapping
     @RequiresPermissions("job:view")
     public AdminResponse jobList(QueryRequest request, Job job) {
-        Map<String, Object> dataTable = getDataTable(this.jobService.findJobs(request, job));
-        return new AdminResponse().success().data(dataTable);
+        return new AdminResponse().success().data(getDataTable(jobService.findJobs(request, job)));
     }
 
     @GetMapping("cron/check")

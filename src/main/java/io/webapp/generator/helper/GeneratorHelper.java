@@ -101,6 +101,15 @@ public class GeneratorHelper {
         generateFileByTemplate(templateName, mapperXmlFile, configure);
     }
 
+    public void generateCodeFile(List<Column> columns, GeneratorConfig configure) throws Exception {
+        generateEntityFile(columns, configure);
+        generateMapperFile(columns, configure);
+        generateMapperXmlFile(columns, configure);
+        generateServiceFile(columns, configure);
+        generateServiceImplFile(columns, configure);
+        generateControllerFile(columns, configure);
+    }
+
     @SuppressWarnings("UnstableApiUsage")
     private void generateFileByTemplate(String templateName, File file, Object data) throws Exception {
         Template template = getTemplate(templateName);

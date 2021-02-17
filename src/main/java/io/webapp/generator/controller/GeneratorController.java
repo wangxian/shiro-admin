@@ -88,13 +88,7 @@ public class GeneratorController extends BaseController {
 
         // 生成代码到临时目录
         List<Column> columns = generatorService.getColumns(GeneratorConstant.DATABASE_TYPE, datasource, name);
-
-        generatorHelper.generateEntityFile(columns, generatorConfig);
-        generatorHelper.generateMapperFile(columns, generatorConfig);
-        generatorHelper.generateMapperXmlFile(columns, generatorConfig);
-        generatorHelper.generateServiceFile(columns, generatorConfig);
-        generatorHelper.generateServiceImplFile(columns, generatorConfig);
-        generatorHelper.generateControllerFile(columns, generatorConfig);
+        generatorHelper.generateCodeFile(columns, generatorConfig);
 
         // 打包
         String zipFile = System.currentTimeMillis() + SUFFIX;

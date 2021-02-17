@@ -23,6 +23,8 @@ spring:
     proxy-target-class: true
   config:
     import: classpath:admin.yml
+  application:
+    name: "@artifactId@"
 
 mybatis-plus:
   # 实体类扫描路径
@@ -49,11 +51,3 @@ logging:
           core:
             metadata:
               TableInfoHelper: error
-
-# 端点暴露
-management:
-  endpoints:
-    jmx:
-      exposure:
-        include: "*"
-

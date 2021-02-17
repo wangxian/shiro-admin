@@ -1,7 +1,7 @@
 package io.webapp.common.controller;
 
-import io.webapp.system.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.webapp.system.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.session.Session;
@@ -36,13 +36,13 @@ public class BaseController {
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
-        return getDataTable(pageInfo, 3);
+        return getDataTable(pageInfo.getRecords(), pageInfo.getTotal());
     }
 
-    protected Map<String, Object> getDataTable(IPage<?> pageInfo, int dataMapInitialCapacity) {
-        Map<String, Object> data = new HashMap<>(dataMapInitialCapacity);
-        data.put("rows", pageInfo.getRecords());
-        data.put("total", pageInfo.getTotal());
+    protected Map<String, Object> getDataTable(Object rows, Object total) {
+        Map<String, Object> data = new HashMap<>(3);
+        data.put("rows", rows);
+        data.put("total", total);
         return data;
     }
 

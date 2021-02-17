@@ -1,5 +1,9 @@
 package io.webapp.monitor.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.common.util.AddressUtil;
@@ -10,18 +14,11 @@ import io.webapp.monitor.entity.LoginLog;
 import io.webapp.monitor.mapper.LoginLogMapper;
 import io.webapp.monitor.service.ILoginLogService;
 import io.webapp.system.entity.User;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ADMIN
@@ -65,6 +62,14 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     }
 
     @Override
+    public void saveLoginLog(String username) {
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUsername(username);
+        loginLog.setSystemBrowserInfo();
+        saveLoginLog(loginLog);
+    }
+
+    @Override
     public void deleteLoginLogs(String[] ids) {
         List<String> list = Arrays.asList(ids);
         baseMapper.deleteBatchIds(list);
@@ -88,5 +93,28 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     @Override
     public List<Map<String, Object>> findLastSevenDaysVisitCount(User user) {
         return this.baseMapper.findLastSevenDaysVisitCount(user);
+    }
+
+    private List<Map<String, Object>> findLastSevenDaysVisitCount() {
+        return findLastSevenDaysVisitCount(new User());
+    }
+
+    private List<Map<String, Object>> findLastSevenDaysVisitCount(String username) {
+        User param = new User();
+        param.setUsername(username);
+        return findLastSevenDaysVisitCount(param);
+    }
+
+    @Override
+    public Map<String, Object> retrieveIndexPageData(String username) {
+        Map<String, Object> data = new HashMap<>(8);
+        // 获取系统访问记录
+        data.put("totalVisitCount", findTotalVisitCount());
+        data.put("todayVisitCount", findTodayVisitCount());
+        data.put("todayIp", findTodayIp());
+        // 获取近期系统访问记录
+        data.put("lastSevenVisitCount", findLastSevenDaysVisitCount());
+        data.put("lastSevenUserVisitCount", findLastSevenDaysVisitCount(username));
+        return data;
     }
 }

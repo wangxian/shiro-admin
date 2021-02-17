@@ -1,10 +1,10 @@
 package io.webapp.monitor.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.monitor.entity.LoginLog;
 import io.webapp.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +29,13 @@ public interface ILoginLogService extends IService<LoginLog> {
      * @param loginLog 登录日志
      */
     void saveLoginLog(LoginLog loginLog);
+
+    /**
+     * 保存登录日志
+     *
+     * @param username 用户名
+     */
+    void saveLoginLog(String username);
 
     /**
      * 删除登录日志
@@ -65,4 +72,12 @@ public interface ILoginLogService extends IService<LoginLog> {
      * @return 系统近七天来的访问记录
      */
     List<Map<String, Object>> findLastSevenDaysVisitCount(User user);
+
+    /**
+     * 获取首页数据
+     *
+     * @param username 用户名
+     * @return 数据Map
+     */
+    Map<String, Object> retrieveIndexPageData(String username);
 }
