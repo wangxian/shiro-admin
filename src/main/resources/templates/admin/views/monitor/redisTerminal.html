@@ -125,49 +125,49 @@
 
     $('#admin-redis-terminal').find('.window .terminal').css({"height": document.documentElement.clientHeight - 155 + 'px'});
 
-    var title          = $(".title");
-    var terminal       = $(".terminal");
-    var prompt         = "➜";
-    var path           = "~";
+    var title = $(".title");
+    var terminal = $(".terminal");
+    var prompt = "➜";
+    var path = "~";
     var commandHistory = [];
-    var historyIndex   = 0;
-    var command        = "";
+    var historyIndex = 0;
+    var command = "";
 
     title.text(currentUser.username + "@" + osName + ": ~ (redis-cli)");
     var date = new Date().toString();
-    date     = date.substr(0, date.indexOf("GMT") - 1);
+    date = date.substr(0, date.indexOf("GMT") - 1);
     printf("Last login: " + date + " on admin, type `help` for help\n");
     displayPrompt();
 
     var commands = [{
-      name    : "clear",
+      name: "clear",
       function: clear
     }, {
-      name    : "help",
+      name: "help",
       function: help
     }, {
-      name    : "echo",
+      name: "echo",
       function: echo
     }, {
-      name    : "keys",
+      name: "keys",
       function: keys
     }, {
-      name    : "get",
+      name: "get",
       function: get
     }, {
-      name    : "exists",
+      name: "exists",
       function: exists
     }, {
-      name    : "pttl",
+      name: "pttl",
       function: pttl
     }, {
-      name    : "pexpire",
+      name: "pexpire",
       function: pexpire
     }, {
-      name    : "set",
+      name: "set",
       function: set
     }, {
-      name    : "del",
+      name: "del",
       function: del
     }];
 
@@ -374,8 +374,8 @@
 
     function processCommand() {
       var isValid = false;
-      var args    = command.split(" ");
-      var cmd     = args[0];
+      var args = command.split(" ");
+      var cmd = args[0];
       args.shift();
       for (var i = 0; i < commands.length; i++) {
         if (cmd === commands[i].name) {
@@ -390,7 +390,7 @@
       }
       commandHistory.push(command);
       historyIndex = commandHistory.length;
-      command      = "";
+      command = "";
     }
 
     function displayPrompt() {
@@ -405,7 +405,7 @@
     }
 
     $(document).keydown(function (e) {
-      e           = e || window.event;
+      e = e || window.event;
       var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
       if (keyCode === 8 && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
         e.preventDefault();
@@ -433,7 +433,7 @@
       }
     });
     $(document).keypress(function (e) {
-      e           = e || window.event;
+      e = e || window.event;
       var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
       switch (keyCode) {
         case 13: {
@@ -449,7 +449,7 @@
     });
 
     function scroll(o) {
-      o           = o[0];
+      o = o[0];
       o.scrollTop = o.scrollHeight;
     }
 

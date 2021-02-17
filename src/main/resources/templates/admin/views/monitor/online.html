@@ -64,14 +64,14 @@
 </script>
 <script data-th-inline="none" type="text/javascript">
   layui.use(['jquery', 'form', 'table', 'admin'], function () {
-    var $           = layui.jquery,
-        laydate     = layui.laydate,
-        admin       = layui.admin,
-        form        = layui.form,
-        table       = layui.table,
-        $view       = $('#admin-online'),
-        $query      = $view.find('#query'),
-        $reset      = $view.find('#reset'),
+    var $ = layui.jquery,
+        laydate = layui.laydate,
+        admin = layui.admin,
+        form = layui.form,
+        table = layui.table,
+        $view = $('#admin-online'),
+        $query = $view.find('#query'),
+        $reset = $view.find('#reset'),
         $searchForm = $view.find('form'),
         tableIns;
 
@@ -80,7 +80,7 @@
     initTable();
 
     table.on('tool(onlineTable)', function (obj) {
-      var data     = obj.data,
+      var data = obj.data,
           layEvent = obj.event;
       if (layEvent === 'del') {
         admin.modal.confirm('踢出用户', '确定将该用户踢出？', function () {
@@ -109,28 +109,27 @@
 
     function initTable() {
       tableIns = admin.table.init({
-                                    elem: $view.find('table'),
-                                    id  : 'onlineTable',
-                                    url : ctx + 'session/list',
-                                    page: false,
-                                    cols: [[
-                                      {title: '用户名', templet: '#online-username', minWidth: 180},
-                                      {field: 'startTimestamp', title: '登录时间', minWidth: 180},
-                                      {field: 'lastAccessTime', title: '最后访问时间', minWidth: 180},
-                                      {field: 'host', title: 'IP地址', minWidth: 165},
-                                      {field: 'location', title: '登录地点', minWidth: 180},
-                                      {title: '状态', templet: '#online-status'},
-                                      {title: '操作', toolbar: '#online-option'}
-                                    ]],
-                                    done: function (r) {
-                                      $view.find('span#count').html('当前共<strong> ' + r.count + ' </strong>人在线')
-                                          .parents('div.admin-hide').show();
-                                    }
-                                  });
+        elem: $view.find('table'),
+        id: 'onlineTable',
+        url: ctx + 'session/list',
+        page: false,
+        cols: [[
+          {title: '用户名', templet: '#online-username', minWidth: 180},
+          {field: 'startTimestamp', title: '登录时间', minWidth: 180},
+          {field: 'lastAccessTime', title: '最后访问时间', minWidth: 180},
+          {field: 'host', title: 'IP地址', minWidth: 165},
+          {field: 'location', title: '登录地点', minWidth: 180},
+          {title: '状态', templet: '#online-status'},
+          {title: '操作', toolbar: '#online-option'}
+        ]],
+        done: function (r) {
+          $view.find('span#count').html('当前共<strong> ' + r.count + ' </strong>人在线').parents('div.admin-hide').show();
+        }
+      });
     }
 
     function getQueryParams() {
-      var params  = $searchForm.serializeJson();
+      var params = $searchForm.serializeJson();
       params.invalidate_ie_cache = new Date();
       return params;
     }

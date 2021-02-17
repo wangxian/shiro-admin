@@ -107,27 +107,27 @@
 </div>
 <script data-th-inline="none" type="text/javascript">
   layui.use(['dropdown', 'jquery', 'laydate', 'admin', 'form', 'eleTree', 'validate'], function () {
-    var $             = layui.jquery,
-        laydate       = layui.laydate,
-        admin         = layui.admin,
-        form          = layui.form,
-        validate      = layui.validate,
-        eleTree       = layui.eleTree,
-        dropdown      = layui.dropdown,
-        $view         = $('#admin-menu'),
-        $query        = $view.find('#query'),
-        $reset        = $view.find('#reset'),
-        $submit       = $view.find('#submit'),
-        $searchForm   = $view.find('#menu-table-form'),
-        $menuName     = $searchForm.find('input[name="menuName"]'),
-        $type         = $view.find('input[type="radio"][name="type"]'),
-        $icon         = $view.find('input[name="icon"]'),
-        $icon_parent  = $icon.parents('.layui-form-item'),
-        $url          = $view.find('input[name="url"]'),
-        $url_parent   = $url.parents('.layui-form-item'),
-        $order        = $view.find('input[name="orderNum"]'),
+    var $ = layui.jquery,
+        laydate = layui.laydate,
+        admin = layui.admin,
+        form = layui.form,
+        validate = layui.validate,
+        eleTree = layui.eleTree,
+        dropdown = layui.dropdown,
+        $view = $('#admin-menu'),
+        $query = $view.find('#query'),
+        $reset = $view.find('#reset'),
+        $submit = $view.find('#submit'),
+        $searchForm = $view.find('#menu-table-form'),
+        $menuName = $searchForm.find('input[name="menuName"]'),
+        $type = $view.find('input[type="radio"][name="type"]'),
+        $icon = $view.find('input[name="icon"]'),
+        $icon_parent = $icon.parents('.layui-form-item'),
+        $url = $view.find('input[name="url"]'),
+        $url_parent = $url.parents('.layui-form-item'),
+        $order = $view.find('input[name="orderNum"]'),
         $order_parent = $order.parents('.layui-form-item'),
-        $header       = $view.find('#form-header'),
+        $header = $view.find('#form-header'),
         _currentMenuData,
         _selectNode,
         _menuTree,
@@ -137,68 +137,68 @@
     form.render();
 
     dropdown.render({
-                      elem   : $view.find('.action-more'),
-                      click  : function (name, elem, event) {
-                        if (name === 'add') {
-                          reset();
-                          var selected = _menuTree.getChecked(false, true);
-                          if (selected.length > 1) {
-                            admin.alert.warn('只能选择一个节点作为父级！');
-                            return;
-                          }
-                          if (selected[0] && selected[0].type === '1') {
-                            admin.alert.warn('不能选择按钮作为父级！');
-                            return;
-                          }
-                          form.val("menu-form", {
-                            "parentId": selected[0] ? selected[0].id : ''
-                          });
+      elem: $view.find('.action-more'),
+      click: function (name, elem, event) {
+        if (name === 'add') {
+          reset();
+          var selected = _menuTree.getChecked(false, true);
+          if (selected.length > 1) {
+            admin.alert.warn('只能选择一个节点作为父级！');
+            return;
+          }
+          if (selected[0] && selected[0].type === '1') {
+            admin.alert.warn('不能选择按钮作为父级！');
+            return;
+          }
+          form.val("menu-form", {
+            "parentId": selected[0] ? selected[0].id : ''
+          });
 
-                          admin.alert.info("请在表单中填写相关信息");
-                        }
-                        if (name === 'delete') {
-                          var checked = _menuTree.getChecked(false, true);
-                          if (checked.length < 1) {
-                            admin.alert.warn('请勾选需要删除的菜单或按钮');
-                            return;
-                          }
-                          var menuIds = [];
-                          layui.each(checked, function (key, item) {
-                            menuIds.push(item.id)
-                          });
-                          admin.modal.confirm('提示', '当您点击确定按钮后，这些记录将会被彻底删除，如果其包含子记录，也将一并删除！', function () {
-                            admin.get(ctx + 'menu/delete/' + menuIds.join(','), null, function () {
-                              admin.alert.success('删除成功！');
-                              reloadMenuTree();
-                              reset();
-                            })
-                          });
-                        }
-                        if (name === 'export') {
-                          admin.download(ctx + 'menu/excel', {
-                            "menuName": $menuName.val().trim()
-                          }, '菜单信息表.xlsx');
-                        }
-                      },
-                      options: [{
-                        name : 'add',
-                        title: '新增',
-                        perms: 'menu:add'
-                      }, {
-                        name : 'delete',
-                        title: '删除',
-                        perms: 'menu:delete'
-                      }, {
-                        name : 'export',
-                        title: '导出Excel',
-                        perms: 'menu:export'
-                      }]
-                    });
+          admin.alert.info("请在表单中填写相关信息");
+        }
+        if (name === 'delete') {
+          var checked = _menuTree.getChecked(false, true);
+          if (checked.length < 1) {
+            admin.alert.warn('请勾选需要删除的菜单或按钮');
+            return;
+          }
+          var menuIds = [];
+          layui.each(checked, function (key, item) {
+            menuIds.push(item.id)
+          });
+          admin.modal.confirm('提示', '当您点击确定按钮后，这些记录将会被彻底删除，如果其包含子记录，也将一并删除！', function () {
+            admin.get(ctx + 'menu/delete/' + menuIds.join(','), null, function () {
+              admin.alert.success('删除成功！');
+              reloadMenuTree();
+              reset();
+            })
+          });
+        }
+        if (name === 'export') {
+          admin.download(ctx + 'menu/excel', {
+            "menuName": $menuName.val().trim()
+          }, '菜单信息表.xlsx');
+        }
+      },
+      options: [{
+        name: 'add',
+        title: '新增',
+        perms: 'menu:add'
+      }, {
+        name: 'delete',
+        title: '删除',
+        perms: 'menu:delete'
+      }, {
+        name: 'export',
+        title: '导出Excel',
+        perms: 'menu:export'
+      }]
+    });
 
     _menuTree = renderMenuTree();
 
     eleTree.on("nodeClick(menuTree)", function (d) {
-      var data         = d.data.currentData.data;
+      var data = d.data.currentData.data;
       _currentMenuData = data;
       $type.attr("disabled", true);
       var type = data.type;
@@ -209,14 +209,14 @@
         $header.text('修改按钮');
       }
       form.val("menu-form", {
-        "icon"    : data.icon,
-        "url"     : data.url,
+        "icon": data.icon,
+        "url": data.url,
         "orderNum": data.orderNum,
-        "type"    : data.type,
+        "type": data.type,
         "menuName": data.menuName,
-        "perms"   : data.perms,
+        "perms": data.perms,
         "parentId": data.parentId,
-        "menuId"  : data.menuId
+        "menuId": data.menuId
       });
     });
 
@@ -266,30 +266,30 @@
 
     function renderMenuTree() {
       _menuTree = eleTree.render({
-                                   elem             : '.menuTree',
-                                   url              : ctx + 'menu/tree',
-                                   where            : {
-                                     "menuName"           : $menuName.val().trim(),
-                                     "invalidate_ie_cache": new Date()
-                                   },
-                                   accordion        : true,
-                                   highlightCurrent : true,
-                                   showCheckbox     : true,
-                                   checkStrictly    : true,
-                                   renderAfterExpand: false,
-                                   request          : {
-                                     name    : "title",
-                                     key     : "id",
-                                     children: "childs",
-                                     checked : "checked",
-                                     data    : "data"
-                                   },
-                                   response         : {
-                                     statusName: "code",
-                                     statusCode: 200,
-                                     dataName  : "data"
-                                   }
-                                 });
+        elem: '.menuTree',
+        url: ctx + 'menu/tree',
+        where: {
+          "menuName": $menuName.val().trim(),
+          "invalidate_ie_cache": new Date()
+        },
+        accordion: true,
+        highlightCurrent: true,
+        showCheckbox: true,
+        checkStrictly: true,
+        renderAfterExpand: false,
+        request: {
+          name: "title",
+          key: "id",
+          children: "childs",
+          checked: "checked",
+          data: "data"
+        },
+        response: {
+          statusName: "code",
+          statusCode: 200,
+          dataName: "data"
+        }
+      });
       return _menuTree;
     }
 
@@ -299,8 +299,8 @@
 
     var handleTypeChange = function (type) {
       form.val("menu-form", {
-        "icon"    : '',
-        "url"     : '',
+        "icon": '',
+        "url": '',
         "orderNum": ''
       });
       if (type === '1') {

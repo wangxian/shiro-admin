@@ -22,56 +22,56 @@
             <label class="layui-form-label admin-form-item-require">作者名称：</label>
             <div class="layui-input-block">
               <input type="text" name="author" autocomplete="off" maxlength="20" lay-verify="required"
-                     class="layui-input">
+                  class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">基础包名：</label>
             <div class="layui-input-block">
               <input type="text" name="basePackage" autocomplete="off" maxlength="50"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">entity包名：</label>
             <div class="layui-input-block">
               <input type="text" name="entityPackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">service包名：</label>
             <div class="layui-input-block">
               <input type="text" name="servicePackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">serviceImpl包名：</label>
             <div class="layui-input-block">
               <input type="text" name="serviceImplPackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">mapper包名：</label>
             <div class="layui-input-block">
               <input type="text" name="mapperPackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">mapperXml包名：</label>
             <div class="layui-input-block">
               <input type="text" name="mapperXmlPackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
             <label class="layui-form-label admin-form-item-require">controller包名：</label>
             <div class="layui-input-block">
               <input type="text" name="controllerPackage" autocomplete="off" maxlength="20"
-                     lay-verify="required" class="layui-input">
+                  lay-verify="required" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
@@ -101,11 +101,11 @@
 
 <script data-th-inline="javascript">
   layui.use(['admin', 'form'], function () {
-    var $              = layui.$,
-        admin          = layui.admin,
-        form           = layui.form,
-        $view          = $('#admin-generator-configure'),
-        $trimValue     = $view.find('input[name="trimValue"]'),
+    var $ = layui.$,
+        admin = layui.admin,
+        form = layui.form,
+        $view = $('#admin-generator-configure'),
+        $trimValue = $view.find('input[name="trimValue"]'),
         $trimValueItem = $trimValue.parents('.layui-form-item');
 
     var config = [[${config}]];
@@ -123,17 +123,17 @@
 
     function initFormValue() {
       form.val("generator-configure-form", {
-        "id"                : config.id,
-        "author"            : config.author,
-        "basePackage"       : config.basePackage,
-        "entityPackage"     : config.entityPackage,
-        "mapperPackage"     : config.mapperPackage,
-        "mapperXmlPackage"  : config.mapperXmlPackage,
-        "servicePackage"    : config.servicePackage,
+        "id": config.id,
+        "author": config.author,
+        "basePackage": config.basePackage,
+        "entityPackage": config.entityPackage,
+        "mapperPackage": config.mapperPackage,
+        "mapperXmlPackage": config.mapperXmlPackage,
+        "servicePackage": config.servicePackage,
         "serviceImplPackage": config.serviceImplPackage,
-        "controllerPackage" : config.controllerPackage,
-        "isTrim"            : config.isTrim,
-        "trimValue"         : config.trimValue
+        "controllerPackage": config.controllerPackage,
+        "isTrim": config.isTrim,
+        "trimValue": config.trimValue
       });
 
       if (config.isTrim === '1') {

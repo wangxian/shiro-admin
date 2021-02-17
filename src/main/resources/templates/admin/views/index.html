@@ -239,7 +239,7 @@
                     <div class="layui-row">
                       <div class="layui-col-md12">
                         <a target="_blank"
-                           href="https://github.com/wuyouzhuguli/Material-Design">Material
+                            href="https://github.com/wuyouzhuguli/Material-Design">Material
                           Design</a>
                       </div>
                       <div class="project-desc">
@@ -255,7 +255,7 @@
                     <div class="layui-row">
                       <div class="layui-col-md12">
                         <a target="_blank"
-                           href="https://github.com/wuyouzhuguli/Summer">Summer</a>
+                            href="https://github.com/wuyouzhuguli/Summer">Summer</a>
                       </div>
                       <div class="project-desc">
                         Leanote博客主题🌴Summer。
@@ -273,8 +273,8 @@
 </div>
 <script data-th-inline="javascript" type="text/javascript">
   layui.use(['apexcharts', 'admin', 'jquery', 'util'], function () {
-    var $     = layui.jquery,
-        util  = layui.util,
+    var $ = layui.jquery,
+        util = layui.util,
         $view = $('#admin-index'),
         admin = layui.admin;
 
@@ -283,9 +283,9 @@
     });
 
     function handleSuccess(data) {
-      var hour           = new Date().getHours();
-      var time           = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
-      var welcomeArr     = [
+      var hour = new Date().getHours();
+      var time = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
+      var welcomeArr = [
         '喝杯咖啡休息下吧☕',
         '要不要和朋友打局LOL',
         '今天又写了几个Bug呢',
@@ -296,21 +296,14 @@
         '准备吃些什么呢',
         '周末要不要去看电影？'
       ];
-      var index          = Math.floor((Math.random() * welcomeArr.length));
+      var index = Math.floor((Math.random() * welcomeArr.length));
       var welcomeMessage = time + '，<a id="admin-index-user">' + currentUser.username + '</a>，' + welcomeArr[index];
-      $view.find('#today-ip').text(data.todayIp).end()
-          .find('#today-visit-count').text(data.todayVisitCount).end()
-          .find('#total-visit-count').text(data.totalVisitCount).end()
-          .find('#user-dept').text(currentUser.deptName ? currentUser.deptName : '暂无所属部门').end()
-          .find('#user-role').text(currentUser.roleName ? currentUser.roleName : '暂无角色').end()
-          .find('#last-login-time').text(currentUser.lastLoginTime ? currentUser.lastLoginTime : '第一次访问系统').end()
-          .find('#welcome-message').html(welcomeMessage).end()
-          .find('#user-avatar').attr('src', ctx + "admin/images/avatar/" + currentUser.avatar);
+      $view.find('#today-ip').text(data.todayIp).end().find('#today-visit-count').text(data.todayVisitCount).end().find('#total-visit-count').text(data.totalVisitCount).end().find('#user-dept').text(currentUser.deptName ? currentUser.deptName : '暂无所属部门').end().find('#user-role').text(currentUser.roleName ? currentUser.roleName : '暂无角色').end().find('#last-login-time').text(currentUser.lastLoginTime ? currentUser.lastLoginTime : '第一次访问系统').end().find('#welcome-message').html(welcomeMessage).end().find('#user-avatar').attr('src', ctx + "admin/images/avatar/" + currentUser.avatar);
 
-      var currentTime     = new Date().getTime();
-      var yourVisitCount  = [];
+      var currentTime = new Date().getTime();
+      var yourVisitCount = [];
       var totalVisitCount = [];
-      var lastTenDays     = [
+      var lastTenDays = [
         util.toDateString(new Date(currentTime - 1000 * 9 * 86400), 'MM-dd'),
         util.toDateString(new Date(currentTime - 1000 * 8 * 86400), 'MM-dd'),
         util.toDateString(new Date(currentTime - 1000 * 7 * 86400), 'MM-dd'),
@@ -344,64 +337,64 @@
       });
 
       var options = {
-        chart      : {
-          height : 350,
-          type   : 'area',
+        chart: {
+          height: 350,
+          type: 'area',
           toolbar: {
             show: false
           }
         },
         plotOptions: {
           bar: {
-            horizontal : false,
+            horizontal: false,
             columnWidth: '32rem'
           }
         },
-        dataLabels : {
+        dataLabels: {
           enabled: false
         },
-        stroke     : {
-          show  : true,
-          width : 1,
+        stroke: {
+          show: true,
+          width: 1,
           colors: ['transparent']
         },
-        series     : [{
+        series: [{
           name: '总数',
           data: totalVisitCount
         }, {
           name: '您',
           data: yourVisitCount
         }],
-        xaxis      : {
+        xaxis: {
           categories: lastTenDays,
-          axisTicks : {
+          axisTicks: {
             show: true
           },
           axisBorder: {
-            show : true,
+            show: true,
             color: '#f1f1f1'
           }
         },
-        fill       : {
+        fill: {
           opacity: 1
         },
-        title      : {
-          text : '近10天系统访问记录',
+        title: {
+          text: '近10天系统访问记录',
           align: 'left',
           style: {
             color: 'rgba(0, 0, 0, .65)'
           }
         },
-        tooltip    : {
+        tooltip: {
           y: {
             formatter: function (val) {
               return "访问次数 " + val + " 次"
             }
           }
         },
-        grid       : {
-          row        : {
-            colors : ['transparent', 'transparent'],
+        grid: {
+          row: {
+            colors: ['transparent', 'transparent'],
             opacity: 0.2
           },
           borderColor: '#f1f1f1'

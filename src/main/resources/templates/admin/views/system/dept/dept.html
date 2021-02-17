@@ -79,19 +79,19 @@
 </div>
 <script data-th-inline="javascript" type="text/javascript">
   layui.use(['dropdown', 'jquery', 'validate', 'admin', 'form', 'eleTree'], function () {
-    var $           = layui.jquery,
-        admin       = layui.admin,
-        form        = layui.form,
-        validate    = layui.validate,
-        eleTree     = layui.eleTree,
-        dropdown    = layui.dropdown,
-        $view       = $('#admin-dept'),
-        $query      = $view.find('#query'),
-        $reset      = $view.find('#reset'),
-        $submit     = $view.find('#submit'),
-        $header     = $view.find('#form-header'),
+    var $ = layui.jquery,
+        admin = layui.admin,
+        form = layui.form,
+        validate = layui.validate,
+        eleTree = layui.eleTree,
+        dropdown = layui.dropdown,
+        $view = $('#admin-dept'),
+        $query = $view.find('#query'),
+        $reset = $view.find('#reset'),
+        $submit = $view.find('#submit'),
+        $header = $view.find('#form-header'),
         $searchForm = $view.find('#dept-table-form'),
-        $deptName   = $searchForm.find('input[name="deptName"]'),
+        $deptName = $searchForm.find('input[name="deptName"]'),
         _currentDeptData,
         _deptTree;
 
@@ -102,69 +102,69 @@
 
     eleTree.on("nodeClick(deptTree)", function (d) {
       $header.text('修改部门');
-      var data         = d.data.currentData.data;
+      var data = d.data.currentData.data;
       _currentDeptData = data;
       form.val("dept-form", {
-        "deptName" : data.deptName,
-        "orderNum" : data.orderNum,
+        "deptName": data.deptName,
+        "orderNum": data.orderNum,
         "createdAt": data.createdAt,
-        "parentId" : data.parentId,
-        "deptId"   : data.deptId
+        "parentId": data.parentId,
+        "deptId": data.deptId
       });
     });
 
     dropdown.render({
-                      elem   : $view.find('.action-more'),
-                      click  : function (name, elem, event) {
-                        if (name === 'add') {
-                          reset();
-                          var selected = _deptTree.getChecked(false, true);
-                          if (selected.length > 1) {
-                            admin.alert.warn('只能选择一个节点作为父级！');
-                            return;
-                          }
-                          form.val("dept-form", {
-                            "parentId": selected[0] ? selected[0].id : ''
-                          });
+      elem: $view.find('.action-more'),
+      click: function (name, elem, event) {
+        if (name === 'add') {
+          reset();
+          var selected = _deptTree.getChecked(false, true);
+          if (selected.length > 1) {
+            admin.alert.warn('只能选择一个节点作为父级！');
+            return;
+          }
+          form.val("dept-form", {
+            "parentId": selected[0] ? selected[0].id : ''
+          });
 
-                          admin.alert.info("请在表单中填写相关信息");
-                        }
-                        if (name === 'delete') {
-                          var checked = _deptTree.getChecked(false, true);
-                          if (checked.length < 1) {
-                            admin.alert.warn('请勾选需要删除的部门');
-                            return;
-                          }
-                          var deptIds = [];
-                          layui.each(checked, function (key, item) {
-                            deptIds.push(item.id)
-                          });
-                          admin.modal.confirm('提示', '当您点击确定按钮后，这些记录将会被彻底删除，如果其包含子记录，也将一并删除！', function () {
-                            admin.get(ctx + 'dept/delete/' + deptIds.join(','), null, function () {
-                              admin.alert.success('删除成功！');
-                              reloadDeptTree();
-                              reset();
-                            })
-                          });
-                        }
-                        if (name === 'export') {
-                          admin.download(ctx + 'dept/excel', getQueryParams(), '部门信息表.xlsx');
-                        }
-                      },
-                      options: [{
-                        name : 'add',
-                        title: '新增部门',
-                        perms: 'dept:add'
-                      }, {
-                        name : 'delete',
-                        title: '删除部门',
-                        perms: 'dept:delete'
-                      }, {
-                        name : 'export',
-                        title: '导出Excel',
-                        perms: 'dept:export'
-                      }]
-                    });
+          admin.alert.info("请在表单中填写相关信息");
+        }
+        if (name === 'delete') {
+          var checked = _deptTree.getChecked(false, true);
+          if (checked.length < 1) {
+            admin.alert.warn('请勾选需要删除的部门');
+            return;
+          }
+          var deptIds = [];
+          layui.each(checked, function (key, item) {
+            deptIds.push(item.id)
+          });
+          admin.modal.confirm('提示', '当您点击确定按钮后，这些记录将会被彻底删除，如果其包含子记录，也将一并删除！', function () {
+            admin.get(ctx + 'dept/delete/' + deptIds.join(','), null, function () {
+              admin.alert.success('删除成功！');
+              reloadDeptTree();
+              reset();
+            })
+          });
+        }
+        if (name === 'export') {
+          admin.download(ctx + 'dept/excel', getQueryParams(), '部门信息表.xlsx');
+        }
+      },
+      options: [{
+        name: 'add',
+        title: '新增部门',
+        perms: 'dept:add'
+      }, {
+        name: 'delete',
+        title: '删除部门',
+        perms: 'dept:delete'
+      }, {
+        name: 'export',
+        title: '导出Excel',
+        perms: 'dept:export'
+      }]
+    });
 
     $view.on('click', '#submit', function () {
       $view.find('#submit-form').trigger('click');
@@ -193,29 +193,29 @@
 
     function renderDeptTree() {
       _deptTree = eleTree.render({
-                                   elem             : '.dept-tree',
-                                   url              : ctx + 'dept/tree',
-                                   accordion        : true,
-                                   highlightCurrent : true,
-                                   showCheckbox     : true,
-                                   checkStrictly    : true,
-                                   renderAfterExpand: false,
-                                   where            : {
-                                     "deptName"           : $deptName.val().trim(),
-                                     "invalidate_ie_cache": new Date()
-                                   },
-                                   request          : {
-                                     name   : 'name',
-                                     key    : "id",
-                                     checked: "checked",
-                                     data   : 'data'
-                                   },
-                                   response         : {
-                                     statusName: "code",
-                                     statusCode: 200,
-                                     dataName  : "data"
-                                   }
-                                 });
+        elem: '.dept-tree',
+        url: ctx + 'dept/tree',
+        accordion: true,
+        highlightCurrent: true,
+        showCheckbox: true,
+        checkStrictly: true,
+        renderAfterExpand: false,
+        where: {
+          "deptName": $deptName.val().trim(),
+          "invalidate_ie_cache": new Date()
+        },
+        request: {
+          name: 'name',
+          key: "id",
+          checked: "checked",
+          data: 'data'
+        },
+        response: {
+          statusName: "code",
+          statusCode: 200,
+          dataName: "data"
+        }
+      });
       return _deptTree;
     }
 

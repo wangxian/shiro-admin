@@ -139,16 +139,16 @@
 </div>
 <script data-th-inline="none" type="text/javascript">
   layui.use(['jquery', 'form', 'admin'], function () {
-    var $            = layui.jquery,
-        admin        = layui.admin,
-        form         = layui.form,
+    var $ = layui.jquery,
+        admin = layui.admin,
+        form = layui.form,
 
         _currentData = {
           theme: currentUser.theme,
           isTab: currentUser.isTab
         },
 
-        $view        = $('#admin-user-profile');
+        $view = $('#admin-user-profile');
 
     form.render();
     initSettings();
@@ -157,8 +157,8 @@
     $view.on('click', '#update-user-info', function () {
       admin.modal.view('个人信息修改', 'user/profile/update', {
         area: $(window).width() <= 750 ? '90%' : '50%',
-        btn : ['确定'],
-        yes : function () {
+        btn: ['确定'],
+        yes: function () {
           $('#profile-update').find('#submit').trigger('click');
         }
       });
@@ -166,7 +166,7 @@
 
     $view.on('click', '#user-profile img', function () {
       admin.modal.view('点击更换', 'user/avatar', {
-        area  : $(window).width() <= 750 ? '90%' : '650px',
+        area: $(window).width() <= 750 ? '90%' : '650px',
         offset: '100px'
       });
     });

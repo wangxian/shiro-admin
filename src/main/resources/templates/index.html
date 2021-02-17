@@ -19,20 +19,20 @@
 <div id="admin"></div>
 <script th:src="@{layui/layui.js}"></script>
 <script th:inline="javascript">
-  var ctx                   = [[@{/}]];
-  var currentUser           = [[${user}]];
-  currentUser.roleSet       = [[${roles}]];
+  var ctx = [[@{/}]];
+  var currentUser = [[${user}]];
+  currentUser.roleSet = [[${roles}]];
   currentUser.permissionSet = [[${permissions}]];
 
   layui.config({
-                 base : './admin/',
-                 debug: true
-               }).extend({
-                           formSelects: 'lay/extends/formSelects-v4.min',
-                           treeSelect : 'lay/extends/treeSelect',
-                           apexcharts : 'lay/extends/apexcharts.min',
-                           eleTree    : 'lay/extends/eleTree'
-                         }).use(['index']);
+    base: './admin/',
+    debug: true
+  }).extend({
+    formSelects: 'lay/extends/formSelects-v4.min',
+    treeSelect: 'lay/extends/treeSelect',
+    apexcharts: 'lay/extends/apexcharts.min',
+    eleTree: 'lay/extends/eleTree'
+  }).use(['index']);
 </script>
 </body>
 </html>

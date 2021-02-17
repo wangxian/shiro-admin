@@ -86,14 +86,14 @@
 
 <script data-th-inline="none" type="text/javascript">
   layui.use(['jquery', 'table', 'admin', 'form'], function () {
-    var $           = layui.jquery,
-        table       = layui.table,
-        admin       = layui.admin,
-        $view       = $('#admin-httptrace'),
+    var $ = layui.jquery,
+        table = layui.table,
+        admin = layui.admin,
+        $view = $('#admin-httptrace'),
         $searchForm = $view.find('form'),
-        $query      = $view.find('#query'),
-        $reset      = $view.find('#reset'),
-        form        = layui.form,
+        $query = $view.find('#query'),
+        $reset = $view.find('#reset'),
+        form = layui.form,
         tableIns;
 
     form.render();
@@ -110,21 +110,21 @@
 
     function initTable() {
       tableIns = admin.table.init({
-                                    elem: $view.find('table'),
-                                    page: false,
-                                    id  : 'httptraceTable',
-                                    url : ctx + 'admin/actuator/httptrace',
-                                    cols: [[
-                                      {field: 'requestTime', title: '请求时间', minWidth: 180},
-                                      {title: '请求方法', templet: "#httptrace-method"},
-                                      {field: 'url', title: '请求URL', minWidth: 380},
-                                      {title: '响应状态', templet: '#httptrace-status'},
-                                      {title: '请求耗时', templet: '#httptrace-time'}
-                                    ]],
-                                    done: function (r) {
-                                      $view.find('#count').text(r.count);
-                                    }
-                                  });
+        elem: $view.find('table'),
+        page: false,
+        id: 'httptraceTable',
+        url: ctx + 'admin/actuator/httptrace',
+        cols: [[
+          {field: 'requestTime', title: '请求时间', minWidth: 180},
+          {title: '请求方法', templet: "#httptrace-method"},
+          {field: 'url', title: '请求URL', minWidth: 380},
+          {title: '响应状态', templet: '#httptrace-status'},
+          {title: '请求耗时', templet: '#httptrace-time'}
+        ]],
+        done: function (r) {
+          $view.find('#count').text(r.count);
+        }
+      });
     }
 
     function getQueryParams() {

@@ -109,11 +109,11 @@
 <script th:inline="javascript">var ctx = [[@{/}]];</script>
 <script>
   layui.extend({validate: './admin/lay/modules/validate'}).use(['form', 'layer', 'validate'], function (form, layer) {
-    var $            = layui.jquery,
-        validate     = layui.validate,
-        $view        = $('#admin-login'),
-        type         = 'login',
-        $loginDiv    = $view.find('#login-div'),
+    var $ = layui.jquery,
+        validate = layui.validate,
+        $view = $('#admin-login'),
+        type = 'login',
+        $loginDiv = $view.find('#login-div'),
         $registerDiv = $view.find('#register-div');
 
     form.verify(validate);
@@ -182,13 +182,9 @@
     });
 
     function resetForm() {
-      $registerDiv.find('input[name="username"]').val('')
-          .end().find('input[name="password"]').val('')
-          .end().find('input[name="passwordB"]').val('');
+      $registerDiv.find('input[name="username"]').val('').end().find('input[name="password"]').val('').end().find('input[name="passwordB"]').val('');
 
-      $loginDiv.find('input[name="username"]').val('')
-          .end().find('input[name="password"]').val('')
-          .end().find('input[name="verifyCode"]').val('');
+      $loginDiv.find('input[name="username"]').val('').end().find('input[name="password"]').val('').end().find('input[name="verifyCode"]').val('');
     }
 
     $(document).on('keydown', function (e) {
