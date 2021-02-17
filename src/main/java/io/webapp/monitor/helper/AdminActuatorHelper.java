@@ -2,7 +2,7 @@ package io.webapp.monitor.helper;
 
 import com.google.common.base.Predicates;
 import io.webapp.common.annotation.Helper;
-import io.webapp.common.utils.DateUtil;
+import io.webapp.common.util.DateUtil;
 import io.webapp.monitor.endpoint.AdminMetricsEndpoint;
 import io.webapp.monitor.entity.JvmInfo;
 import io.webapp.monitor.entity.ServerInfo;

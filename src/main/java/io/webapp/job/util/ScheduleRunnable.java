@@ -1,6 +1,6 @@
 package io.webapp.job.util;
 
-import io.webapp.common.utils.SpringContextUtil;
+import io.webapp.common.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;

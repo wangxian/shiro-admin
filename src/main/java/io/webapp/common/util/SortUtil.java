@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import io.webapp.common.entity.AdminConstant;
@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * 处理排序工具类
- * 
+ *
  * @author ADMIN
  */
 @SuppressWarnings("unchecked")

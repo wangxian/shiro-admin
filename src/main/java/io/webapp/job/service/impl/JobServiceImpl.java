@@ -2,7 +2,7 @@ package io.webapp.job.service.impl;
 
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
-import io.webapp.common.utils.SortUtil;
+import io.webapp.common.util.SortUtil;
 import io.webapp.job.entity.Job;
 import io.webapp.job.mapper.JobMapper;
 import io.webapp.job.service.IJobService;

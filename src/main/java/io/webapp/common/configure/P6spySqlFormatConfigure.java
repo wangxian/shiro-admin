@@ -1,6 +1,6 @@
 package io.webapp.common.configure;
 
-import io.webapp.common.utils.DateUtil;
+import io.webapp.common.util.DateUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 import org.apache.commons.lang3.StringUtils;
 

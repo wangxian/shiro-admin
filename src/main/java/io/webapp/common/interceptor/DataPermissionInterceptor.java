@@ -3,7 +3,7 @@ package io.webapp.common.interceptor;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
 import io.webapp.common.annotation.DataPermission;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import io.webapp.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;

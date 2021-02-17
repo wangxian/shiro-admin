@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;

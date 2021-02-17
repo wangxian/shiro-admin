@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import org.apache.commons.io.FileUtils;
 import org.lionsoul.ip2region.DataBlock;

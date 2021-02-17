@@ -1,7 +1,7 @@
 package io.webapp.generator.entity;
 
 
-import io.webapp.common.utils.DateUtil;
+import io.webapp.common.util.DateUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

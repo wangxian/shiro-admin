@@ -2,10 +2,10 @@ package io.webapp.monitor.service.impl;
 
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
-import io.webapp.common.utils.AddressUtil;
-import io.webapp.common.utils.HttpContextUtil;
-import io.webapp.common.utils.IpUtil;
-import io.webapp.common.utils.SortUtil;
+import io.webapp.common.util.AddressUtil;
+import io.webapp.common.util.HttpContextUtil;
+import io.webapp.common.util.IpUtil;
+import io.webapp.common.util.SortUtil;
 import io.webapp.monitor.entity.LoginLog;
 import io.webapp.monitor.mapper.LoginLogMapper;
 import io.webapp.monitor.service.ILoginLogService;
@@ -16,8 +16,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;

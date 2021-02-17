@@ -1,7 +1,7 @@
 package io.webapp.others.controller;
 
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

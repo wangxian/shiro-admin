@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

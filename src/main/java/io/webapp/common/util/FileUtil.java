@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import io.webapp.common.entity.AdminConstant;
 import com.google.common.base.Preconditions;

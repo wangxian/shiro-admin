@@ -2,7 +2,7 @@ package io.webapp.generator.servie.impl;
 
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
-import io.webapp.common.utils.SortUtil;
+import io.webapp.common.util.SortUtil;
 import io.webapp.generator.entity.Column;
 import io.webapp.generator.entity.Table;
 import io.webapp.generator.mapper.GeneratorMapper;

@@ -1,7 +1,7 @@
 package io.webapp.job.controller;
 
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import io.webapp.job.entity.Job;
 import io.webapp.job.service.IJobService;
 import lombok.RequiredArgsConstructor;

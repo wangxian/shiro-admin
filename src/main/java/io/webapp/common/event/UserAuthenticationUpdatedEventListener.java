@@ -1,4 +1,4 @@
-package io.webapp.common.listener;
+package io.webapp.common.event;
 
 import com.google.common.base.Stopwatch;
 import io.webapp.common.annotation.Listener;

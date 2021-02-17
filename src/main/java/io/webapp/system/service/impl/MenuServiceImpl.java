@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.MenuTree;
 import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
-import io.webapp.common.utils.TreeUtil;
+import io.webapp.common.util.TreeUtil;
 import io.webapp.system.entity.Menu;
 import io.webapp.system.mapper.MenuMapper;
 import io.webapp.system.service.IMenuService;

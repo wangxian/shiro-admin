@@ -1,7 +1,7 @@
 package io.webapp;
 
-import io.webapp.common.utils.AddressUtil;
-import io.webapp.common.utils.Md5Util;
+import io.webapp.common.util.AddressUtil;
+import io.webapp.common.util.Md5Util;
 
 public class UserPassword {
     public static void main(String[] args) {

@@ -2,7 +2,7 @@ package io.webapp.job.service.impl;
 
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
-import io.webapp.common.utils.SortUtil;
+import io.webapp.common.util.SortUtil;
 import io.webapp.job.entity.JobLog;
 import io.webapp.job.mapper.JobLogMapper;
 import io.webapp.job.service.IJobLogService;
@@ -13,8 +13,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;

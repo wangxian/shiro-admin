@@ -6,7 +6,7 @@ import io.webapp.common.entity.AdminResponse;
 import io.webapp.common.exception.AdminException;
 import io.webapp.common.properties.AdminProperties;
 import io.webapp.common.service.ValidateCodeService;
-import io.webapp.common.utils.Md5Util;
+import io.webapp.common.util.Md5Util;
 import io.webapp.monitor.entity.LoginLog;
 import io.webapp.monitor.service.ILoginLogService;
 import io.webapp.system.entity.User;

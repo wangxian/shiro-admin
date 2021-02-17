@@ -2,8 +2,8 @@ package io.webapp.system.controller;
 
 import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.utils.AdminUtil;
-import io.webapp.common.utils.DateUtil;
+import io.webapp.common.util.AdminUtil;
+import io.webapp.common.util.DateUtil;
 import io.webapp.system.entity.User;
 import io.webapp.system.service.IUserDataPermissionService;
 import io.webapp.system.service.IUserService;

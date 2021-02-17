@@ -2,7 +2,7 @@ package io.webapp.monitor.controller;
 
 import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.entity.AdminResponse;
-import io.webapp.common.utils.DateUtil;
+import io.webapp.common.util.DateUtil;
 import io.webapp.monitor.endpoint.AdminHttpTraceEndpoint;
 import io.webapp.monitor.entity.AdminHttpTrace;
 import lombok.RequiredArgsConstructor;

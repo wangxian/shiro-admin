@@ -2,7 +2,7 @@ package io.webapp.common.aspect;
 
 import io.webapp.common.annotation.ControllerEndpoint;
 import io.webapp.common.exception.AdminException;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import io.webapp.monitor.service.ILogService;
 import io.webapp.system.entity.User;
 import lombok.RequiredArgsConstructor;

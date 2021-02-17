@@ -1,7 +1,7 @@
 package io.webapp.generator.controller;
 
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import io.webapp.generator.entity.GeneratorConfig;
 import io.webapp.generator.servie.IGeneratorConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

@@ -5,7 +5,7 @@ import io.webapp.common.controller.BaseController;
 import io.webapp.common.entity.AdminResponse;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.common.exception.AdminException;
-import io.webapp.common.utils.Md5Util;
+import io.webapp.common.util.Md5Util;
 import io.webapp.system.entity.User;
 import io.webapp.system.service.IUserService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;

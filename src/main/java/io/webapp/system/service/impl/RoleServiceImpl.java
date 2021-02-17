@@ -1,11 +1,10 @@
 package io.webapp.system.service.impl;
 
 import com.google.common.collect.Lists;
-import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.common.event.UserAuthenticationUpdatedEventPublisher;
-import io.webapp.common.utils.SortUtil;
+import io.webapp.common.util.SortUtil;
 import io.webapp.system.entity.Role;
 import io.webapp.system.entity.RoleMenu;
 import io.webapp.system.mapper.RoleMapper;

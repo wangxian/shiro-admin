@@ -2,7 +2,7 @@ package io.webapp.common.validator;
 
 import io.webapp.common.annotation.IsMobile;
 import io.webapp.common.entity.Regexp;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;

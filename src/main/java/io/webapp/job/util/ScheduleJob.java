@@ -1,6 +1,6 @@
 package io.webapp.job.util;
 
-import io.webapp.common.utils.SpringContextUtil;
+import io.webapp.common.util.SpringContextUtil;
 import io.webapp.job.entity.JobLog;
 import io.webapp.job.service.IJobLogService;
 import io.webapp.job.entity.Job;

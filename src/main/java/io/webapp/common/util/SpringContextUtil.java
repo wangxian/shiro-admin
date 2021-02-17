@@ -1,4 +1,4 @@
-package io.webapp.common.utils;
+package io.webapp.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

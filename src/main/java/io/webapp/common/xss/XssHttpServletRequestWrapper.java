@@ -1,6 +1,6 @@
 package io.webapp.common.xss;
 
-import io.webapp.common.utils.JsoupUtil;
+import io.webapp.common.util.JsoupUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

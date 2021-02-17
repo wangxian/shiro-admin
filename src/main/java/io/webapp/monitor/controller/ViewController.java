@@ -1,7 +1,7 @@
 package io.webapp.monitor.controller;
 
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.utils.AdminUtil;
+import io.webapp.common.util.AdminUtil;
 import io.webapp.monitor.entity.JvmInfo;
 import io.webapp.monitor.entity.ServerInfo;
 import io.webapp.monitor.entity.TomcatInfo;
