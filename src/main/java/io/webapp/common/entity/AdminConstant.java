@@ -39,15 +39,10 @@ public interface AdminConstant {
     /**
      * 异步线程池名称
      */
-    String ASYNC_POOL = "adminAsyncThreadPool";
+    String ADMIN_SHIRO_THREAD_POOL = "ADMIN-shiro-thread-pool";
 
     /**
-     * 异步线程名称前缀
+     * 线程名称前缀
      */
-    String ASYNC_THREAD_NAME_PREFIX = "ADMIN-Async-Thread";
-
-    /**
-     * 任务调度线程前缀
-     */
-    String QUARTZ_THREAD_NAME_PREFIX= "ADMIN-Job-Thread";
+    String ADMIN_SHIRO_THREAD_NAME_PREFIX = "ADMIN-shiro-thread-";
 }

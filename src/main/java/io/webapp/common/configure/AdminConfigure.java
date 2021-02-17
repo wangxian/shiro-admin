@@ -32,7 +32,7 @@ public class AdminConfigure {
 
     private final AdminProperties properties;
 
-    @Bean(AdminConstant.ASYNC_POOL)
+    @Bean(AdminConstant.ADMIN_SHIRO_THREAD_POOL)
     public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
@@ -41,7 +41,7 @@ public class AdminConfigure {
         executor.setQueueCapacity(200);
         executor.setKeepAliveSeconds(30);
 
-        executor.setThreadNamePrefix(AdminConstant.ASYNC_THREAD_NAME_PREFIX);
+        executor.setThreadNamePrefix(AdminConstant.ADMIN_SHIRO_THREAD_NAME_PREFIX);
         executor.setWaitForTasksToCompleteOnShutdown(true);
 
         executor.setAwaitTerminationSeconds(60);

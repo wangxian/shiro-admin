@@ -1,10 +1,10 @@
 package io.webapp.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.scheduling.annotation.Async;
 
 /**
@@ -42,7 +42,7 @@ public interface IUserService extends IService<User> {
      *
      * @param username 用户名
      */
-    @Async(AdminConstant.ASYNC_POOL)
+    @Async(AdminConstant.ADMIN_SHIRO_THREAD_POOL)
     void updateLoginTime(String username);
 
     /**

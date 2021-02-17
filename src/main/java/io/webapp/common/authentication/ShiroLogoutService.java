@@ -19,7 +19,7 @@ public class ShiroLogoutService {
 
     private final RedisService redisService;
 
-    @Async(AdminConstant.ASYNC_POOL)
+    @Async(AdminConstant.ADMIN_SHIRO_THREAD_POOL)
     public void cleanCacheFragment(PrincipalCollection principals) {
         User principal = (User) principals.getPrimaryPrincipal();
         String key = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX

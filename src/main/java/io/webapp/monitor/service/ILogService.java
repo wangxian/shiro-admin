@@ -1,11 +1,11 @@
 package io.webapp.monitor.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.entity.QueryRequest;
 import io.webapp.monitor.entity.SystemLog;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import io.webapp.system.entity.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.scheduling.annotation.Async;
@@ -44,6 +44,6 @@ public interface ILogService extends IService<SystemLog> {
      * @param operation 操作内容
      * @param start     开始时间
      */
-    @Async(AdminConstant.ASYNC_POOL)
+    @Async(AdminConstant.ADMIN_SHIRO_THREAD_POOL)
     void saveLog(User user, ProceedingJoinPoint point, Method method, String ip, String operation, long start);
 }

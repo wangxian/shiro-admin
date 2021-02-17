@@ -1,9 +1,10 @@
 package io.webapp.job.util;
 
+import io.webapp.common.entity.AdminConstant;
 import io.webapp.common.util.SpringContextUtil;
+import io.webapp.job.entity.Job;
 import io.webapp.job.entity.JobLog;
 import io.webapp.job.service.IJobLogService;
-import io.webapp.job.entity.Job;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
@@ -21,7 +22,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public class ScheduleJob extends QuartzJobBean {
 
-    private final ThreadPoolTaskExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService", ThreadPoolTaskExecutor.class);
+    private final ThreadPoolTaskExecutor scheduleJobExecutorService = SpringContextUtil.getBean(AdminConstant.ADMIN_SHIRO_THREAD_POOL, ThreadPoolTaskExecutor.class);
 
     @Override
     protected void executeInternal(JobExecutionContext context) {

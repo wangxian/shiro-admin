@@ -4,7 +4,6 @@ import com.google.common.base.Stopwatch;
 import io.webapp.common.annotation.Listener;
 import io.webapp.common.authentication.ShiroRealm;
 import io.webapp.common.entity.AdminConstant;
-import io.webapp.common.event.UserAuthenticationUpdatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -25,7 +24,7 @@ public class UserAuthenticationUpdatedEventListener {
     private final ShiroRealm realm;
 
     @EventListener
-    @Async(AdminConstant.ASYNC_POOL)
+    @Async(AdminConstant.ADMIN_SHIRO_THREAD_POOL)
     public void onUserAuthenticationUpdated(@NonNull UserAuthenticationUpdatedEvent event) {
         Set<Long> userIds = event.getUserIds();
         if (CollectionUtils.isNotEmpty(userIds)) {
