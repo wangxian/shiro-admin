@@ -69,11 +69,12 @@ public class LimitAspect extends BaseAspectSupport {
 
         RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
         Long count = redisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
-        log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
 
         if (count != null && count.intValue() <= limitCount) {
+            log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
             return point.proceed();
         } else {
+            log.error("key为 {}，描述为 [{}] 的接口访问超出频率限制", keys, name);
             throw new LimitAccessException("接口访问超出频率限制");
         }
     }

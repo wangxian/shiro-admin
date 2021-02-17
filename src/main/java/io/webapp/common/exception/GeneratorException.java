@@ -5,7 +5,7 @@ package io.webapp.common.exception;
  *
  * @author ADMIN
  */
-public class GeneratorException extends Exception {
+public class GeneratorException extends AdminException {
 
     private static final long serialVersionUID = 150902781087610054L;
 

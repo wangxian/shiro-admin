@@ -5,7 +5,7 @@ package io.webapp.common.exception;
  *
  * @author ADMIN
  */
-public class LimitAccessException extends Exception {
+public class LimitAccessException extends AdminException {
 
     private static final long serialVersionUID = -3608667856397125671L;
 

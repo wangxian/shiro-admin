@@ -5,7 +5,7 @@ package io.webapp.common.exception;
  *
  * @author ADMIN
  */
-public class FileDownloadException extends Exception {
+public class FileDownloadException extends AdminException {
     private static final long serialVersionUID = -4353976687870027960L;
 
     public FileDownloadException(String message) {

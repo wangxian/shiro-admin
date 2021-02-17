@@ -5,7 +5,7 @@ package io.webapp.common.exception;
  *
  * @author ADMIN
  */
-public class RedisConnectException extends Exception {
+public class RedisConnectException extends AdminException {
 
     private static final long serialVersionUID = 1639374111871115063L;
 
