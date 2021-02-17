@@ -20,12 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +104,6 @@ public class GeneratorController extends BaseController {
         FileUtil.download(zipFile, name + SUFFIX, true, response);
 
         // 删除临时目录
-        FileUtil.delete(GeneratorConstant.TEMP_PATH);
+        FileSystemUtils.deleteRecursively(new File(GeneratorConstant.TEMP_PATH));
     }
 }

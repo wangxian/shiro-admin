@@ -1,16 +1,14 @@
 package io.webapp.common.util;
 
-import io.webapp.common.entity.AdminConstant;
 import com.google.common.base.Preconditions;
+import io.webapp.common.entity.AdminConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.FileSystemUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
@@ -80,29 +78,8 @@ public class FileUtil {
             }
         } finally {
             if (delete) {
-                delete(filePath);
+                FileSystemUtils.deleteRecursively(file);
             }
-        }
-    }
-
-    /**
-     * 递归删除文件或目录
-     *
-     * @param filePath 文件或目录
-     */
-    public static void delete(String filePath) {
-        File file = new File(filePath);
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-                Arrays.stream(files).forEach(f -> delete(f.getPath()));
-            }
-        }
-
-        try {
-            Files.delete(Paths.get(filePath));
-        } catch (IOException e) {
-            log.error("删除失败", e);
         }
     }
 
