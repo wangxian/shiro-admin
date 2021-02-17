@@ -7,9 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -24,7 +22,6 @@ import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 
 /**
  * Shiro 配置类
@@ -82,41 +79,7 @@ public class ShiroConfigure {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
-        // 设置 securityManager
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-
-        // 登录的 url
-        shiroFilterFactoryBean.setLoginUrl(adminProperties.getShiro().getLoginUrl());
-
-        // 登录成功后跳转的 url
-        shiroFilterFactoryBean.setSuccessUrl(adminProperties.getShiro().getSuccessUrl());
-
-        // 未授权 url
-        shiroFilterFactoryBean.setUnauthorizedUrl(adminProperties.getShiro().getUnauthorizedUrl());
-
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-
-        // 设置免认证 url
-        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(adminProperties.getShiro().getAnonUrl(), ",");
-        for (String url : anonUrls) {
-            filterChainDefinitionMap.put(url, "anon");
-        }
-
-        // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
-        filterChainDefinitionMap.put(adminProperties.getShiro().getLogoutUrl(), "logout");
-
-        // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        filterChainDefinitionMap.put("/**", "user");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return shiroFilterFactoryBean;
-    }
-
-    @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager, DefaultWebSessionManager sessionManager) {
+    public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager, DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 
         // 配置 SecurityManager，并注入 shiroRealm
@@ -168,13 +131,6 @@ public class ShiroConfigure {
         return cookieRememberMeManager;
     }
 
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
-    }
-
     /**
      * 用于开启 Thymeleaf 中的 shiro 标签的使用
      *
@@ -198,12 +154,12 @@ public class ShiroConfigure {
      * @return DefaultWebSessionManager
      */
     @Bean
-    public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
+    public DefaultWebSessionManager sessionManager(SessionDAO sessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(adminProperties.getShiro().getSessionTimeout() * 1000L);
-        sessionManager.setSessionDAO(redisSessionDAO);
+        sessionManager.setSessionDAO(sessionDAO);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }

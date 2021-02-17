@@ -15,8 +15,6 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -32,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
-    private IUserService userService;
+    private final IUserService userService;
     private final CacheManager cacheManager;
     private final ISessionService sessionService;
     private final ShiroLogoutService shiroLogoutService;
@@ -44,12 +42,6 @@ public class ShiroRealm extends AuthorizingRealm {
         setAuthorizationCachingEnabled(true);
         setCachingEnabled(true);
         setCacheManager(cacheManager);
-    }
-
-    @Lazy
-    @Autowired
-    public void setUserService(IUserService userService) {
-        this.userService = userService;
     }
 
     /**
