@@ -11,31 +11,31 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.0</version>
+    <version>2.4.2</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <jsoup.version>1.12.1</jsoup.version>
-    <p6spy.version>3.8.1</p6spy.version>
+    <p6spy.version>3.9.1</p6spy.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <excelKit.version>2.0.72</excelKit.version>
     <ip2region.version>1.7.2</ip2region.version>
-    <commons-io.version>2.6</commons-io.version>
+    <commons-io.version>2.8.0</commons-io.version>
     <freemarker.version>2.3.28</freemarker.version>
     <shiro.redis.version>3.3.1</shiro.redis.version>
     <mybatis.plus.version>3.3.1</mybatis.plus.version>
     <easy-captcha.version>1.6.2</easy-captcha.version>
-    <shiro.spring.version>1.6.0</shiro.spring.version>
-    <mybatis.plus.version>3.3.1</mybatis.plus.version>
-    <google.guava.version>27.0-jre</google.guava.version>
+    <shiro.spring.version>1.7.0</shiro.spring.version>
+    <mybatis.plus.version>3.4.0</mybatis.plus.version>
+    <google.guava.version>30.1-jre</google.guava.version>
     <springfox.swagger.version>3.0.0</springfox.swagger.version>
-    <dynamic.datasource.version>3.0.0</dynamic.datasource.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <dynamic.datasource.version>3.3.1</dynamic.datasource.version>
     <thymeleaf-extras-shiro.version>2.0.0</thymeleaf-extras-shiro.version>
   </properties>
 

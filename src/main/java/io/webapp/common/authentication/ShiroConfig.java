@@ -34,7 +34,7 @@ import java.util.LinkedHashMap;
  *
  * @author ADMIN
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
 public class ShiroConfig {
 
@@ -119,14 +119,14 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager) {
+    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager, DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm);
 
         // 配置 shiro session管理器
-        securityManager.setSessionManager(sessionManager());
+        securityManager.setSessionManager(sessionManager);
 
         // 配置 缓存管理类 cacheManager
         securityManager.setCacheManager(cacheManager);
@@ -201,7 +201,7 @@ public class ShiroConfig {
      * @return DefaultWebSessionManager
      */
     @Bean
-    public DefaultWebSessionManager sessionManager() {
+    public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
         listeners.add(new ShiroSessionListener());
@@ -209,7 +209,7 @@ public class ShiroConfig {
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(adminProperties.getShiro().getSessionTimeout() * 1000L);
         sessionManager.setSessionListeners(listeners);
-        sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setSessionDAO(redisSessionDAO);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }

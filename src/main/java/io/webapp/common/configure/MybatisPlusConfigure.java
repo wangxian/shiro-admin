@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * @author ADMIN
  */
-@Configuration
 @MapperScan("io.webapp.*.mapper")
+@Configuration(proxyBeanMethods = false)
 public class MybatisPlusConfigure {
     /**
      * 分页插件

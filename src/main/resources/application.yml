@@ -50,4 +50,10 @@ logging:
             metadata:
               TableInfoHelper: error
 
+# 端点暴露
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
 

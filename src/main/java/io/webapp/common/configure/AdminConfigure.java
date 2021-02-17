@@ -25,9 +25,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author ADMIN
  */
-@Configuration
 @EnableOpenApi
 @RequiredArgsConstructor
+@Configuration(proxyBeanMethods = false)
 public class AdminConfigure {
 
     private final AdminProperties properties;
